@@ -1,4 +1,3 @@
-// Slices of Redux
 import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
