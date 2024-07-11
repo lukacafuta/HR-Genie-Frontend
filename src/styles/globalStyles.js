@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     * {
@@ -6,11 +6,11 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
     }
-        
+
     :root {
         height: 100vh;
         width: 100vw;
-    
+
         --brand-color: #7747CA;
         --light-brand-color: #B2A7FF;
         --transparent-brand-color: #7747CABF;
@@ -30,6 +30,10 @@ export const GlobalStyle = createGlobalStyle`
         --border-style: 1px solid #C6CBD9;
         --font-family: 'Poppins', sans-serif;
         --inputs-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+
+        //div {
+        //    border: 1px solid green;
+        //}
     }
 
     body {
@@ -72,9 +76,9 @@ export const GlobalStyle = createGlobalStyle`
     input::placeholder {
         color: var(--dark-grey); /* Placeholder - Dark Grey */
     }
-    
+
     input, select, .dropdown {
-    box-shadow: var(--inputs-shadow);
-}
+        box-shadow: var(--inputs-shadow);
+    }
 `;
 
