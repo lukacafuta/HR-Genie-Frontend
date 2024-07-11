@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {api} from '../common/api'
-import {login, logout} from '../store/slices/UserSlice.js'
+import {login, logout} from '../store/slices/UserSlice.jsx'
 
 export default function useAuth() {
 
