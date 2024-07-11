@@ -4,7 +4,7 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         accessToken: true,
-        role: "employee",
+        role: "company_admin",
     },
     reducers: {
         login: (state, action) => {

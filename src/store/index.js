@@ -1,9 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
 import userReducer from "./slices/UserSlice.jsx";
+import viewSlice from "./slices/ViewSlice.jsx";
 
 const store = configureStore({
     reducer: {
-        user: userReducer
+        user: userReducer,
+        view: viewSlice
     },
 });
 
