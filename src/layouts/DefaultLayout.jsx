@@ -1,10 +1,12 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
+
+
 
 export default function DefaultLayoutPage() {
-  return (
-    <>
-      <Outlet/>
-    </>
-  )
+    return (
+        <>
+            <Outlet/>
+        </>
+    )
 }
