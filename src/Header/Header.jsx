@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import {FaBell} from 'react-icons/fa';
-import logo from '../assets/channels4_profile1.jpg';
-import profile from '../assets/img_4.png';
+//import {FaBell} from 'react-icons/fa';//
+import logo from '../assets/screenshot.png';
+import profile from '../assets/profile.png';
+import icon from '../assets/bell.png';
 
 const HeaderContainer = styled.nav`
     display: flex;
@@ -77,7 +78,7 @@ const Header = () => {
                 </select>
             </Dropdown>
             <Icons>
-                <FaBell className="icon"/>
+                <img className="icon" src={icon} alt="Icon"/>
                 <img className="profile-pic" src={profile} alt="Profile"/>
             </Icons>
         </HeaderContainer>
