@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
     BtnGreen,
-} from "./ButtonsPrimary.js";
+} from "../../styles/buttonStyles.js";
 
 export default function ButtonGreen(props) {
 
