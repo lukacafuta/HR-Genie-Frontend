@@ -1,4 +1,6 @@
 import {useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
+import {NavStyled, SidebarStyled} from "../styles/SidebarStyled.js";
 
 export default function Sidebar() {
     const view = useSelector((state) => state.view.view);
@@ -7,9 +9,11 @@ export default function Sidebar() {
     function renderNav() {
         if (view === "company_admin") {
             return (
-                <>
+                <NavStyled>
                     <a>Company Nav</a>
-                </>
+                    <NavLink to="/company/calendar">Calendar</NavLink>
+
+                </NavStyled>
             )
         } else if (view === "manager") {
             return (
@@ -28,6 +32,6 @@ export default function Sidebar() {
     }
 
     return (
-        <>{renderNav()}</>
+        <SidebarStyled>{renderNav()}</SidebarStyled>
     )
 }
