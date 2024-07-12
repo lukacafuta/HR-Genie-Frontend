@@ -8,7 +8,7 @@ Main Front-End Packages:
 - Styled Components
 
 
-# Stylings
+## Stylings
 ### Colors
 - Brand - 7747CA
 - Light Brand - B2A7FF
@@ -23,7 +23,7 @@ Main Front-End Packages:
 - Green Calendar Item - 50D1B2
 - Blue Calendar Item - 2775FF
 
- ### Border
+### Border
 - Border Radius - 4 / 8 / 12
 - 1px solid C6CBD9
 
@@ -40,3 +40,24 @@ Main Front-End Packages:
 ### Buttons
 - General Button Padding - 18 24
 - Narrow Button Padding - 8 24
+
+
+## How to use button Components
+You must import the component and pass buttonText and iconURL props.
+```
+import React from "react";
+import ButtonBrand from "../components/buttons/ButtonBrand.jsx"
+import ButtonGreen from "../components/buttons/ButtonGreen.jsx"
+import ButtonRed from "../components/buttons/ButtonRed.jsx"
+
+export default function YourComponentOrRoute() {
+
+    return (
+        <div>
+            <ButtonBrand buttonText={'New Request'} iconURL={'plus.png'}/>
+            <ButtonGreen buttonText={'Approve'} iconURL={'tick-circle.png'}/>
+            <ButtonRed buttonText={'Deny'} iconURL={'cross-deny.png'}/>
+        </div>
+    )
+}
+```
