@@ -1,17 +1,15 @@
-import React from 'react';
-
 import {
     BtnBrand
 } from "../../styles/buttonStyles.js";
 
-export default function ButtonBrand(props) {
+// eslint-disable-next-line react/prop-types
+export default function ButtonBrand({ iconURL, buttonText, ...props }) {
 
-return (
-        <>
-        <BtnBrand><img src={props.iconURL} alt="icon"/> {props.buttonText}</BtnBrand>
-        </>
-
-)
+    return (
+        <BtnBrand {...props}>
+            <img src={iconURL} alt="icon" /> {buttonText}
+        </BtnBrand>
+    );
 }
 
 
