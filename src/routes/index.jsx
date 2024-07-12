@@ -3,12 +3,14 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 // layouts
 import DefaultLayout from "../layouts/DefaultLayout";
 import ProtectedRoute from "../layouts/ProtectedRoute";
+import Header from "../Header/Header.jsx"
 
 
 export default function Router() {
 
     return (
         <BrowserRouter>
+            <Header />
             <Routes>
 
                 <Route element={<DefaultLayout/>}>
