@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const ViewSlice = createSlice({
     name: "view",
     initialState: {
-        view: "employee",
+        view: "company_admin",
     },
     reducers: {
         changeView: (state, action) => {
