@@ -1,17 +1,15 @@
-import React from 'react';
-
 import {
     BtnGreen,
 } from "../../styles/buttonStyles.js";
 
-export default function ButtonGreen(props) {
+// eslint-disable-next-line react/prop-types
+export default function ButtonGreen({ iconURL, buttonText, ...props }) {
 
-return (
-        <>
-        <BtnGreen><img src={props.iconURL} alt="icon"/> {props.buttonText}</BtnGreen>
-        </>
-
-)
+    return (
+        <BtnGreen {...props}>
+            <img src={iconURL} alt="icon" /> {buttonText}
+        </BtnGreen>
+    );
 }
 
 
