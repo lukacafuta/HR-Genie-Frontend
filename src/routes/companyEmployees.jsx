@@ -1,36 +1,29 @@
-import { useState } from "react";
+import {useState} from "react";
 
 import ButtonBrand from "../components/buttons/ButtonBrand.jsx";
 import EmployeeForm from "../components/forms/EmployeeForm.jsx";
+import {RouteContentStyled, RouteHeadStyled} from "../styles/routeGeneralStyles.js";
 
 export default function CompanyEmployeesRoute() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
-  return (
-    <>
-      {/*temporary styling to make testing not too ugly*/}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          padding: "10px",
-        }}
-      >
-        <h1>Company Employee Page</h1>
-        <div>
-          <h3>Add employee</h3>
-        </div>
+    return (
+        <RouteContentStyled>
 
-        <ButtonBrand
-          iconURL={"/plus.png"}
-          buttonText={"New Employee"}
-          onClick={openModal}
-        />
-        <EmployeeForm isModalOpen={isModalOpen} closeModal={closeModal} />
-      </div>
-    </>
-  );
+            <RouteHeadStyled>
+                <div><h2>Company Settings</h2>
+                    <p>Add something here</p></div>
+                {/*<ButtonBrand iconURL="/plus-add.svg" buttonText="Add Employee"/>*/}
+                <ButtonBrand
+                    iconURL={"/plus-add.svg"}
+                    buttonText={"Add Employee"}
+                    onClick={openModal}
+                />
+                <EmployeeForm isModalOpen={isModalOpen} closeModal={closeModal}/>
+                {/*</div>*/}
+            </RouteHeadStyled>
+        </RouteContentStyled>
+    );
 }

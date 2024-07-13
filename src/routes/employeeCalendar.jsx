@@ -1,7 +1,13 @@
+import {RouteContentStyled, RouteHeadStyled} from "../styles/routeGeneralStyles.js";
+
 export default function EmployeeCalendarRoute() {
-  return (
-    <>
-        <h1>Employee Calendar Page</h1>
-    </>
-  )
+    return (
+        <RouteContentStyled>
+            <RouteHeadStyled>
+                <div><h2>Company Settings</h2>
+                    <p>Add something here</p></div>
+
+            </RouteHeadStyled>
+        </RouteContentStyled>
+    )
 }
