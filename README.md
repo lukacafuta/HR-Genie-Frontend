@@ -54,9 +54,9 @@ export default function YourComponentOrRoute() {
 
     return (
         <div>
-            <ButtonBrand buttonText={'New Request'} iconURL={'plus.png'}/>
-            <ButtonGreen buttonText={'Approve'} iconURL={'tick-circle.png'}/>
-            <ButtonRed buttonText={'Deny'} iconURL={'cross-deny.png'}/>
+            <ButtonBrand buttonText={'New Request'} iconURL={'/plus.png'}/>
+            <ButtonGreen buttonText={'Approve'} iconURL={'/tick-circle.png'}/>
+            <ButtonRed buttonText={'Deny'} iconURL={'/cross-deny.png'}/>
         </div>
     )
 }
