@@ -34,8 +34,10 @@ export default function Router() {
                         </Route>
                         <Route element={<ProtectedRoute allowedRoles={['company_admin', 'manager']}/>}>
                             <Route path='/manager' element={<ManagerRoute />}/>
+                            <Route path='/manager/requests' element={<h1>Request page</h1>}/>
                             <Route path='/manager/team' element={<ManagerTeamRoute />}/>
                             <Route path='/manager/calendar' element={<ManagerCalendarRoute />}/>
+
                         </Route>
                         <Route path='/employee/' element={<EmployeeRoute />}/>
                         <Route path='/employee/calendar' element={<EmployeeCalendarRoute />}/>
