@@ -12,16 +12,20 @@ export const BtnPrimary = styled.button`
     width: max-content;
     align-items: center;
 
-    `
+`
 
 export const BtnBrand = styled(BtnPrimary)`
     background-color: var(--brand-color);
-    `
+`
 
 export const BtnGreen = styled(BtnPrimary)`
     background-color: var(--green-button-color);
-    `
+`
 
 export const BtnRed = styled(BtnPrimary)`
     background-color: var(--red-button-color);
-    `
+`
+export const BtnUpload = styled(BtnPrimary)`
+    padding: 10px 86px 10px 15px;
+
+`

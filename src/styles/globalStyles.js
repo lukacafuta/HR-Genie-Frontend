@@ -67,6 +67,13 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 14px; /* Button Text / Navigation - Semibold 14 */
         font-weight: 600;
         padding: 18px 24px; /* General Button Padding */
+
+        &:hover {
+            transform: scale(0.97);
+            transition: all 0.1s ease-in-out;
+            cursor: pointer;
+
+        }
     }
 
     .narrow-button {
