@@ -10,7 +10,7 @@ export default function Router() {
 
     return (
         <BrowserRouter>
-            <Header />
+            <Header/>
             <Routes>
 
                 <Route element={<DefaultLayout/>}>
@@ -27,6 +27,7 @@ export default function Router() {
                         </Route>
                         <Route element={<ProtectedRoute allowedRoles={['company_admin', 'manager']}/>}>
                             <Route path='/manager' element={<h1>Dashboard page</h1>}/>
+                            <Route path='/manager/requests' element={<h1>Request page</h1>}/>
                             <Route path='/manager/team' element={<h1>Team page</h1>}/>
                             <Route path='/manager/calendar' element={<h1>Calendar page</h1>}/>
                         </Route>
