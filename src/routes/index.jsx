@@ -13,6 +13,7 @@ import ManagerTeamRoute from "./managerTeam.jsx";
 import ManagerCalendarRoute from "./managerCalendar.jsx";
 import EmployeeRoute from "./employee.jsx";
 import EmployeeCalendarRoute from "./employeeCalendar.jsx";
+import ManagerRequestsRoute from "./managerRequests.jsx";
 
 export default function Router() {
 
@@ -28,19 +29,19 @@ export default function Router() {
                 <Route element={<ProtectedRoute/>}>
                     <Route element={<DefaultLayout/>}>
                         <Route element={<ProtectedRoute allowedRoles={['company_admin']}/>}>
-                            <Route path='/company' element={<CompanyRoute />}/>
-                            <Route path='/company/employees' element={<CompanyEmployeesRoute />}/>
-                            <Route path='/company/calendar' element={<CompanyCalendarRoute />}/>
+                            <Route path='/company' element={<CompanyRoute/>}/>
+                            <Route path='/company/employees' element={<CompanyEmployeesRoute/>}/>
+                            <Route path='/company/calendar' element={<CompanyCalendarRoute/>}/>
                         </Route>
                         <Route element={<ProtectedRoute allowedRoles={['company_admin', 'manager']}/>}>
-                            <Route path='/manager' element={<ManagerRoute />}/>
-                            <Route path='/manager/requests' element={<h1>Request page</h1>}/>
-                            <Route path='/manager/team' element={<ManagerTeamRoute />}/>
-                            <Route path='/manager/calendar' element={<ManagerCalendarRoute />}/>
+                            <Route path='/manager' element={<ManagerRoute/>}/>
+                            <Route path='/manager/requests' element={<ManagerRequestsRoute/>}/>
+                            <Route path='/manager/team' element={<ManagerTeamRoute/>}/>
+                            <Route path='/manager/calendar' element={<ManagerCalendarRoute/>}/>
 
                         </Route>
-                        <Route path='/employee/' element={<EmployeeRoute />}/>
-                        <Route path='/employee/calendar' element={<EmployeeCalendarRoute />}/>
+                        <Route path='/employee/' element={<EmployeeRoute/>}/>
+                        <Route path='/employee/calendar' element={<EmployeeCalendarRoute/>}/>
                     </Route>
                 </Route>
 
