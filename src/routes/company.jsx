@@ -1,7 +1,18 @@
 import {RouteContentStyled, RouteHeadStyled} from "../styles/routeGeneralStyles.js";
 import {CompanyFieldsStyled, WorkingHoursStyled} from "../styles/companySettingsStyles.js";
+import ButtonUpload from "../components/buttons/ButtonUpload.jsx";
+import ButtonBrand from "../components/buttons/ButtonBrand.jsx";
+import {useState} from "react";
 
 export default function CompanyRoute() {
+
+
+    const [selectedHour, setSelectedHour] = useState('');
+    const handleHourChange = (event) => {
+        setSelectedHour(event.target.value);
+    };
+
+
     return (
         <RouteContentStyled>
             <RouteHeadStyled>
@@ -16,17 +27,34 @@ export default function CompanyRoute() {
                 </div>
                 <div>
                     <h3>Company Logo</h3>
-                    <input type="file" placeholder="Upload Logo"/>
+                    <ButtonUpload
+                        iconURL={"/image-upload.svg"}
+                        buttonText={"Upload Image"}
+
+                    />
                 </div>
+
                 <WorkingHoursStyled>
                     <h3>Working Hours</h3>
                     <div>
-                        Start:
-                        <input type="time" placeholder="Opening Time"/>
+                        <p>Start:</p>
+                        <select value={selectedHour} onChange={handleHourChange}>
+                            {[...Array(24).keys()].map(hour => (
+                                <option key={hour} value={hour}>
+                                    {hour < 10 ? `0${hour}:00` : `${hour}:00`}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div>
-                        End:
-                        <input type="time" placeholder="Closing Time"/>
+                        <p>End:</p>
+                        <select value={selectedHour} onChange={handleHourChange}>
+                            {[...Array(24).keys()].map(hour => (
+                                <option key={hour} value={hour}>
+                                    {hour < 10 ? `0${hour}:00` : `${hour}:00`}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 </WorkingHoursStyled>
             </CompanyFieldsStyled>
