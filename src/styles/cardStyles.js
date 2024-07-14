@@ -21,3 +21,34 @@ export const RowCard = styled.div`
   justify-items: left;
   align-self: center;
 `;
+
+export const HalfWidthCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: var(--border-radius-large);
+  border: solid 1px var(--light-grey);
+  width: 50%;
+  margin-bottom: 10px;
+`;
+
+export const HalfWidthCardTitle = styled.h3`
+  background-color: var(--light-grey);
+  border: solid 1px var(--light-grey);
+  border-top-left-radius: var(--border-radius-medium);
+  border-top-right-radius: var(--border-radius-medium);
+  width: 100%;
+  padding: 10px;
+`;
+
+export const HalfWidthCardContent = styled.div`
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 7px;
+`;
+
+export const HalfWidthCardLabel = styled.span`
+  color: var(--dark-grey);
+`;

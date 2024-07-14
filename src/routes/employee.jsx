@@ -7,6 +7,8 @@ import {
   RouteHeadStyled,
 } from "../styles/routeGeneralStyles.js";
 import RequestContainer from "../components/RequestContainer.jsx";
+import EmployeeSummaryCard from "../components/EmployeeSummaryCard.jsx";
+import EmployeeChartCard from "../components/EmployeeChartCard.jsx";
 
 export default function EmployeeRoute() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,6 +30,10 @@ export default function EmployeeRoute() {
       </RouteHeadStyled>
 
       <RequestForm isModalOpen={isModalOpen} closeModal={closeModal} />
+      <div style={{ display: "flex", gap: "5px" }}>
+        <EmployeeSummaryCard />
+        <EmployeeChartCard />
+      </div>
       <h3 style={{ marginBottom: "5px" }}>Requests</h3>
       <RequestContainer />
     </RouteContentStyled>
