@@ -16,6 +16,12 @@ export const BtnPrimary = styled.button`
 
 export const BtnBrand = styled(BtnPrimary)`
     background-color: var(--brand-color);
+
+    &:disabled {
+        background-color: var(--dark-grey);
+        cursor: default;
+        transform: none;
+    }
 `
 
 export const BtnGreen = styled(BtnPrimary)`
