@@ -13,7 +13,7 @@ import ButtonBrand from "../buttons/ButtonBrand.jsx";
 import {AddHoliday} from "../../store/slices/CompanySlice.jsx";
 import {useDispatch} from "react-redux";
 
-export default function RequestForm({isModalOpen, closeModal}) {
+export default function PublicHolidaysForm({isModalOpen, closeModal}) {
     const [holidayName, setPublicHolidayName] = useState("");
     const [holidayDate, setPublicHolidayDate] = useState("");
 
@@ -29,16 +29,19 @@ export default function RequestForm({isModalOpen, closeModal}) {
         };
         // console.log("Form Content: ", JSON.stringify(formContent));
         dispatch(AddHoliday(formContent));
+        setPublicHolidayName("");
+        setPublicHolidayDate("");
         closeModal();
     };
 
+    const handleClose = () => {
+        setPublicHolidayName("");
+        setPublicHolidayDate("");
+        closeModal();
+    }
+
     if (!isModalOpen) return null;
 
-    // const closeModal = () => {
-    //     setPublicHolidayName("");
-    //     setPublicHolidayDate("");
-    //     !isModalOpen
-    // }
 
     return (
         <>
@@ -56,7 +59,7 @@ export default function RequestForm({isModalOpen, closeModal}) {
                         <BtnClose
                             src="/close-cross.png"
                             alt="Close Button"
-                            onClick={closeModal}
+                            onClick={handleClose}
                             width="18px"
                             height="18px"
                         />
@@ -95,6 +98,7 @@ export default function RequestForm({isModalOpen, closeModal}) {
                                 iconURL={"/tick-circle.png"}
                                 buttonText="Add Holiday"
                                 type="submit"
+                                disabled={!holidayName || !holidayDate}
                             />
                         </div>
                     </ZeForm>
