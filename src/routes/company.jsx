@@ -54,6 +54,10 @@ export default function CompanyRoute() {
         setIsModalOpen(!isModalOpen);
     };
 
+    const handleModalData = (data) => {
+        console.log(data);
+    }
+
 
     return (
         <RouteContentStyled>
@@ -117,7 +121,11 @@ export default function CompanyRoute() {
                 </PublicHolidaysGridStyled>
             </PublicHolidayContainerStyled>
 
-            <PublicHolidaysForm isModalOpen={isModalOpen} closeModal={toggleModal}/>
+            <PublicHolidaysForm
+                isModalOpen={isModalOpen}
+                closeModal={toggleModal}
+                onModalSave={handleModalData}
+            />
 
 
         </RouteContentStyled>

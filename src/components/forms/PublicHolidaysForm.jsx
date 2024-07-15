@@ -10,30 +10,35 @@ import {
 } from "../../styles/formStyles.js";
 
 import ButtonBrand from "../buttons/ButtonBrand.jsx";
+import {AddHoliday} from "../../store/slices/CompanySlice.jsx";
+import {useDispatch} from "react-redux";
 
 export default function RequestForm({isModalOpen, closeModal}) {
-    const [publicHolidayName, setFirstName] = useState("");
-    const [publicHolidayDate, setLastName] = useState("");
+    const [holidayName, setPublicHolidayName] = useState("");
+    const [holidayDate, setPublicHolidayDate] = useState("");
 
-
-    //const dispatch = useDispatch();
+    // console.log(publicHolidayName, publicHolidayDate)
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("hello");
-        let userId = "1";
         const formContent = {
-            publicHolidayName,
-            publicHolidayDate,
+            holidayName,
+            holidayDate,
 
         };
-        console.log("Form Content: ", JSON.stringify(formContent));
-        console.log("User ID: ", userId);
-        //dispatch()
+        // console.log("Form Content: ", JSON.stringify(formContent));
+        dispatch(AddHoliday(formContent));
         closeModal();
     };
 
     if (!isModalOpen) return null;
+
+    // const closeModal = () => {
+    //     setPublicHolidayName("");
+    //     setPublicHolidayDate("");
+    //     !isModalOpen
+    // }
 
     return (
         <>
@@ -62,8 +67,8 @@ export default function RequestForm({isModalOpen, closeModal}) {
                             <FormInputBasic
                                 id="inputPublicHolidayName"
                                 type="text"
-                                value={publicHolidayName}
-                                onChange={(e) => setFirstName(e.target.value)}
+                                value={holidayName}
+                                onChange={(e) => setPublicHolidayName(e.target.value)}
                             />
                         </div>
 
@@ -71,9 +76,10 @@ export default function RequestForm({isModalOpen, closeModal}) {
                             <FormLabel htmlFor="inputPublicHolidayDate">Date</FormLabel>
                             <FormInputBasic
                                 id="inputPublicHolidayDate"
-                                type="text"
-                                value={publicHolidayDate}
-                                onChange={(e) => setLastName(e.target.value)}
+                                type="date"
+                                placeholder="dd-mm-yyyy"
+                                value={holidayDate}
+                                onChange={(e) => setPublicHolidayDate(e.target.value)}
                             />
                         </div>
 
@@ -87,7 +93,7 @@ export default function RequestForm({isModalOpen, closeModal}) {
                         >
                             <ButtonBrand
                                 iconURL={"/tick-circle.png"}
-                                buttonText="Send Request"
+                                buttonText="Add Holiday"
                                 type="submit"
                             />
                         </div>

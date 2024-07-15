@@ -31,7 +31,14 @@ const CompanySlice = createSlice({
     },
     reducers: {
         AddHoliday: (state, action) => {
-            console.log(action.payload)
+            console.log("New Entry", action.payload)
+            const newHoliday = {
+                id: state.publicHolidays.length + 1,
+                holidayName: action.payload.holidayName,
+                holidayDate: action.payload.holidayDate
+            };
+
+            state.publicHolidays.push(newHoliday);
         },
         RemoveHoliday: (state, action) => {
             // console.log("In Redux Remove Holiday: ", action.payload);
