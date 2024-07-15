@@ -12,7 +12,7 @@ import * as PropTypes from "prop-types";
 import PublicHolidaysForm from "../components/forms/PublicHolidaysForm.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import PublicHolidayCard from "../components/PublicHolidayCard.jsx";
-import {ChangeCompanyName, ChangeEndHours, ChangeStartHours} from "../store/slices/CompanySlice.jsx";
+import {AddCompanyLogo, ChangeCompanyName, ChangeEndHours, ChangeStartHours} from "../store/slices/CompanySlice.jsx";
 
 PublicHolidaysForm.propTypes = {
     isModalOpen: PropTypes.any,
@@ -25,8 +25,16 @@ export default function CompanyRoute() {
     const publicHolidays = useSelector((state) => state.company.publicHolidays);
     const companyStartWorkingHours = useSelector((state) => state.company.companyData.companyWorkingHours.start);
     const companyEndWorkingHours = useSelector((state) => state.company.companyData.companyWorkingHours.end);
+    // const companyLogo = useSelector((state) => state.company.companyData.companyLogo);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+    const handleFileSelect = (file) => {
+        // This currently only saves the filename
+        console.log('Selected file:', file.name);
+        dispatch(AddCompanyLogo(file.name))
+    };
 
 
     const handleStartHourChange = (event) => {
@@ -69,6 +77,7 @@ export default function CompanyRoute() {
                     <ButtonUpload
                         iconURL={"/image-upload.svg"}
                         buttonText={"Upload Image"}
+                        onFileSelect={handleFileSelect}
 
 
                     />
