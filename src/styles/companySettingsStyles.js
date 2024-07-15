@@ -7,6 +7,7 @@ export const CompanyFieldsStyled = styled.div`
     width: 100%;
     padding: 2rem;
     grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 8rem;
 
     h3 {
         margin-bottom: 0.5rem;
@@ -55,4 +56,12 @@ export const WorkingHoursStyled = styled.div`
             box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.10);
         }
     }
+
+`;
+export const PublicHolidayContainerStyled = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 2rem;
+
 `;

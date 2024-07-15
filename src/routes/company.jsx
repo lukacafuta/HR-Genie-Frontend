@@ -1,5 +1,5 @@
 import {RouteContentStyled, RouteHeadStyled} from "../styles/routeGeneralStyles.js";
-import {CompanyFieldsStyled, WorkingHoursStyled} from "../styles/companySettingsStyles.js";
+import {CompanyFieldsStyled, PublicHolidayContainerStyled, WorkingHoursStyled} from "../styles/companySettingsStyles.js";
 import ButtonUpload from "../components/buttons/ButtonUpload.jsx";
 import ButtonBrand from "../components/buttons/ButtonBrand.jsx";
 import {useState} from "react";
@@ -58,6 +58,12 @@ export default function CompanyRoute() {
                     </div>
                 </WorkingHoursStyled>
             </CompanyFieldsStyled>
+            <PublicHolidayContainerStyled>
+
+                <h3>Public Holidays</h3>
+                <ButtonBrand buttonText={"Add Holiday"} iconURL={"/plus-add.svg"}/>
+
+            </PublicHolidayContainerStyled>
 
         </RouteContentStyled>
     )
