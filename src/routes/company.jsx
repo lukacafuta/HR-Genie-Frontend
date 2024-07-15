@@ -1,24 +1,34 @@
 import {RouteContentStyled, RouteHeadStyled} from "../styles/routeGeneralStyles.js";
-import {CompanyFieldsStyled, PublicHolidayContainerStyled, WorkingHoursStyled} from "../styles/companySettingsStyles.js";
+import {
+    CompanyFieldsStyled,
+    PublicHolidayContainerStyled,
+    PublicHolidaysGridStyled, PublicHolidaysHeaderStyled,
+    WorkingHoursStyled
+} from "../styles/companySettingsStyles.js";
 import ButtonUpload from "../components/buttons/ButtonUpload.jsx";
 import ButtonBrand from "../components/buttons/ButtonBrand.jsx";
 import {useState} from "react";
 import * as PropTypes from "prop-types";
 import PublicHolidaysForm from "../components/forms/PublicHolidaysForm.jsx";
+import {useSelector} from "react-redux";
+import PublicHolidayCard from "../components/PublicHolidayCard.jsx";
 
 PublicHolidaysForm.propTypes = {
     isModalOpen: PropTypes.any,
     closeModal: PropTypes.func
 };
 export default function CompanyRoute() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const toggleModal = () => {
-        setIsModalOpen(!isModalOpen);
-    };
 
     const [selectedHour, setSelectedHour] = useState('');
     const handleHourChange = (event) => {
         setSelectedHour(event.target.value);
+    };
+
+    const publicHolidays = useSelector((state) => state.company.publicHolidays);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
     };
 
 
@@ -69,13 +79,17 @@ export default function CompanyRoute() {
                 </WorkingHoursStyled>
             </CompanyFieldsStyled>
             <PublicHolidayContainerStyled>
-
-                <h3>Public Holidays</h3>
-                <ButtonBrand buttonText={"Add Holiday"} iconURL={"/plus-add.svg"} onClick={() => toggleModal()}/>
-
+                <PublicHolidaysHeaderStyled>
+                    <h3>Public Holidays</h3>
+                    <ButtonBrand buttonText={"Add Holiday"} iconURL={"/plus-add.svg"} onClick={() => toggleModal()}/>
+                </PublicHolidaysHeaderStyled>
+                <PublicHolidaysGridStyled>
+                    {publicHolidays.map((holiday, i) => <PublicHolidayCard key={i} publicHoliday={holiday}/>)}
+                </PublicHolidaysGridStyled>
             </PublicHolidayContainerStyled>
 
             <PublicHolidaysForm isModalOpen={isModalOpen} closeModal={toggleModal}/>
+
 
         </RouteContentStyled>
     )

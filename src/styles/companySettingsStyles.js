@@ -59,9 +59,22 @@ export const WorkingHoursStyled = styled.div`
 
 `;
 export const PublicHolidayContainerStyled = styled.div`
-    display: flex;
-    justify-content: space-between;
     width: 100%;
     padding: 0 2rem;
+
+`;
+export const PublicHolidaysHeaderStyled = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+`;
+export const PublicHolidaysGridStyled = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 1rem;
+    column-gap: 4rem;
+    row-gap: 1rem;
+
 
 `;
