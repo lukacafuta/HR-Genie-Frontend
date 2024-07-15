@@ -3,9 +3,18 @@ import {CompanyFieldsStyled, PublicHolidayContainerStyled, WorkingHoursStyled} f
 import ButtonUpload from "../components/buttons/ButtonUpload.jsx";
 import ButtonBrand from "../components/buttons/ButtonBrand.jsx";
 import {useState} from "react";
+import * as PropTypes from "prop-types";
+import PublicHolidaysForm from "../components/forms/PublicHolidaysForm.jsx";
 
+PublicHolidaysForm.propTypes = {
+    isModalOpen: PropTypes.any,
+    closeModal: PropTypes.func
+};
 export default function CompanyRoute() {
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
 
     const [selectedHour, setSelectedHour] = useState('');
     const handleHourChange = (event) => {
@@ -30,6 +39,7 @@ export default function CompanyRoute() {
                     <ButtonUpload
                         iconURL={"/image-upload.svg"}
                         buttonText={"Upload Image"}
+
 
                     />
                 </div>
@@ -61,9 +71,11 @@ export default function CompanyRoute() {
             <PublicHolidayContainerStyled>
 
                 <h3>Public Holidays</h3>
-                <ButtonBrand buttonText={"Add Holiday"} iconURL={"/plus-add.svg"}/>
+                <ButtonBrand buttonText={"Add Holiday"} iconURL={"/plus-add.svg"} onClick={() => toggleModal()}/>
 
             </PublicHolidayContainerStyled>
+
+            <PublicHolidaysForm isModalOpen={isModalOpen} closeModal={toggleModal}/>
 
         </RouteContentStyled>
     )
