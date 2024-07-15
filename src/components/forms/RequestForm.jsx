@@ -13,6 +13,7 @@ import {
 } from "../../styles/formStyles.js";
 
 import ButtonBrand from "../buttons/ButtonBrand.jsx";
+import ButtonUpload from "../buttons/ButtonUpload.jsx";
 
 // eslint-disable-next-line react/prop-types
 export default function RequestForm({ isModalOpen, closeModal }) {
@@ -28,6 +29,12 @@ export default function RequestForm({ isModalOpen, closeModal }) {
   const [trainingURL, setTrainingURL] = useState("");
 
   //const dispatch = useDispatch();
+
+  const handleFileSelect = (file) => {
+    // This currently only saves the filename
+    console.log("Selected file:", file.name);
+    //dispatch(AddCompanyLogo(file.name));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -185,11 +192,12 @@ export default function RequestForm({ isModalOpen, closeModal }) {
                 {requestType === "Absence" && (
                   <div>
                     <FormLabel htmlFor="avatar">Add a file:</FormLabel>
-                    <input
-                      type="file"
+                    <ButtonUpload
                       id="attachment"
                       name="attachment"
-                      accept="image/png, image/jpeg"
+                      iconURL={"/image-upload.svg"}
+                      buttonText={"Upload Image"}
+                      onFileSelect={handleFileSelect}
                     />
                   </div>
                 )}
