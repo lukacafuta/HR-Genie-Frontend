@@ -4,39 +4,50 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 1rem 2rem;
     background-color: --light-grey: #D0D0DA;
     border-bottom: 2px solid var(--light-grey);
+    margin-bottom: 1rem;
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+    }
 `;
 
 export const CompanyLogo = styled.div`
     display: flex;
     align-items: center;
+    width: 216px;
 
     img {
         height: 70px;
         width: 250px;
+        object-fit: contain;
         border-radius: var(--border-radius-large);
     }
 `;
 
 export const CompanyName = styled.span`
     font-size: 36px;
-    font-weight: 700; 
-    margin-left: 10px; 
-    color: #000000;
-    font-family: 'Arial Black';
+    font-weight: 700;
+    margin-left: 10px;
+    color: var(--black);
 `;
 
 export const DropdownView = styled.div`
 
     select {
-        padding: 10px 35px;
+        padding: 1rem 2rem;
         border-radius: var(--border-radius-small);
         border: var(--border-style);
-        font-family: 'Arial';
-        color: #333;
-        font-size: 20px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 114.286% */
+        color: var(--mid-grey);
         display: flex;
         align-items: center;
     }
@@ -44,13 +55,10 @@ export const DropdownView = styled.div`
 
 export const Bell = styled.div`
     display: flex;
-    align-items: center;
 
     .bell {
-        width: 32px;
-        height: 32px;
-        font-size: 30px;
-        margin-right: 40px;
+        width: 24px;
+        height: 24px;
         cursor: pointer;
         color: var(--black);
     }
