@@ -12,6 +12,7 @@ import {
 } from "../../styles/formStyles.js";
 
 import ButtonBrand from "../buttons/ButtonBrand.jsx";
+import ButtonUpload from "../buttons/ButtonUpload.jsx";
 
 export default function RequestForm({ isModalOpen, closeModal }) {
   const [firstName, setFirstName] = useState("");
@@ -56,6 +57,12 @@ export default function RequestForm({ isModalOpen, closeModal }) {
     closeModal();
   };
 
+  const handleFileSelect = (file) => {
+    // This currently only saves the filename
+    console.log("Selected file:", file.name);
+    //dispatch(AddCompanyLogo(file.name));
+  };
+
   if (!isModalOpen) return null;
 
   return (
@@ -79,7 +86,16 @@ export default function RequestForm({ isModalOpen, closeModal }) {
               height="18px"
             />
           </div>
-          <ZeForm action="submit" onSubmit={handleSubmit}>
+          <ZeForm
+            action="submit"
+            onSubmit={handleSubmit}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: "5px",
+            }}
+          >
             <div>
               <FormLabel htmlFor="inputFirstName">First Name</FormLabel>
               <FormInputBasic
@@ -213,16 +229,21 @@ export default function RequestForm({ isModalOpen, closeModal }) {
                 type="checkbox"
                 value={activeUser}
                 onChange={(e) => setActiveUser(e.target.value)}
+                style={{
+                  boxShadow: "none",
+                }}
               />
             </div>
 
             <div>
               <FormLabel htmlFor="employeeAvatar">User Avatar :</FormLabel>
-              <input
-                type="file"
+              <ButtonUpload
                 id="employeeAvatar"
                 name="employeeAvatar"
+                iconURL={"/image-upload.svg"}
+                buttonText={"Upload Image"}
                 accept="image/png, image/jpeg"
+                onFileSelect={handleFileSelect}
               />
             </div>
 
@@ -231,6 +252,7 @@ export default function RequestForm({ isModalOpen, closeModal }) {
                 display: "flex",
                 justifyContent: "flex-end",
                 marginTop: "10px",
+                width: "100%",
               }}
             >
               <ButtonBrand
