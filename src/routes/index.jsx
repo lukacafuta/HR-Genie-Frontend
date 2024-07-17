@@ -21,7 +21,7 @@ export default function Router() {
         <BrowserRouter>
             <Routes>
 
-                <Route element={<DefaultLayout/>}>
+                <Route>
                     <Route path='/' element={<h1>Root page</h1>}/>
                     <Route path='/login' element={<h1>Login page</h1>}/>
                 </Route>
