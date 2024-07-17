@@ -14,6 +14,7 @@ import ManagerCalendarRoute from "./managerCalendar.jsx";
 import EmployeeRoute from "./employee.jsx";
 import EmployeeCalendarRoute from "./employeeCalendar.jsx";
 import ManagerRequestsRoute from "./managerRequests.jsx";
+import LoginRoute from "./login.jsx";
 
 export default function Router() {
 
@@ -23,7 +24,7 @@ export default function Router() {
 
                 <Route>
                     <Route path='/' element={<h1>Root page</h1>}/>
-                    <Route path='/login' element={<h1>Login page</h1>}/>
+                    <Route path='/login' element={<LoginRoute/>}/>
                 </Route>
 
                 <Route element={<ProtectedRoute/>}>
