@@ -43,6 +43,11 @@ export const GlobalStyle = createGlobalStyle`
 
     }
 
+    a {
+        text-decoration: none;
+        color: var(--black);
+    }
+
     h1 {
         font-size: 32px; /* Company Name - Extra Bold 32 */
         font-weight: 800;
