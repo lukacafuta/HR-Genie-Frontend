@@ -6,7 +6,7 @@ const requestSlice = createSlice({
         requestList: [
             {
                 // User
-                firstName: "Bob",
+                firstName: "Bob V",
                 lastName: "Sponge",
                 team: "Marketing",
                 profile: "/profile.png",
@@ -21,7 +21,7 @@ const requestSlice = createSlice({
             },
             {
                 // User
-                firstName: "Roger",
+                firstName: "Roger V",
                 lastName: "Fed",
                 team: "Marketing",
                 profile: "/profile.png",
@@ -35,7 +35,7 @@ const requestSlice = createSlice({
                 status: "Approved",
             }, {
                 // User
-                firstName: "Roger",
+                firstName: "Roger T",
                 lastName: "Fed",
                 team: "Marketing",
                 profile: "/profile.png",
@@ -49,7 +49,49 @@ const requestSlice = createSlice({
                 status: "Approved",
             }, {
                 // User
-                firstName: "Roger",
+                firstName: "Roger A",
+                lastName: "Fed",
+                team: "Marketing",
+                profile: "/profile.png",
+                // Request
+                id: 2,
+                type: "Absence",
+                fromDate: "03.07.2024",
+                toDate: "05.07.2024",
+                comment: "comment 2",
+                submittedOn: "15.04.2024",
+                status: "Approved",
+            }, {
+                // User
+                firstName: "Roger A",
+                lastName: "Fed",
+                team: "Marketing",
+                profile: "/profile.png",
+                // Request
+                id: 2,
+                type: "Absence",
+                fromDate: "03.07.2024",
+                toDate: "05.07.2024",
+                comment: "comment 2",
+                submittedOn: "15.04.2024",
+                status: "Approved",
+            }, {
+                // User
+                firstName: "Roger A",
+                lastName: "Fed",
+                team: "Marketing",
+                profile: "/profile.png",
+                // Request
+                id: 2,
+                type: "Absence",
+                fromDate: "03.07.2024",
+                toDate: "05.07.2024",
+                comment: "comment 2",
+                submittedOn: "15.04.2024",
+                status: "Approved",
+            }, {
+                // User
+                firstName: "Roger A",
                 lastName: "Fed",
                 team: "Marketing",
                 profile: "/profile.png",
