@@ -1,4 +1,5 @@
 import RequestMinitableItem from "./RequestMinitableItem.jsx";
+import {RequestsMinitableStyled} from "../styles/miniTableStyles.js";
 
 export default function RequestMiniTable({name, type, requests}) {
 
@@ -7,10 +8,10 @@ export default function RequestMiniTable({name, type, requests}) {
 
 
     return (
-        <div>
+        <RequestsMinitableStyled>
             <h3>{name}</h3>
             {filteredRequests.map((request, i) => <RequestMinitableItem key={i} request={request}/>)}
-        </div>
+        </RequestsMinitableStyled>
     );
 }
 
