@@ -3,11 +3,11 @@ import {
 } from "../../styles/buttonStyles.js";
 
 // eslint-disable-next-line react/prop-types
-export default function ButtonBrand({ iconURL, buttonText, ...props }) {
+export default function ButtonBrand({iconURL, buttonText, ...props}) {
 
     return (
         <BtnBrand {...props}>
-            <img src={iconURL} alt="icon" /> {buttonText}
+            {iconURL && <img src={iconURL} alt="icon"/>} {buttonText}
         </BtnBrand>
     );
 }
