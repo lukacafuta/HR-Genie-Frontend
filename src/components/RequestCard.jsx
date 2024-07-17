@@ -8,8 +8,11 @@ import { useState } from "react";
 import { BtnGreen, BtnRed } from "../styles/buttonStyles.js";
 import ButtonGreen from "./buttons/ButtonGreen.jsx";
 import ButtonRed from "./buttons/ButtonRed.jsx";
+import { Link, useParams } from "react-router-dom";
 
 export default function RequestCard({ oneRequest }) {
+  const { requestIndex } = useParams();
+
   const requestList = useSelector((state) => state.request.requestList);
   const requestCard = requestList.find((r) => r.id === parseInt(oneRequest.id));
 
@@ -32,40 +35,48 @@ export default function RequestCard({ oneRequest }) {
 
   return (
     <>
-      <RowCard>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span>
-            <img
-              src={requestCard.profile}
-              alt="profile"
-              height="35px"
-              width="35px"
-            />{" "}
-          </span>
-          <span>
-            <b>
-              {requestCard.firstName} {requestCard.lastName}
-            </b>
-          </span>
-        </div>
-        Request #{requestCard.id}
-        <span>{requestCard.type}</span>
-        <span>
-          {requestCard.fromDate} - {requestCard.toDate}
-        </span>
-        <div
-          style={{
-            display: "flex",
-            justifySelf: "end",
-            height: "100%",
-            alignItems: "center",
-          }}
+      <Link to={`/employee/requests/${requestCard.id}#${requestCard.id}`}>
+        <RowCard
+          id={requestCard.id}
           onClick={() => handleMoreClick(requestCard)}
         >
-          <img src="/MoreInfo.png" alt="..." height="3px" />
-        </div>
-      </RowCard>
-      {isExpanded && (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span>
+              <img
+                src={requestCard.profile}
+                alt="profile"
+                height="35px"
+                width="35px"
+              />{" "}
+            </span>
+            <span>
+              <b>
+                {requestCard.firstName} {requestCard.lastName}
+              </b>
+            </span>
+          </div>
+          Request #{requestCard.id}
+          <span>{requestCard.type}</span>
+          <span>
+            {requestCard.fromDate} - {requestCard.toDate}
+          </span>
+          <div
+            style={{
+              display: "flex",
+              justifySelf: "end",
+              height: "100%",
+              alignItems: "center",
+            }}
+          >
+            {Number(requestIndex) !== requestCard.id ? (
+              <img src="/MoreInfo.png" alt="..." height="3px" />
+            ) : (
+              <img src="/arrow-down.png" alt="..." height="8px" />
+            )}
+          </div>
+        </RowCard>
+      </Link>
+      {Number(requestIndex) === requestCard.id && (
         <div style={{ display: "flex", gap: "10px" }}>
           <div
             style={{
