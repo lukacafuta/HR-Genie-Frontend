@@ -35,3 +35,8 @@ export const BtnUpload = styled(BtnPrimary)`
     padding: 10px 86px 10px 15px;
 
 `
+export const BtnLogin = styled(BtnPrimary)`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: var(--border-radius-medium);`;

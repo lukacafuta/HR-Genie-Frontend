@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+
+export const LoginPageStyled = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-bottom: 4rem;
+`;
 export const LoginContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
@@ -7,6 +15,14 @@ export const LoginContainerStyled = styled.div`
     align-items: center;
     background-color: var(--white);
     padding: 0 2rem 4rem 2rem;
+    max-width: 500px;
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--inputs-shadow);
+
+    img {
+        margin-top: -4rem;
+        margin-bottom: 1rem;
+    }
 
     p {
         color: var(--neutral-neutral-500-day, #7E7E8F);
@@ -25,11 +41,9 @@ export const LoginContainerStyled = styled.div`
     }
 
     label {
-        font-family: Poppins;
         font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 16px; /* 114.286% */
+        margin-bottom: 0.5rem;
+        font-weight: normal;
     }
 
     input {
@@ -41,6 +55,13 @@ export const LoginContainerStyled = styled.div`
         height: 48px;
         padding: 15px;
         align-items: flex-start;
-        gap: 10px;
+        margin-bottom: 1rem;
+    }
+
+    input::placeholder {
+        font-size: 14px;
+        margin-bottom: 0.5rem;
+        font-weight: 300;
+        color: var(--light-grey);
     }
 `;
