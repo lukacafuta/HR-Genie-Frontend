@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const userSlice = createSlice({
     name: "user",
     initialState: {
-        accessToken: true,
+        accessToken: undefined,
         role: "company_admin",
     },
     reducers: {
