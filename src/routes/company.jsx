@@ -7,12 +7,14 @@ import {
 } from "../styles/companySettingsStyles.js";
 import ButtonUpload from "../components/buttons/ButtonUpload.jsx";
 import ButtonBrand from "../components/buttons/ButtonBrand.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import * as PropTypes from "prop-types";
 import PublicHolidaysForm from "../components/forms/PublicHolidaysForm.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import PublicHolidayCard from "../components/PublicHolidayCard.jsx";
 import {AddCompanyLogo, ChangeCompanyName, ChangeEndHours, ChangeStartHours} from "../store/slices/CompanySlice.jsx";
+import {api} from "../common/api.js";
+import SuccessMessage from "../components/SuccessMessage.jsx";
 
 PublicHolidaysForm.propTypes = {
     isModalOpen: PropTypes.any,
@@ -27,7 +29,26 @@ export default function CompanyRoute() {
     const companyEndWorkingHours = useSelector((state) => state.company.companyData.companyWorkingHours.end);
     // const companyLogo = useSelector((state) => state.company.companyData.companyLogo);
 
+    const [showAlert, setShowAlert] = useState(false);
+
+    const saveMessage = () => {
+        setShowAlert(true);
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 2000);
+    }
+
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("accessToken");
+        api.setAuthToken(token);
+        console.log(token)
+        api("/companies/me/").then((res) => {
+            console.log(res.data.companyName);
+            dispatch(ChangeCompanyName(res.data.companyName));
+        });
+    }, []);
 
 
     const handleFileSelect = (file) => {
@@ -58,12 +79,29 @@ export default function CompanyRoute() {
         console.log(data);
     }
 
+    const saveSettings = () => {
+        const dataToSend = {
+            companyName: companyData.companyName
+        };
+        api.patch(`/companies/${companyData.companyId}/`, dataToSend, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => {
+            console.log(res.data);
+        }).catch((error) => {
+            console.error("Error saving settings:", error);
+        });
+    }
+
 
     return (
         <RouteContentStyled>
             <RouteHeadStyled>
                 <div><h2>Company Settings</h2>
                     <p>Add something here</p></div>
+
+
             </RouteHeadStyled>
 
             <CompanyFieldsStyled>
@@ -72,7 +110,7 @@ export default function CompanyRoute() {
                     <input
                         value={companyData.companyName}
                         type="text"
-                        placeholder="Company Name"
+                        placeholder={companyData.companyName}
                         onChange={(e) => dispatch(ChangeCompanyName(e.target.value))}
                     />
                 </div>
@@ -110,6 +148,16 @@ export default function CompanyRoute() {
                         </select>
                     </div>
                 </WorkingHoursStyled>
+
+                <div className={"saveArea"}>
+                    {showAlert && <SuccessMessage message={"Settings saved!"}/>}
+                    <ButtonBrand buttonText={"Save Settings"} iconURL={""} onClick={() => {
+                        saveSettings()
+                        saveMessage()
+
+                    }}/>
+                </div>
+
             </CompanyFieldsStyled>
             <PublicHolidayContainerStyled>
                 <PublicHolidaysHeaderStyled>

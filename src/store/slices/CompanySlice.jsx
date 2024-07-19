@@ -6,21 +6,22 @@ const CompanySlice = createSlice({
         publicHolidays: [{
             "id": 1,
             "holidayName": "Bootcamp Day",
-            "holidayDate": "12.12.2024"
+            "holidayDate": "2024-08-03"
         }, {
             "id": 2,
             "holidayName": "Holy Computer Day",
-            "holidayDate": "21.21.2024"
+            "holidayDate": "2024-07-03"
         }, {
             "id": 3,
             "holidayName": "Bootcamp Day",
-            "holidayDate": "12.12.2024"
+            "holidayDate": "2024-06-03"
         }, {
             "id": 4,
             "holidayName": "Bootcamp Day",
-            "holidayDate": "12.12.2024"
+            "holidayDate": "2024-05-03"
         },],
         companyData: {
+            "companyId": 1,
             "companyName": "Constructor Academy",
             "companyLogo": "",
             "companyWorkingHours": {

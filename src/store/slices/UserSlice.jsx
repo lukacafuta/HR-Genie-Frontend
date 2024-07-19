@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
-  name: "user",
-  initialState: {
-    accessToken: undefined,
-    role: "company_admin",
-    userList: [
+    name: "user",
+    initialState: {
+        accessToken: undefined,
+        role: "company_admin",
+        userObject: [], // this is the user object that will be fetched from the backend
+        userList: [
       {
         // User
         id: 1,
@@ -29,24 +30,22 @@ const userSlice = createSlice({
         manager: "Jean-Pierre",
       },
     ],
-  },
-  reducers: {
-    login: (state, action) => {
-      state.accessToken = action.payload;
     },
-    logout: (state) => {
-      state.accessToken = "";
-    },
-    logUserInfo: (state, action) => {
-      const passedUser = action.payload;
-      console.log(passedUser);
-    },
-    initialLoadLocalStorage: (state, action) => {
-      state.userList = action.payload;
-    },
-  },
+    reducers: {
+        login: (state, action) => {
+            state.accessToken = action.payload;
+        },
+        logout: (state) => {
+            state.accessToken = '';
+        },
+        initialLoadLocalStorage: (state, action) => {
+            state.userList = action.payload;
+        },
+        setUserObject: (state, action) => {
+            state.userObject = action.payload;
+    }
+  }
 });
 
-export const { login, logout, logUserInfo, initialLoadLocalStorage } =
-  userSlice.actions;
+export const {login, logout, initialLoadLocalStorage, setUserObject} = userSlice.actions;
 export default userSlice.reducer;
