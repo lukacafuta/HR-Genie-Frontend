@@ -12,6 +12,8 @@ import { Link, useParams } from "react-router-dom";
 
 export default function RequestCard({ oneRequest }) {
   const { requestIndex } = useParams();
+  const view = useSelector((state) => state.view.view);
+  let currentRoleURLParam = view === "manager" ? "manager" : "employee";
 
   const requestList = useSelector((state) => state.request.requestList);
   const requestCard = requestList.find((r) => r.id === parseInt(oneRequest.id));
@@ -35,7 +37,9 @@ export default function RequestCard({ oneRequest }) {
 
   return (
     <>
-      <Link to={`/employee/requests/${requestCard.id}#${requestCard.id}`}>
+      <Link
+        to={`/${currentRoleURLParam}/requests/${requestCard.id}#${requestCard.id}`}
+      >
         <RowCard
           id={requestCard.id}
           onClick={() => handleMoreClick(requestCard)}
