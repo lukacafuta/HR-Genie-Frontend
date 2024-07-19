@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logUserInfo } from "../store/slices/UserSlice.jsx";
 import { RowCard } from "../styles/cardStyles.js";
 import { useState } from "react";
 import { BtnGreen, BtnRed } from "../styles/buttonStyles.js";
@@ -12,13 +11,15 @@ export default function UserCard({ oneUser }) {
 
   const userList = useSelector((state) => state.user.userList);
   const UserCard = userList.find((r) => r.id === parseInt(oneUser.id));
+  let currentPageURLParam = location.pathname.startsWith("/company/employees")
+    ? "/company/employees/"
+    : "/manager/team/";
 
   const dispatch = useDispatch();
 
   const [isExpanded, setIsExpanded] = useState(false);
 
   function handleMoreClick(UserCard) {
-    dispatch(logUserInfo(UserCard));
     setIsExpanded(!isExpanded);
   }
 
@@ -32,7 +33,7 @@ export default function UserCard({ oneUser }) {
 
   return (
     <>
-      <Link to={`/company/employees/${UserCard.id}#${UserCard.id}`}>
+      <Link to={`${currentPageURLParam}${UserCard.id}#${UserCard.id}`}>
         <RowCard id={UserCard.id} onClick={() => handleMoreClick(UserCard)}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <span>

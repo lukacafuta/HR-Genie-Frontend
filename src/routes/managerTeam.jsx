@@ -1,12 +1,16 @@
-import {RouteContentStyled, RouteHeadStyled} from "../styles/routeGeneralStyles.js";
+import {
+  RouteContentStyled,
+  RouteHeadStyled,
+} from "../styles/routeGeneralStyles.js";
+import UserContainer from "../components/UserContainer.jsx";
 
 export default function ManagerTeamRoute() {
-    return (
-        <RouteContentStyled>
-            <RouteHeadStyled>
-                <div><h2>My Team</h2>
-                    <p>Add something here</p></div>
-            </RouteHeadStyled>
-        </RouteContentStyled>
-    )
+  return (
+    <RouteContentStyled>
+      <RouteHeadStyled>
+        <h2>My Team</h2>
+      </RouteHeadStyled>
+      <UserContainer />
+    </RouteContentStyled>
+  );
 }

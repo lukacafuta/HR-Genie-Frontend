@@ -3,23 +3,35 @@ import { useEffect } from "react";
 import { initialLoadLocalStorage } from "../store/slices/UserSlice";
 import { RowCardContainer } from "../styles/cardStyles.js";
 import UserCard from "./UserCard.jsx";
+import { Route, useLocation } from "react-router-dom";
 
 export default function UserContainer() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   //while there is no data
-  const initialUserList = useSelector((state) => state.user.userList);
+  const fullUserList = useSelector((state) => state.user.userList);
+
+  const managerId = "4"; //should be the id of logged in user if he is a manager.
+
+  const filteredUsers = fullUserList.filter(
+    (user) => user.manager === managerId,
+  );
+
+  const userList = location.pathname.startsWith("/company/employees")
+    ? fullUserList
+    : filteredUsers;
 
   useEffect(() => {
     const storedUserList = JSON.parse(localStorage.getItem("userList"));
     if (storedUserList && storedUserList.length > 0) {
       dispatch(initialLoadLocalStorage(storedUserList));
     } else {
-      localStorage.setItem("userList", JSON.stringify(initialUserList));
+      localStorage.setItem("userList", JSON.stringify(userList));
     }
   }, [dispatch]);
 
-  const userList = useSelector((state) => state.user.userList);
+  //const userList = useSelector((state) => state.user.userList);
 
   return (
     <>
