@@ -6,7 +6,7 @@ export const CompanyFieldsStyled = styled.div`
     display: grid;
     width: 100%;
     padding: 2rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-bottom: 8rem;
 
     h3 {
@@ -16,7 +16,7 @@ export const CompanyFieldsStyled = styled.div`
 
     input[type="text"] {
         display: flex;
-        width: 360px;
+        width: 260px;
         height: 48px;
         padding: 16px 0px 16px 13px;
         justify-content: flex-end;
@@ -25,6 +25,13 @@ export const CompanyFieldsStyled = styled.div`
         border: 1px solid var(--neutral-neutral-border-day, #E8EDF2);
         background: var(--neutral-neutral-bg-day, #FFF);
         box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.10);
+    }
+
+    .saveArea {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
     }
 
 `;
