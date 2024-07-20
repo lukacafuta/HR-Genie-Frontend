@@ -5,7 +5,9 @@ const userSlice = createSlice({
     initialState: {
         accessToken: undefined,
         role: "company_admin",
-        userObject: [] // this is the user object that will be fetched from the backend
+        userObject: [], // this is the user object that will be fetched from the backend
+        isManager: false,
+        isCompanyAdmin: false,
     },
     reducers: {
         login: (state, action) => {
@@ -16,9 +18,16 @@ const userSlice = createSlice({
         },
         setUserObject: (state, action) => {
             state.userObject = action.payload;
-        }
+        },
+
+        setIsCompanyAdmin: (state, action) => {
+            state.isCompanyAdmin = action.payload;
+        },
+        setIsManager: (state, action) => {
+            state.isManager = action.payload;
+        },
     },
 });
 
-export const {login, logout, setUserObject} = userSlice.actions;
+export const {login, logout, setUserObject, isCompanyAdmin, isManager} = userSlice.actions;
 export default userSlice.reducer;
