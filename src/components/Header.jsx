@@ -1,4 +1,4 @@
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import logo from '../../public/logo.jpg';
 import profile from '../../public/profile.png';
 import bell from '../../public/bell.png';
@@ -10,6 +10,9 @@ import {
     DropdownView
 } from '../styles/headerStyles';
 import {changeView} from "../store/slices/ViewSlice.jsx";
+import {useEffect} from "react";
+import {api} from "../common/api.js";
+import {setIsManager, setUserObject} from "../store/slices/UserSlice.jsx";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -17,6 +20,41 @@ const Header = () => {
     const handleChange = (event) => {
         dispatch(changeView(event.target.value));
     };
+
+    const user = useSelector((state) => state.user.userObject);
+    console.log("loc user:  ", user)
+
+    const isManager = useSelector((state) => state.user.managers);
+    console.log("loc man: ", isManager)
+
+    const token = localStorage.getItem("accessToken");
+
+
+    useEffect(() => {
+        if (user.length < 1) {
+            api.setAuthToken(token);
+            api("/users/me/")
+                .then((res) => {
+                    console.log("fetched usr: ", res.data[0]);
+                    dispatch(setUserObject(res.data[0]));
+                }).catch((err) => {
+                console.log(err);
+            })
+        }
+        if (isManager === undefined) {
+            api.setAuthToken(token);
+            api("/users/approvers/")
+                .then((res) => {
+                    console.log("fetched man: ", res.data);
+                    dispatch(setIsManager(res.data));
+                }).catch((err) => {
+                console.log(err);
+            })
+        } else {
+            console.log("no man fetch")
+        }
+    }, []);
+
 
     return (
         <HeaderContainer>
