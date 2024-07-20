@@ -12,7 +12,7 @@ import {
 import {changeView} from "../store/slices/ViewSlice.jsx";
 import {useEffect} from "react";
 import {api} from "../common/api.js";
-import {setManagers, setUserObject} from "../store/slices/UserSlice.jsx";
+import {setIsManager, setUserObject} from "../store/slices/UserSlice.jsx";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -22,13 +22,13 @@ const Header = () => {
     };
 
     const user = useSelector((state) => state.user.userObject);
-    console.log("loc user: ", user)
+    console.log("loc user:  ", user)
 
-    const managers = useSelector((state) => state.user.managers);
-    console.log("loc man: ", managers.length)
+    const isManager = useSelector((state) => state.user.managers);
+    console.log("loc man: ", isManager)
 
     const token = localStorage.getItem("accessToken");
-    
+
 
     useEffect(() => {
         if (user.length < 1) {
@@ -41,12 +41,12 @@ const Header = () => {
                 console.log(err);
             })
         }
-        if (managers.length < 1) {
+        if (isManager === undefined) {
             api.setAuthToken(token);
             api("/users/approvers/")
                 .then((res) => {
-                    console.log("fetched mans: ", res.data);
-                    dispatch(setManagers(res.data));
+                    console.log("fetched man: ", res.data);
+                    dispatch(setIsManager(res.data));
                 }).catch((err) => {
                 console.log(err);
             })
