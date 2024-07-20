@@ -32,7 +32,7 @@ export default function Router() {
             >
               <Route path="/company" element={<CompanyRoute />} />
               <Route
-                path="/company/employees"
+                path="/company/employees/:userIndex?"
                 element={<CompanyEmployeesRoute />}
               />
               <Route
@@ -50,7 +50,10 @@ export default function Router() {
                 path="/manager/requests/:requestIndex?"
                 element={<ManagerRequestsRoute />}
               />
-              <Route path="/manager/team" element={<ManagerTeamRoute />} />
+              <Route
+                path="/manager/team/:userIndex?"
+                element={<ManagerTeamRoute />}
+              />
               <Route
                 path="/manager/calendar"
                 element={<ManagerCalendarRoute />}
