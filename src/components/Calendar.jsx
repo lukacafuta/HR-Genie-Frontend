@@ -30,6 +30,13 @@ const reasonLabels = {
     holiday: "Holiday"
 };
 
+// color mapping for different reasons
+const colorMapping = {
+    vacation: '#FF7F50', // Coral
+    sick_leave: '#4682B4', // SteelBlue
+    training: '#32CD32', // LimeGreen
+    holiday: '#FFD700' // Gold
+};
 
 const CalendarComponent = () => {
     const [events, setEvents] = useState([]);
@@ -79,6 +86,22 @@ const CalendarComponent = () => {
 
     const formattedDate = moment(date).format(view === Views.MONTH ? 'MMMM YYYY' : 'dddd, MMMM Do YYYY');
 
+    // event style getter function
+    const eventStyleGetter = (event) => {
+        const backgroundColor = colorMapping[event.type] || '#3174ad'; // default color
+        const style = {
+            backgroundColor,
+            borderRadius: '5px',
+            opacity: 0.8,
+            color: 'white',
+            border: '0px',
+            display: 'block'
+        };
+        return {
+            style
+        };
+    };
+
     return (
         <CalendarContainer>
             <DateDisplay>{formattedDate}</DateDisplay>
@@ -112,6 +135,7 @@ const CalendarComponent = () => {
                 date={date}
                 onNavigate={setDate}
                 toolbar={false} // Disable the default toolbar to remove duplicate buttons
+                eventPropGetter={eventStyleGetter} // apply custom styles
             />
         </CalendarContainer>
     );
