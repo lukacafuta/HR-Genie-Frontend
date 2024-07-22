@@ -28,8 +28,8 @@ export default function RequestForm({ isModalOpen, closeModal, onFormSubmit }) {
   const [comment, setComment] = useState("");
 
   const [price, setPrice] = useState("");
-  const [fromDateTraining, setFromDateTraining] = useState("");
-  const [toDateTraining, setToDateTraining] = useState("");
+  //const [fromDateTraining, setFromDateTraining] = useState("");
+  //const [toDateTraining, setToDateTraining] = useState("");
   const [trainingTitle, setTrainingTitle] = useState("");
   const [trainingURL, setTrainingURL] = useState("");
 
@@ -59,8 +59,8 @@ export default function RequestForm({ isModalOpen, closeModal, onFormSubmit }) {
       toDate,
       comment,
       price,
-      fromDateTraining,
-      toDateTraining,
+      //fromDateTraining,
+      //toDateTraining,
       trainingTitle,
       trainingURL,
     };
@@ -70,17 +70,16 @@ export default function RequestForm({ isModalOpen, closeModal, onFormSubmit }) {
       reason: requestType,
     };
     const payloadTraining = {
-      startDt: cleanUpOutgoingDateTime(fromDate),
-      endDt: cleanUpOutgoingDateTime(toDate),
-      trainingURL: "http://google.com",
+      trainingUrl: trainingURL,
       title: trainingTitle,
       description: comment,
       price: price,
     };
     let payload = requestType === "training" ? payloadTraining : payloadAbsence;
     let endpointRequest =
-      requestType === "training" ? "trainings/me" : "/absences/me/";
-    console.log(JSON.stringify(formContent));
+      requestType === "training" ? "/trainings/me/" : "/absences/me/";
+
+    console.log("payload sent to BE:", JSON.stringify(payload));
     //dispatch()
 
     try {
@@ -163,26 +162,26 @@ export default function RequestForm({ isModalOpen, closeModal, onFormSubmit }) {
 
             {requestType === "training" && (
               <div>
-                <div style={{ display: "flex", gap: "6px" }}>
-                  <div>
-                    <FormLabel htmlFor="inputFromDateTraining">From</FormLabel>
-                    <FormInputBasic
-                      id="inputFromDateTraining"
-                      type="date"
-                      value={fromDateTraining}
-                      onChange={(e) => setFromDateTraining(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <FormLabel htmlFor="inputToDateTraining">To</FormLabel>
-                    <FormInputBasic
-                      id="inputToDateTraining"
-                      type="date"
-                      value={toDateTraining}
-                      onChange={(e) => setToDateTraining(e.target.value)}
-                    />
-                  </div>
-                </div>
+                {/*<div style={{ display: "flex", gap: "6px" }}>*/}
+                {/*  <div>*/}
+                {/*    <FormLabel htmlFor="inputFromDateTraining">From</FormLabel>*/}
+                {/*    <FormInputBasic*/}
+                {/*      id="inputFromDateTraining"*/}
+                {/*      type="date"*/}
+                {/*      value={fromDateTraining}*/}
+                {/*      onChange={(e) => setFromDateTraining(e.target.value)}*/}
+                {/*    />*/}
+                {/*  </div>*/}
+                {/*  <div>*/}
+                {/*    <FormLabel htmlFor="inputToDateTraining">To</FormLabel>*/}
+                {/*    <FormInputBasic*/}
+                {/*      id="inputToDateTraining"*/}
+                {/*      type="date"*/}
+                {/*      value={toDateTraining}*/}
+                {/*      onChange={(e) => setToDateTraining(e.target.value)}*/}
+                {/*    />*/}
+                {/*  </div>*/}
+                {/*</div>*/}
 
                 <div>
                   <FormLabel htmlFor="inputTrainingTitle">

@@ -3,6 +3,7 @@ import {
   RouteHeadStyled,
 } from "../styles/routeGeneralStyles.js";
 import RequestContainer from "../components/RequestContainer.jsx";
+import TrainingContainer from "../components/TrainingContainer.jsx";
 
 export default function ManagerRequestsRoute() {
   return (
@@ -13,6 +14,12 @@ export default function ManagerRequestsRoute() {
         </div>
       </RouteHeadStyled>
       <RequestContainer />
+      <RouteHeadStyled>
+        <div>
+          <h2>Trainings</h2>
+        </div>
+      </RouteHeadStyled>
+      <TrainingContainer />
     </RouteContentStyled>
   );
 }
