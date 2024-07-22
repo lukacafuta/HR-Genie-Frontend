@@ -1,4 +1,5 @@
 import {RouteContentStyled, RouteHeadStyled} from "../styles/routeGeneralStyles.js";
+import CalendarComponent from "../components/Calendar.jsx";
 
 export default function EmployeeCalendarRoute() {
     return (
@@ -8,6 +9,7 @@ export default function EmployeeCalendarRoute() {
                     <p>Add something here</p></div>
 
             </RouteHeadStyled>
+            <CalendarComponent/>
         </RouteContentStyled>
     )
 }
