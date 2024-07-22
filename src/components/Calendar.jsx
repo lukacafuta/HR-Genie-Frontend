@@ -22,7 +22,14 @@ moment.updateLocale('en', {
 
 const localizer = momentLocalizer(moment);
 
-// const initialEvents = [];
+// mapping object for user-friendly labels
+const reasonLabels = {
+    vacation: "Vacation",
+    sick_leave: "Sick Leave",
+    training: "Training",
+    holiday: "Holiday"
+};
+
 
 const CalendarComponent = () => {
     const [events, setEvents] = useState([]);
@@ -39,7 +46,7 @@ const CalendarComponent = () => {
             .then(response => {
                 const absences = response.data.map(absence => ({
                     id: absence.id,
-                    title: `${absence.reason} - ${absence.requester}`,
+                    title: `${reasonLabels[absence.reason]}: ${absence.requester}`,
                     start: new Date(absence.startDt),
                     end: new Date(absence.endDt),
                     type: absence.reason.toLowerCase()
@@ -79,7 +86,7 @@ const CalendarComponent = () => {
                 <ControlSelect onChange={handleFilterChange} value={filter}>
                     <option value="all">All Calendars</option>
                     <option value="vacation">Vacation</option>
-                    <option value="sick">Sick Leave</option>
+                    <option value="sick_leave">Sick Leave</option>
                     <option value="training">Training</option>
                     <option value="holiday">Holiday</option>
                 </ControlSelect>
