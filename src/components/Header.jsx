@@ -13,11 +13,13 @@ import {changeView} from "../store/slices/ViewSlice.jsx";
 import {useEffect} from "react";
 import {api} from "../common/api.js";
 import {setIsManager, setUserObject} from "../store/slices/UserSlice.jsx";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
+
+    const companyName = useSelector((state) => state.company.companyData.companyName);
 
     const handleChange = (event) => {
         dispatch(changeView(event.target.value));
@@ -68,9 +70,9 @@ const Header = () => {
                 }).catch((err) => {
                 console.log(err);
             })
-        } else {
-            console.log("no man fetch")
         }
+
+
     }, []);
 
 
@@ -80,14 +82,14 @@ const Header = () => {
                 <CompanyLogo>
                     <img src={logo} alt="Constructor Academy Logo"/>
                 </CompanyLogo>
-                <h1>Constructor Academy</h1>
+                <h1>{companyName}</h1>
             </div>
             <div>
                 <DropdownView>
                     <select onChange={handleChange}>
                         <option value="company_admin">Company View</option>
                         <option value="manager">Manager View</option>
-                        <option value="employee">Employee View</option>
+                        <option selected="selected" value="employee">Employee View</option>
                     </select>
                 </DropdownView>
                 <Bell>

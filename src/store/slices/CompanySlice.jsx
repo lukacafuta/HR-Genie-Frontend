@@ -21,8 +21,8 @@ const CompanySlice = createSlice({
             "holidayDate": "2024-05-03"
         },],
         companyData: {
-            "companyId": 1,
-            "companyName": "Constructor Academy",
+            "companyId": undefined,
+            "companyName": undefined,
             "companyLogo": "",
             "companyWorkingHours": {
                 "start": "8",

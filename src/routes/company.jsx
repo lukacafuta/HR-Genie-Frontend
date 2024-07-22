@@ -88,7 +88,7 @@ export default function CompanyRoute() {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
-            console.log(res.data);
+            console.log("then: ", res.data);
         }).catch((error) => {
             console.error("Error saving settings:", error);
         });
