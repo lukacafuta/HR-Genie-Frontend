@@ -24,9 +24,9 @@ export default function ManagerRoute() {
             <p style={{marginBottom: "2rem"}}>Charts go here</p>
 
             <RequestMiniTableAreaStyled>
-                <RequestMiniTable name={"Vacation Requests"} type={"Vacation"} requests={requests}/>
-                <RequestMiniTable name={"Training Requests"} type={"Training"} requests={requests}/>
-                <RequestMiniTable name={"Absence Notice"} type={"Absence"} requests={requests}/>
+                <RequestMiniTable name={"Vacation Requests"} type={"vacation"} requests={requests}/>
+                <RequestMiniTable name={"Training Requests"} type={"training"} requests={requests}/>
+                <RequestMiniTable name={"Absence Notice"} type={"sick_leave"} requests={requests}/>
             </RequestMiniTableAreaStyled>
 
 
