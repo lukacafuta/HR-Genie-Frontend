@@ -22,7 +22,7 @@ const CompanySlice = createSlice({
         },],
         companyData: {
             "companyId": undefined,
-            "companyName": undefined,
+            "companyName": "",
             "companyLogo": "",
             "companyWorkingHours": {
                 "start": "8",
