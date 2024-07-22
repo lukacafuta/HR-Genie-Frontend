@@ -4,8 +4,8 @@ import ButtonBrand from "./buttons/ButtonBrand.jsx";
 
 export default function RequestMiniTable({name, type, requests}) {
 
-    const filteredRequests = requests.filter(request => request.type === type);
-    // console.log(type, "minitable comp: ", requests)
+    const filteredRequests = requests.filter(request => request.reason === type);
+    console.log(type, "minitable comp: ", requests)
 
 
     return (
