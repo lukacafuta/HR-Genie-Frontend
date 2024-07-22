@@ -1,6 +1,7 @@
 import {Calendar as BigCalendar, momentLocalizer, Views} from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import {api} from "../common/api.js";
 import {
     CalendarContainer,
     Controls,
@@ -9,7 +10,8 @@ import {
     NavButton,
     DateDisplay
 } from '../styles/calendarStyles';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {useSelector} from "react-redux";
 
 // Configure moment.js to start weeks on Monday
 moment.updateLocale('en', {
@@ -20,13 +22,35 @@ moment.updateLocale('en', {
 
 const localizer = momentLocalizer(moment);
 
-const initialEvents = [];
+// const initialEvents = [];
 
 const CalendarComponent = () => {
-    const [events] = useState(initialEvents);
+    const [events, setEvents] = useState([]);
     const [view, setView] = useState(Views.MONTH);
     const [filter, setFilter] = useState('all');
     const [date, setDate] = useState(new Date());
+
+    const accessToken = useSelector((state) => state.user.accessToken);
+
+    useEffect(() => {
+        api.setAuthToken(accessToken);
+
+        api.get('/absences/')
+            .then(response => {
+                const absences = response.data.map(absence => ({
+                    id: absence.id,
+                    title: `${absence.reason} - ${absence.requester}`,
+                    start: new Date(absence.startDt),
+                    end: new Date(absence.endDt),
+                    type: absence.reason.toLowerCase()
+                }));
+                console.log('Mapped absences data:', absences); // log the mapped response data
+                setEvents(absences);
+            })
+            .catch(error => {
+                console.error('Error fetching absences:', error);
+            });
+    }, [accessToken]);
 
     const handleFilterChange = (event) => {
         setFilter(event.target.value);
