@@ -8,7 +8,7 @@ export default function ProtectedRoute({allowedRoles}) {
 
     const isLoggedIn = useSelector((state) => state.user.accessToken)
     const userRole = useSelector((state) => state.user.role)
-    console.log("role: ", userRole)
+    // console.log("role: ", userRole)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function ProtectedRoute({allowedRoles}) {
     useEffect(() => {
         const localToken = localStorage.getItem("accessToken");
         if (localToken) {
-            console.log("token there");
+            console.log("Token in storage");
             api.post("auth/token/verify/", {token: localToken})
                 .then(dispatch(login(localToken)))
                 .catch(() => {
@@ -25,7 +25,7 @@ export default function ProtectedRoute({allowedRoles}) {
                     console.log("wrong token");
                 });
         } else {
-            console.log("no token");
+            console.log("No token in storage");
             navigate("/login");
         }
     }, []);

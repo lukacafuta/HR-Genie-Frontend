@@ -25,15 +25,15 @@ const Header = () => {
         dispatch(changeView(event.target.value));
         switch (event.target.value) {
             case "company_admin":
-                console.log(event.target.value);
+                // console.log(event.target.value);
                 navigate("/company")
                 break;
             case "manager":
-                console.log(event.target.value);
+                // console.log(event.target.value);
                 navigate("/manager")
                 break;
             case "employee":
-                console.log(event.target.value);
+                // console.log(event.target.value);
                 navigate("/employee")
                 break;
             default:
@@ -86,10 +86,10 @@ const Header = () => {
             </div>
             <div>
                 <DropdownView>
-                    <select onChange={handleChange}>
+                    <select onChange={handleChange} value="employee">
                         <option value="company_admin">Company View</option>
                         <option value="manager">Manager View</option>
-                        <option selected="selected" value="employee">Employee View</option>
+                        <option value="employee">Employee View</option>
                     </select>
                 </DropdownView>
                 <Bell>

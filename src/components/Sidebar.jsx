@@ -3,7 +3,8 @@ import {NavLinkButtonStyled, NavStyled, SidebarStyles} from "../styles/sidebarSt
 
 export default function Sidebar() {
     const view = useSelector((state) => state.view.view);
-    console.log("view: ", view);
+
+    // console.log("view: ", view);
 
     function renderNav() {
         if (view === "company_admin") {
