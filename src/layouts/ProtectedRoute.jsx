@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {Navigate, Outlet, useNavigate} from 'react-router-dom'
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {api} from "../common/api.js";
 import {login} from "../store/slices/UserSlice.jsx";
 
@@ -8,7 +8,9 @@ export default function ProtectedRoute({allowedRoles}) {
 
     const isLoggedIn = useSelector((state) => state.user.accessToken)
     const userRole = useSelector((state) => state.user.role)
-    console.log("role: ", userRole)
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true); // State to manage authentication checking status
+
+    // console.log("role: ", userRole)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -16,19 +18,35 @@ export default function ProtectedRoute({allowedRoles}) {
     useEffect(() => {
         const localToken = localStorage.getItem("accessToken");
         if (localToken) {
-            console.log("token there");
+            console.log("Token in storage");
             api.post("auth/token/verify/", {token: localToken})
-                .then(dispatch(login(localToken)))
+                // .then(dispatch(login(localToken)))
+                .then(res => {
+                    if (res.status === 200) {
+                        console.log("Token verified");
+                        dispatch(login(localToken));
+                    } else {
+                        throw new Error('Token verification failed');
+                    }
+                })
                 .catch(() => {
                     localStorage.removeItem("accessToken");
+                    console.log("Token verification failed or wrong token");
                     navigate("/login");
-                    console.log("wrong token");
-                });
+                })
+                .finally(() => setIsCheckingAuth(false)); // Set checking status to false after verification
+
         } else {
-            console.log("no token");
+            console.log("No token in storage");
             navigate("/login");
+            setIsCheckingAuth(false); // Set checking status to false if no token found
+
         }
     }, []);
+
+    if (isCheckingAuth) {
+        return <>⏳</>; // Or any other loading indicator
+    }
 
     if (!isLoggedIn) {
         return <Navigate to='/login'/>;

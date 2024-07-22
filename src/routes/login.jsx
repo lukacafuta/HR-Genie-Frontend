@@ -21,21 +21,21 @@ export default function LoginRoute() {
         // console.log("password: ", password);
         e.preventDefault();
 
-        console.log("e: ", e);
+        // console.log("e: ", e);
         try {
-            console.log("yep")
+            // console.log("In try")
             api.post("/auth/token/", {email, password})
                 .then(res => {
-                    console.log("API call successful", res)
+                    // console.log("API call successful", res)
 
-                    console.log(res);
-                    console.log(res.data.access);
+                    // console.log(res);
+                    // console.log(res.data.access);
                     localStorage.setItem("accessToken", res.data.access);
                     dispatch(login(res.data.access));
                     navigate("/employee")
                 })
         } catch (error) {
-            console.log("nope")
+            // console.log("No Login for you")
             console.error(error);
             setErrorMessage(error);
             console.log(errorMessage)
