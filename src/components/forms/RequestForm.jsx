@@ -1,5 +1,5 @@
 import { useState } from "react";
-//import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 import {
   Modal,
@@ -14,12 +14,17 @@ import {
 
 import ButtonBrand from "../buttons/ButtonBrand.jsx";
 import ButtonUpload from "../buttons/ButtonUpload.jsx";
+import { useSelector } from "react-redux";
+import { api } from "../../common/api.js";
+import { cleanUpOutgoingDateTime } from "../../common/utils.js";
 
 // eslint-disable-next-line react/prop-types
-export default function RequestForm({ isModalOpen, closeModal }) {
+export default function RequestForm({ isModalOpen, closeModal, onFormSubmit }) {
+  const navigate = useNavigate();
+
   const [requestType, setRequestType] = useState("");
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+  const [fromDate, setFromDate] = useState("2024-07-01T08:00");
+  const [toDate, setToDate] = useState("2024-07-02T17:00");
   const [comment, setComment] = useState("");
 
   const [price, setPrice] = useState("");
@@ -29,6 +34,12 @@ export default function RequestForm({ isModalOpen, closeModal }) {
   const [trainingURL, setTrainingURL] = useState("");
 
   //const dispatch = useDispatch();
+  const storeToken = useSelector((state) => state.user.accessToken);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${storeToken}`,
+    },
+  };
 
   const handleFileSelect = (file) => {
     // This currently only saves the filename
@@ -38,6 +49,7 @@ export default function RequestForm({ isModalOpen, closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     console.log("hello");
     let userId = "1";
     const formContent = {
@@ -52,8 +64,35 @@ export default function RequestForm({ isModalOpen, closeModal }) {
       trainingTitle,
       trainingURL,
     };
+    const payloadAbsence = {
+      startDt: cleanUpOutgoingDateTime(fromDate),
+      endDt: cleanUpOutgoingDateTime(toDate),
+      reason: requestType,
+    };
+    const payloadTraining = {
+      startDt: cleanUpOutgoingDateTime(fromDate),
+      endDt: cleanUpOutgoingDateTime(toDate),
+      trainingURL: "http://google.com",
+      title: trainingTitle,
+      description: comment,
+      price: price,
+    };
+    let payload = requestType === "training" ? payloadTraining : payloadAbsence;
+    let endpointRequest =
+      requestType === "training" ? "trainings/me" : "/absences/me/";
     console.log(JSON.stringify(formContent));
     //dispatch()
+
+    try {
+      console.log("yep");
+      api.post(endpointRequest, payload, config).then((res) => {
+        console.log("API call successful", res.data);
+        if (onFormSubmit) onFormSubmit(); // Call the callback to refresh data
+      });
+    } catch (error) {
+      console.log("nope");
+      console.error(error);
+    }
     closeModal();
   };
 
@@ -91,13 +130,13 @@ export default function RequestForm({ isModalOpen, closeModal }) {
                 <option value="" disabled>
                   Select a request type
                 </option>
-                <option value="Vacation">Vacation</option>
-                <option value="Absence">Absence</option>
-                <option value="Training">Training</option>
+                <option value="vacation">Vacation</option>
+                <option value="sick_leave">Absence</option>
+                <option value="training">Training</option>
               </FormInputSelect>
             </div>
 
-            {(requestType === "Vacation" || requestType === "Absence") && (
+            {(requestType === "vacation" || requestType === "sick_leave") && (
               <div>
                 <div style={{ display: "flex", gap: "6px" }}>
                   <div>
@@ -122,7 +161,7 @@ export default function RequestForm({ isModalOpen, closeModal }) {
               </div>
             )}
 
-            {requestType === "Training" && (
+            {requestType === "training" && (
               <div>
                 <div style={{ display: "flex", gap: "6px" }}>
                   <div>
@@ -189,7 +228,7 @@ export default function RequestForm({ isModalOpen, closeModal }) {
                   />
                 </div>
 
-                {requestType === "Absence" && (
+                {requestType === "sick_leave" && (
                   <div>
                     <FormLabel htmlFor="avatar">Add a file:</FormLabel>
                     <ButtonUpload
@@ -210,7 +249,7 @@ export default function RequestForm({ isModalOpen, closeModal }) {
                   }}
                 >
                   <ButtonBrand
-                    iconURL={"tick-circle.png"}
+                    iconURL={"/tick-circle.png"}
                     buttonText="Send Request"
                     type="submit"
                   />

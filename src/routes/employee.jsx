@@ -1,42 +1,51 @@
-import {useState} from "react";
+import { useState, useCallback } from "react";
 
 import ButtonBrand from "../components/buttons/ButtonBrand.jsx";
 import RequestForm from "../components/forms/RequestForm.jsx";
 import {
-    RouteContentStyled,
-    RouteHeadStyled,
+  RouteContentStyled,
+  RouteHeadStyled,
 } from "../styles/routeGeneralStyles.js";
 import RequestContainer from "../components/RequestContainer.jsx";
 import EmployeeSummaryCard from "../components/EmployeeSummaryCard.jsx";
 import EmployeeChartCard from "../components/EmployeeChartCard.jsx";
 
 export default function EmployeeRoute() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
+  const [refresh, setRefresh] = useState(false);
 
-    return (
-        <RouteContentStyled>
-            <RouteHeadStyled>
-                <div>
-                    <h2>Welcome</h2>
-                    <p>Here you can manage your requests and personal information.</p>
-                </div>
-                <ButtonBrand
-                    iconURL={"/plus-add.svg"}
-                    buttonText={"New Request"}
-                    onClick={openModal}
-                />
-            </RouteHeadStyled>
+  const handleRefresh = useCallback(() => {
+    setRefresh((prev) => !prev); // Toggle boolean value to trigger refresh
+  }, []);
 
-            <RequestForm isModalOpen={isModalOpen} closeModal={closeModal}/>
-            <div style={{display: "flex", gap: "5px"}}>
-                <EmployeeSummaryCard/>
-                <EmployeeChartCard/>
-            </div>
-            <h3 style={{marginBottom: "5px"}}>Requests</h3>
-            <RequestContainer/>
-        </RouteContentStyled>
-    );
+  return (
+    <RouteContentStyled>
+      <RouteHeadStyled>
+        <div>
+          <h2>Welcome</h2>
+          <p>Here you can manage your requests and personal information.</p>
+        </div>
+        <ButtonBrand
+          iconURL={"/plus-add.svg"}
+          buttonText={"New Request"}
+          onClick={openModal}
+        />
+      </RouteHeadStyled>
+
+      <RequestForm
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        onFormSubmit={handleRefresh}
+      />
+      <div style={{ display: "flex", gap: "5px" }}>
+        <EmployeeSummaryCard />
+        <EmployeeChartCard />
+      </div>
+      <h3 style={{ marginBottom: "5px" }}>Requests</h3>
+      <RequestContainer refresh={refresh} />
+    </RouteContentStyled>
+  );
 }
