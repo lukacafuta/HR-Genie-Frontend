@@ -18,9 +18,21 @@ export default function RequestCard({oneRequest}) {
 
     const [isExpanded, setIsExpanded] = useState(false);
 
+    const isManagerView = useSelector((state) => state.view.view) === "manager";
+
+    // console.log("isManagerView", isManagerView);
+
     function handleMoreClick(requestCard) {
         dispatch(logRequestInfo(requestCard));
         setIsExpanded(!isExpanded);
+    }
+
+    function handleDeny(requestCard) {
+        console.log("deny", requestCard);
+    }
+
+    function handleApprove(requestCard) {
+        console.log("approvey", requestCard);
     }
 
     function handleUpdate(requestCard) {
@@ -115,17 +127,32 @@ export default function RequestCard({oneRequest}) {
                             width: "80%",
                         }}
                     >
-                        {status === "Pending" && (
+                        {(status === "Pending" && !isManagerView) && (
                             <ButtonRed
                                 iconURL={"/cross-deny.png"}
                                 buttonText={"Delete"}
                                 onClick={() => handleDelete(oneRequest)}
                             />
                         )}
-                        {status === "Pending" && (
+                        {(status === "Pending" && !isManagerView) && (
                             <ButtonGreen
                                 iconURL={"/tick-circle.png"}
                                 buttonText={"Update"}
+                                onClick={() => handleUpdate(oneRequest)}
+                            />
+                        )}
+
+                        {(status === "Pending" && isManagerView) && (
+                            <ButtonRed
+                                iconURL={"/cross-deny.png"}
+                                buttonText={"Deny"}
+                                onClick={() => handleDelete(oneRequest)}
+                            />
+                        )}
+                        {(status === "Pending" && isManagerView) && (
+                            <ButtonGreen
+                                iconURL={"/tick-circle.png"}
+                                buttonText={"Approve"}
                                 onClick={() => handleUpdate(oneRequest)}
                             />
                         )}
