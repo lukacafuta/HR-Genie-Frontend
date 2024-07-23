@@ -31,14 +31,14 @@ export default function RequestMinitableItem({request, isTraining}) {
 
     const trainingList = (
         <>
-            <Link to={`/manager/requests/${request.id}#${request.id}`}>
+            <Link to={`/manager/requests/t${request.id}#t${request.id}`}>
                 <MiniTableItemStyled id={request.id}>
                     <div className="row">
                         <div className="requester"> {"Add name"}</div>
                         <div className="date"><p>{request.title}</p></div>
                     </div>
                     <div className="depstat">
-                        <p>{`Departemento ${request.team}`}</p>
+                        <p>{`Add department`}</p>
                         <p>{request.trainingUrl}</p>
                     </div>
 
