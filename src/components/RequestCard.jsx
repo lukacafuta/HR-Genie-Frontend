@@ -1,137 +1,137 @@
-import { useDispatch, useSelector } from "react-redux";
-import { loadRequests, logRequestInfo } from "../store/slices/RequestSlice.jsx";
-import { RowCard } from "../styles/cardStyles.js";
-import { useEffect, useState } from "react";
-import { BtnGreen, BtnRed } from "../styles/buttonStyles.js";
+import {useDispatch, useSelector} from "react-redux";
+import {loadRequests, logRequestInfo} from "../store/slices/RequestSlice.jsx";
+import {RowCard} from "../styles/cardStyles.js";
+import {useEffect, useState} from "react";
+import {BtnGreen, BtnRed} from "../styles/buttonStyles.js";
 import ButtonGreen from "./buttons/ButtonGreen.jsx";
 import ButtonRed from "./buttons/ButtonRed.jsx";
-import { Link, useParams } from "react-router-dom";
-import { cleanUpIncomingDate, cleanUpIncomingText } from "../common/utils.js";
-import { api } from "../common/api.js";
+import {Link, useParams} from "react-router-dom";
+import {cleanUpIncomingDate, cleanUpIncomingText} from "../common/utils.js";
+import {api} from "../common/api.js";
 
-export default function RequestCard({ oneRequest }) {
-  const { requestIndex } = useParams();
-  const view = useSelector((state) => state.view.view);
-  let currentRoleURLParam = view === "manager" ? "manager" : "employee";
+export default function RequestCard({oneRequest}) {
+    const {requestIndex} = useParams();
+    const view = useSelector((state) => state.view.view);
+    let currentRoleURLParam = view === "manager" ? "manager" : "employee";
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
 
-  function handleMoreClick(requestCard) {
-    dispatch(logRequestInfo(requestCard));
-    setIsExpanded(!isExpanded);
-  }
+    function handleMoreClick(requestCard) {
+        dispatch(logRequestInfo(requestCard));
+        setIsExpanded(!isExpanded);
+    }
 
-  function handleUpdate(requestCard) {
-    console.log("update", requestCard);
-  }
+    function handleUpdate(requestCard) {
+        console.log("update", requestCard);
+    }
 
-  function handleDelete(requestCard) {
-    console.log("delete", requestCard);
-  }
+    function handleDelete(requestCard) {
+        console.log("delete", requestCard);
+    }
 
-  let { id, requester, startDt, endDt, dtCreated, reason, status } = oneRequest;
+    let {id, requester, startDt, endDt, dtCreated, reason, status} = oneRequest;
 
-  //Format Request Data
-  startDt = cleanUpIncomingDate(startDt);
-  endDt = cleanUpIncomingDate(endDt);
-  dtCreated = cleanUpIncomingDate(dtCreated);
-  reason = cleanUpIncomingText(reason);
-  status = cleanUpIncomingText(status);
+    //Format Request Data
+    startDt = cleanUpIncomingDate(startDt);
+    endDt = cleanUpIncomingDate(endDt);
+    dtCreated = cleanUpIncomingDate(dtCreated);
+    reason = cleanUpIncomingText(reason);
+    status = cleanUpIncomingText(status);
 
-  return (
-    <>
-      <Link to={`/${currentRoleURLParam}/requests/${id}#${id}`}>
-        <RowCard id={id} onClick={() => handleMoreClick(oneRequest)}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+    return (
+        <>
+            <Link to={`/${currentRoleURLParam}/requests/${id}#${id}`}>
+                <RowCard id={id} onClick={() => handleMoreClick(oneRequest)}>
+                    <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
             <span>
               <img
-                src="/profile.png"
-                //src={requestCard.profile}
-                alt="profile"
-                height="35px"
-                width="35px"
+                  src="/profile.png"
+                  //src={requestCard.profile}
+                  alt="profile"
+                  height="35px"
+                  width="35px"
               />{" "}
             </span>
-            <span>
+                        <span>
               <b>
-                Requester {requester}
-                {/*{requestCard.firstName} {requestCard.lastName}*/}
+                Requester {requester.customUser.username}
+                  {/*{requestCard.firstName} {requestCard.lastName}*/}
               </b>
             </span>
-          </div>
-          Request #{id}
-          <span>{reason}</span>
-          <span>
+                    </div>
+                    Request #{id}
+                    <span>{reason}</span>
+                    <span>
             {startDt} - {endDt}
           </span>
-          <div
-            style={{
-              display: "flex",
-              justifySelf: "end",
-              height: "100%",
-              alignItems: "center",
-            }}
-          >
-            {Number(requestIndex) !== id ? (
-              <img src="/MoreInfo.png" alt="..." height="3px" />
-            ) : (
-              <img src="/arrow-down.png" alt="..." height="8px" />
-            )}
-          </div>
-        </RowCard>
-      </Link>
-      {Number(requestIndex) === id && (
-        <div style={{ display: "flex", gap: "10px" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              gap: "10px",
-              padding: "10px",
-              width: "20%",
-            }}
-          >
+                    <div
+                        style={{
+                            display: "flex",
+                            justifySelf: "end",
+                            height: "100%",
+                            alignItems: "center",
+                        }}
+                    >
+                        {Number(requestIndex) !== id ? (
+                            <img src="/MoreInfo.png" alt="..." height="3px"/>
+                        ) : (
+                            <img src="/arrow-down.png" alt="..." height="8px"/>
+                        )}
+                    </div>
+                </RowCard>
+            </Link>
+            {Number(requestIndex) === id && (
+                <div style={{display: "flex", gap: "10px"}}>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            gap: "10px",
+                            padding: "10px",
+                            width: "20%",
+                        }}
+                    >
             <span>
               {/*<b>Submitted on:</b> {requestCard.submittedOn}*/}
-              <b>Created on:</b> {dtCreated}
+                <b>Created on:</b> {dtCreated}
             </span>
-            <span>
+                        <span>
               <b>Status:</b> {status}
             </span>
-            {/*<span>*/}
-            {/*  <b>Comment: </b>*/}
-            {/*  {requestCard.comment}*/}
-            {/*</span>*/}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              gap: "10px",
-              padding: "10px",
-              width: "80%",
-            }}
-          >
-            {status === "Pending" && (
-              <ButtonRed
-                iconURL={"/cross-deny.png"}
-                buttonText={"Delete"}
-                onClick={() => handleDelete(oneRequest)}
-              />
+                        {/*<span>*/}
+                        {/*  <b>Comment: </b>*/}
+                        {/*  {requestCard.comment}*/}
+                        {/*</span>*/}
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "end",
+                            gap: "10px",
+                            padding: "10px",
+                            width: "80%",
+                        }}
+                    >
+                        {status === "Pending" && (
+                            <ButtonRed
+                                iconURL={"/cross-deny.png"}
+                                buttonText={"Delete"}
+                                onClick={() => handleDelete(oneRequest)}
+                            />
+                        )}
+                        {status === "Pending" && (
+                            <ButtonGreen
+                                iconURL={"/tick-circle.png"}
+                                buttonText={"Update"}
+                                onClick={() => handleUpdate(oneRequest)}
+                            />
+                        )}
+                    </div>
+                </div>
             )}
-            {status === "Pending" && (
-              <ButtonGreen
-                iconURL={"/tick-circle.png"}
-                buttonText={"Update"}
-                onClick={() => handleUpdate(oneRequest)}
-              />
-            )}
-          </div>
-        </div>
-      )}
-    </>
-  );
+        </>
+    );
 }

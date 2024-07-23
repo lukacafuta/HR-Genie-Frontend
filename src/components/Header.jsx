@@ -20,7 +20,7 @@ const Header = () => {
     const navigate = useNavigate()
 
     const [selectedView, setSelectedView] = useState(localStorage.getItem("selectedView") || "employee");
-    const [accountMenuVisbility, setAccountMenuVisibility] = useState(true);
+    const [accountMenuVisbility, setAccountMenuVisibility] = useState(false);
 
     const companyName = useSelector((state) => state.company.companyData.companyName);
     const user = useSelector((state) => state.user.userObject);
