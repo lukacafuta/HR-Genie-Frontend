@@ -58,7 +58,7 @@ const CalendarComponent = () => {
                     end: new Date(absence.endDt),
                     type: absence.reason.toLowerCase()
                 }));
-                console.log('Mapped absences data:', absences); // log the mapped response data
+                // console.log('Mapped absences data:', absences); // log the mapped response data
                 setEvents(absences);
             })
             .catch(error => {
