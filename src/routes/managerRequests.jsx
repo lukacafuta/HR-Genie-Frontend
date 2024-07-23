@@ -19,7 +19,7 @@ export default function ManagerRequestsRoute() {
                     <h2>Trainings</h2>
                 </div>
             </RouteHeadStyled>
-            {/*<TrainingContainer />*/}
+            <TrainingContainer/>
         </RouteContentStyled>
     );
 }
