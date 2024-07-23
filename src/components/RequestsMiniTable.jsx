@@ -3,10 +3,12 @@ import {RequestsMinitableStyled} from "../styles/miniTableStyles.js";
 import ButtonBrand from "./buttons/ButtonBrand.jsx";
 
 export default function RequestMiniTable({name, type, requests}) {
+    let isTrainingRequestlist = false; // Declare outside the if block
 
-    const isTrainingRequestlist = requests[0].hasOwnProperty("trainingUrl")
-    // console.log(isTrainingRequestlist)
-    // const filteredRequests = requests.filter(request => request.reason === type);
+    if (requests[0] !== undefined && "trainingUrl" in requests[0]) {
+        isTrainingRequestlist = true; // Assign within the if block
+    }
+
     // console.log(type, "minitable comp: ", requests)
 
     let filteredRequests
