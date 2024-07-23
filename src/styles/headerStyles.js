@@ -68,6 +68,37 @@ export const Bell = styled.div`
         height: 40px;
         border-radius: 50%;
         cursor: pointer;
+
+        &:hover {
+            transform: scale(0.97);
+            transition: all 0.1s ease-in-out;
+            cursor: pointer;
+            color: var(--brand-color);
+        }
     }
 `;
 
+export const AccountMenuContainer = styled.div`
+    position: absolute;
+    top: 70px;
+    right: 50px;
+    background-color: var(--white);
+    border-radius: var(--border-radius-small);
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 100;
+    box-shadow: var(--inputs-shadow);
+
+    div {
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(0.97);
+            transition: all 0.1s ease-in-out;
+            cursor: pointer;
+            color: var(--brand-color);
+        }
+    }
+`;

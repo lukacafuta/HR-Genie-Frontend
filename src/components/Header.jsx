@@ -4,7 +4,6 @@ import profile from '../../public/profile.png';
 import bell from '../../public/bell.png';
 import {
     HeaderContainer,
-    CompanyName,
     Bell,
     CompanyLogo,
     DropdownView
@@ -14,20 +13,19 @@ import {useEffect, useState} from "react";
 import {api} from "../common/api.js";
 import {setIsManager, setUserObject} from "../store/slices/UserSlice.jsx";
 import {useNavigate} from "react-router-dom";
+import AccountMenu from "./AccountMenu.jsx";
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
     const [selectedView, setSelectedView] = useState(localStorage.getItem("selectedView") || "employee");
+    const [accountMenuVisbility, setAccountMenuVisibility] = useState(true);
 
     const companyName = useSelector((state) => state.company.companyData.companyName);
-
     const user = useSelector((state) => state.user.userObject);
-    // console.log("loc user:  ", user)
-
     const isManager = useSelector((state) => state.user.managers);
-    // console.log("loc man: ", isManager)
+
 
     const token = localStorage.getItem("accessToken");
 
@@ -54,6 +52,10 @@ const Header = () => {
         }
     };
 
+    const handleProfileClick = () => {
+        setAccountMenuVisibility(!accountMenuVisbility);
+
+    }
 
     useEffect(() => {
         // console.log("sel view: ", selectedView)
@@ -100,7 +102,10 @@ const Header = () => {
                 </DropdownView>
                 <Bell>
                     <img className="bell" src={bell} alt="Bell"/>
-                    <img className="profile-pic" src={profile} alt="Profile"/>
+                    <div className={"profile-container"}>
+                        <img className="profile-pic" src={profile} onClick={() => handleProfileClick()} alt="Profile"/>
+                        {accountMenuVisbility && <AccountMenu/>}
+                    </div>
                 </Bell>
             </div>
         </HeaderContainer>
