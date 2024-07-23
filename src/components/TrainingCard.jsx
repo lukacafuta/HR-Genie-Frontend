@@ -62,7 +62,7 @@ export default function TrainingCard({ oneTraining }) {
             />{" "}
           </span>
           <span>
-            <b>Requester {requester}</b>
+            <b> Requester {requester.customUser.username}</b>
           </span>
         </div>
         Training #{id}
