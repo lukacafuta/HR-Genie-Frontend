@@ -3,13 +3,13 @@ import {NavLinkButtonStyled, NavStyled, SidebarStyles} from "../styles/sidebarSt
 
 export default function Sidebar() {
     const view = useSelector((state) => state.view.view);
-    console.log("view: ", view);
+
+    // console.log("view: ", view);
 
     function renderNav() {
         if (view === "company_admin") {
             return (
                 <NavStyled>
-                    <span>Company Nav</span>
                     <NavLinkButtonStyled end to="/company">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -22,7 +22,7 @@ export default function Sidebar() {
                                 d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"
                                 stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                    </NavLinkButtonStyled>
+                        Company Settings </NavLinkButtonStyled>
                     <NavLinkButtonStyled to="/company/employees">
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path

@@ -1,4 +1,4 @@
-import {LoginContainerStyled, LoginPageStyled} from "../styles/loginStyles.js";
+import {ErrorMessageStyled, LoginContainerStyled, LoginPageStyled} from "../styles/loginStyles.js";
 import {BtnLogin} from "../styles/buttonStyles.js";
 import {useState} from "react";
 import {api} from "../common/api.js";
@@ -10,35 +10,28 @@ export default function LoginRoute() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessageVisibility, setErrorMessageVisibility] = useState(false)
 
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = async (e) => {
         // console.log("email: ", email);
         // console.log("password: ", password);
         e.preventDefault();
 
-        console.log("e: ", e);
+        // console.log("e: ", e);
         try {
-            console.log("yep")
-            api.post("/auth/token/", {email, password})
-                .then(res => {
-                    console.log("API call successful", res)
-
-                    console.log(res);
-                    console.log(res.data.access);
-                    localStorage.setItem("accessToken", res.data.access);
-                    dispatch(login(res.data.access));
-                    navigate("/employee")
-                })
+            // console.log("In try")
+            const res = await api.post("/auth/token/", {email, password})
+            localStorage.setItem("accessToken", res.data.access);
+            dispatch(login(res.data.access));
+            navigate("/employee")
         } catch (error) {
-            console.log("nope")
-            console.error(error);
-            setErrorMessage(error);
-            console.log(errorMessage)
+            // console.log("No Login for you")
+            console.error("catched: ", error);
+            setErrorMessageVisibility(true);
         }
 
     }
@@ -69,11 +62,12 @@ export default function LoginRoute() {
                     <BtnLogin type="submit">
                         Login
                     </BtnLogin>
-                    {errorMessage && (
 
-                        <p><br/>Username or password incorrect. Please try again.</p>
 
-                    )}
+                    <ErrorMessageStyled className={errorMessageVisibility ? "errorMessageVisible" : ""}>Username or password incorrect.
+                        Please try again.</ErrorMessageStyled>
+
+
                 </form>
 
 

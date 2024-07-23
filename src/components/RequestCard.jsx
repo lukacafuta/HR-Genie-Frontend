@@ -1,130 +1,189 @@
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addRequestToList,
-  logRequestInfo,
-} from "../store/slices/RequestSlice.jsx";
-import { RowCard } from "../styles/cardStyles.js";
-import { useState } from "react";
-import { BtnGreen, BtnRed } from "../styles/buttonStyles.js";
+import {useDispatch, useSelector} from "react-redux";
+import {loadRequests, logRequestInfo} from "../store/slices/RequestSlice.jsx";
+import {RowCard} from "../styles/cardStyles.js";
+import {useEffect, useState} from "react";
+import {BtnGreen, BtnRed} from "../styles/buttonStyles.js";
 import ButtonGreen from "./buttons/ButtonGreen.jsx";
 import ButtonRed from "./buttons/ButtonRed.jsx";
-import { Link, useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {cleanUpIncomingDate, cleanUpIncomingText} from "../common/utils.js";
+import {api} from "../common/api.js";
 
-export default function RequestCard({ oneRequest }) {
-  const { requestIndex } = useParams();
-  const view = useSelector((state) => state.view.view);
-  let currentRoleURLParam = view === "manager" ? "manager" : "employee";
+export default function RequestCard({oneRequest, updateRequests}) {
+    const {requestIndex} = useParams();
+    const view = useSelector((state) => state.view.view);
+    let currentRoleURLParam = view === "manager" ? "manager" : "employee";
 
-  const requestList = useSelector((state) => state.request.requestList);
-  const requestCard = requestList.find((r) => r.id === parseInt(oneRequest.id));
+    const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
+    const [isExpanded, setIsExpanded] = useState(false);
 
-  const [isExpanded, setIsExpanded] = useState(false);
+    const isManagerView = useSelector((state) => state.view.view) === "manager";
+    const accessToken = useSelector((state) => state.user.accessToken);
 
-  function handleMoreClick(requestCard) {
-    dispatch(logRequestInfo(requestCard));
-    setIsExpanded(!isExpanded);
-  }
+    // console.log("isManagerView", isManagerView);
 
-  function handleUpdate(requestCard) {
-    console.log("update", requestCard);
-  }
 
-  function handleDelete(requestCard) {
-    console.log("delete", requestCard);
-  }
+    const patchRequestStatus = (requestId, status) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        const requestBody = {
+            status: status,
+        };
+        try {
+            api.patch(`/absences/manager/myteam/${requestId}`, requestBody, config).then((res) => {
+                console.log("API call successful", res.data);
+                updateRequests()
 
-  return (
-    <>
-      <Link
-        to={`/${currentRoleURLParam}/requests/${requestCard.id}#${requestCard.id}`}
-      >
-        <RowCard
-          id={requestCard.id}
-          onClick={() => handleMoreClick(requestCard)}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function handleMoreClick(requestCard) {
+        dispatch(logRequestInfo(requestCard));
+        setIsExpanded(!isExpanded);
+    }
+
+    function handleDeny(requestCard) {
+        console.log("set to rejected", requestCard);
+        patchRequestStatus(requestCard.id, "rejected");
+    }
+
+    function handleApprove(requestCard) {
+        console.log("set to approved", requestCard);
+        patchRequestStatus(requestCard.id, "approved");
+    }
+
+    function handleUpdate(requestCard) {
+        console.log("update", requestCard);
+    }
+
+    function handleDelete(requestCard) {
+        console.log("delete", requestCard);
+    }
+
+    let {id, requester, startDt, endDt, dtCreated, reason, status} = oneRequest;
+
+    //Format Request Data
+    startDt = cleanUpIncomingDate(startDt);
+    endDt = cleanUpIncomingDate(endDt);
+    dtCreated = cleanUpIncomingDate(dtCreated);
+    reason = cleanUpIncomingText(reason);
+    status = cleanUpIncomingText(status);
+
+    return (
+        <>
+            <Link to={`/${currentRoleURLParam}/requests/${id}#${id}`}>
+                <RowCard id={id} onClick={() => handleMoreClick(oneRequest)}>
+                    <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
             <span>
               <img
-                src={requestCard.profile}
-                alt="profile"
-                height="35px"
-                width="35px"
+                  src="/profile.png"
+                  //src={requestCard.profile}
+                  alt="profile"
+                  height="35px"
+                  width="35px"
               />{" "}
             </span>
-            <span>
+                        <span>
               <b>
-                {requestCard.firstName} {requestCard.lastName}
+                Requester {requester.customUser.username}
+                  {/*{requestCard.firstName} {requestCard.lastName}*/}
               </b>
             </span>
-          </div>
-          Request #{requestCard.id}
-          <span>{requestCard.type}</span>
-          <span>
-            {requestCard.fromDate} - {requestCard.toDate}
+                    </div>
+                    Request #{id}
+                    <span>{reason}</span>
+                    <span>
+            {startDt} - {endDt}
           </span>
-          <div
-            style={{
-              display: "flex",
-              justifySelf: "end",
-              height: "100%",
-              alignItems: "center",
-            }}
-          >
-            {Number(requestIndex) !== requestCard.id ? (
-              <img src="/MoreInfo.png" alt="..." height="3px" />
-            ) : (
-              <img src="/arrow-down.png" alt="..." height="8px" />
+                    <div
+                        style={{
+                            display: "flex",
+                            justifySelf: "end",
+                            height: "100%",
+                            alignItems: "center",
+                        }}
+                    >
+                        {Number(requestIndex) !== id ? (
+                            <img src="/MoreInfo.png" alt="..." height="3px"/>
+                        ) : (
+                            <img src="/arrow-down.png" alt="..." height="8px"/>
+                        )}
+                    </div>
+                </RowCard>
+            </Link>
+            {Number(requestIndex) === id && (
+                <div style={{display: "flex", gap: "10px"}}>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            gap: "10px",
+                            padding: "10px",
+                            width: "20%",
+                        }}
+                    >
+            <span>
+              {/*<b>Submitted on:</b> {requestCard.submittedOn}*/}
+                <b>Created on:</b> {dtCreated}
+            </span>
+                        <span>
+              <b>Status:</b> {status}
+            </span>
+                        {/*<span>*/}
+                        {/*  <b>Comment: </b>*/}
+                        {/*  {requestCard.comment}*/}
+                        {/*</span>*/}
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "end",
+                            gap: "10px",
+                            padding: "10px",
+                            width: "80%",
+                        }}
+                    >
+                        {(status === "Pending" && !isManagerView) && (
+                            <ButtonRed
+                                iconURL={"/cross-deny.png"}
+                                buttonText={"Delete"}
+                                onClick={() => handleDelete(oneRequest)}
+                            />
+                        )}
+                        {(status === "Pending" && !isManagerView) && (
+                            <ButtonGreen
+                                iconURL={"/tick-circle.png"}
+                                buttonText={"Update"}
+                                onClick={() => handleUpdate(oneRequest)}
+                            />
+                        )}
+
+                        {(status === "Pending" && isManagerView) && (
+                            <ButtonRed
+                                iconURL={"/cross-deny.png"}
+                                buttonText={"Deny"}
+                                onClick={() => handleDeny(oneRequest)}
+                            />
+                        )}
+                        {(status === "Pending" && isManagerView) && (
+                            <ButtonGreen
+                                iconURL={"/tick-circle.png"}
+                                buttonText={"Approve"}
+                                onClick={() => handleApprove(oneRequest)}
+                            />
+                        )}
+                    </div>
+                </div>
             )}
-          </div>
-        </RowCard>
-      </Link>
-      {Number(requestIndex) === requestCard.id && (
-        <div style={{ display: "flex", gap: "10px" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              gap: "10px",
-              padding: "10px",
-              width: "20%",
-            }}
-          >
-            <span>
-              <b>Submitted on:</b> {requestCard.submittedOn}
-            </span>
-            <span>
-              <b>Status:</b> {requestCard.status}
-            </span>
-            <span>
-              <b>Comment: </b>
-              {requestCard.comment}
-            </span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              gap: "10px",
-              padding: "10px",
-              width: "80%",
-            }}
-          >
-            <ButtonRed
-              iconURL={"/cross-deny.png"}
-              buttonText={"Delete"}
-              onClick={() => handleDelete(requestCard)}
-            />
-            <ButtonGreen
-              iconURL={"/tick-circle.png"}
-              buttonText={"Update"}
-              onClick={() => handleUpdate(requestCard)}
-            />
-          </div>
-        </div>
-      )}
-    </>
-  );
+        </>
+    );
 }

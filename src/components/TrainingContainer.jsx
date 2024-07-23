@@ -1,17 +1,17 @@
 import {useDispatch, useSelector} from "react-redux";
-import RequestCard from "./RequestCard";
+import TrainingCard from "./TrainingCard";
 import {useEffect, useState} from "react";
-import {loadRequests} from "../store/slices/RequestSlice";
+import {loadTrainings} from "../store/slices/RequestSlice";
 import {RowCardContainer} from "../styles/cardStyles.js";
 import {api} from "../common/api.js";
 
-export default function RequestContainer({refresh}) {
+export default function TrainingContainer({refresh}) {
     const dispatch = useDispatch();
     const view = useSelector((state) => state.view.view);
-    const requestList = useSelector((state) => state.request.requestList);
+    const trainingList = useSelector((state) => state.request.trainingList);
     const accessToken = useSelector((state) => state.user.accessToken);
 
-    const fetchRequests = () => {
+    const fetchTrainings = () => {
         const config = {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -20,33 +20,33 @@ export default function RequestContainer({refresh}) {
 
         try {
             // Is the user in Manager or Employee View
-            let endpointForAbsences =
-                view === "manager" ? "/absences/" : "/absences/me/";
-            api.get(endpointForAbsences, config).then((res) => {
-                console.log("API call successful", res.data);
-                let requestData = res.data;
-                dispatch(loadRequests(requestData));
+            let endpointForTrainings =
+                view === "manager" ? "/trainings/" : "/trainings/me/";
+            // console.log("yep i am here");
+            api.get(endpointForTrainings, config).then((res) => {
+                // console.log("API call successful", res.data);
+                let trainingData = res.data;
+                dispatch(loadTrainings(trainingData));
             });
         } catch (error) {
             console.log("nope");
             console.error(error);
         }
     };
-
     const updateRequests = () => {
-        fetchRequests(); // Assuming fetchRequests fetches the updated list and updates state
+        fetchTrainings();
     };
     // created to refresh the requests
 
     useEffect(() => {
-        fetchRequests();
+        fetchTrainings();
     }, [dispatch, refresh]);
 
     return (
         <>
             <RowCardContainer>
-                {requestList.map((oneRequest) => (
-                    <RequestCard key={oneRequest.id} oneRequest={oneRequest} updateRequests={updateRequests}/>
+                {trainingList.map((oneTraining) => (
+                    <TrainingCard key={oneTraining.id} oneTraining={oneTraining} updateRequests={updateRequests}/>
                 ))}
             </RowCardContainer>
         </>

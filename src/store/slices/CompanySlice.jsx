@@ -21,8 +21,8 @@ const CompanySlice = createSlice({
             "holidayDate": "2024-05-03"
         },],
         companyData: {
-            "companyId": 1,
-            "companyName": "Constructor Academy",
+            "companyId": undefined,
+            "companyName": "",
             "companyLogo": "",
             "companyWorkingHours": {
                 "start": "8",
@@ -32,7 +32,7 @@ const CompanySlice = createSlice({
     },
     reducers: {
         AddHoliday: (state, action) => {
-            console.log("New Entry", action.payload)
+            // console.log("New Entry", action.payload)
             const newHoliday = {
                 id: state.publicHolidays.length + 1,
                 holidayName: action.payload.holidayName,
@@ -49,7 +49,7 @@ const CompanySlice = createSlice({
         },
         ChangeCompanyName: (state, action) => {
             state.companyData.companyName = action.payload;
-            console.log(state.companyData.companyName)
+            // console.log(state.companyData.companyName)
         },
         ChangeStartHours: (state, action) => {
             state.companyData.companyWorkingHours.start = action.payload;

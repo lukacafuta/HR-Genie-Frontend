@@ -45,7 +45,7 @@ export default function CompanyRoute() {
         api.setAuthToken(token);
         console.log(token)
         api("/companies/me/").then((res) => {
-            console.log(res.data.companyName);
+            // console.log(res.data.companyName);
             dispatch(ChangeCompanyName(res.data.companyName));
         });
     }, []);
@@ -88,7 +88,7 @@ export default function CompanyRoute() {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
-            console.log(res.data);
+            console.log("then: ", res.data);
         }).catch((error) => {
             console.error("Error saving settings:", error);
         });
