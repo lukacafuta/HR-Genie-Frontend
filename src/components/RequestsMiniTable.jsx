@@ -5,7 +5,7 @@ import ButtonBrand from "./buttons/ButtonBrand.jsx";
 export default function RequestMiniTable({name, type, requests}) {
     let isTrainingRequestlist = false; // Declare outside the if block
 
-    if (requests.length > 0 && requests[0].hasOwn("trainingUrl")) {
+    if (requests[0] !== undefined && "trainingUrl" in requests[0]) {
         isTrainingRequestlist = true; // Assign within the if block
     }
 
