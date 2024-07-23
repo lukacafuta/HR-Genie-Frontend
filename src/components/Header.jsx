@@ -10,7 +10,7 @@ import {
     DropdownView
 } from '../styles/headerStyles';
 import {changeView} from "../store/slices/ViewSlice.jsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {api} from "../common/api.js";
 import {setIsManager, setUserObject} from "../store/slices/UserSlice.jsx";
 import {useNavigate} from "react-router-dom";
@@ -19,10 +19,13 @@ const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
+    const [selectedView, setSelectedView] = useState("employee");
+
     const companyName = useSelector((state) => state.company.companyData.companyName);
 
     const handleChange = (event) => {
         dispatch(changeView(event.target.value));
+        setSelectedView(event.target.value);
         switch (event.target.value) {
             case "company_admin":
                 // console.log(event.target.value);
@@ -86,7 +89,7 @@ const Header = () => {
             </div>
             <div>
                 <DropdownView>
-                    <select onChange={handleChange} value="employee">
+                    <select onChange={handleChange} value={selectedView}>
                         <option value="company_admin">Company View</option>
                         <option value="manager">Manager View</option>
                         <option value="employee">Employee View</option>
