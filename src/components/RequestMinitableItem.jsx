@@ -1,7 +1,7 @@
 import {MiniTableItemStyled} from "../styles/miniTableStyles.js";
 import {Link} from "react-router-dom";
 
-export default function RequestMinitableItem({request}) {
+export default function RequestMinitableItem({request, isTraining}) {
 
     const formatDateTime = (dt) => {
         const date = new Date(dt);
@@ -11,20 +11,47 @@ export default function RequestMinitableItem({request}) {
 
     }
 
+    const requestList = (
+        <>
+            <Link to={`/manager/requests/${request.id}#${request.id}`}>
+                <MiniTableItemStyled id={request.id}>
+                    <div className="row">
+                        <div className="requester"> {"Add name to endpoint"}</div>
+                        <div className="date"><p>{formatDateTime(request.startDt)} - {formatDateTime(request.endDt)}</p></div>
+                    </div>
+                    <div className="depstat">
+                        <p>{`Add department`}</p>
+                        <p>{request.status}</p>
+                    </div>
+
+                </MiniTableItemStyled>
+            </Link>
+        </>
+    )
+
+    const trainingList = (
+        <>
+            <Link to={`/manager/requests/t${request.id}#t${request.id}`}>
+                <MiniTableItemStyled id={request.id}>
+                    <div className="row">
+                        <div className="requester"> {"Add name"}</div>
+                        <div className="date"><p>{request.title}</p></div>
+                    </div>
+                    <div className="depstat">
+                        <p>{`Add department`}</p>
+                        <p>{request.trainingUrl}</p>
+                    </div>
+
+                </MiniTableItemStyled>
+            </Link>
+        </>
+    )
+
+    const content = isTraining ? trainingList : requestList;
 
     return (
-        <Link to={`/manager/requests/${request.id}#${request.id}`}>
-            <MiniTableItemStyled id={request.id}>
-                <div className="row">
-                    <div className="requester"> {request.requester} {request.requester}</div>
-                    <div className="date"><p>{formatDateTime(request.startDt)} - {formatDateTime(request.endDt)}</p></div>
-                </div>
-                <div className="depstat">
-                    <p>{`Departemento ${request.team}`}</p>
-                    <p>{request.status}</p>
-                </div>
-
-            </MiniTableItemStyled>
-        </Link>
+        <>
+            {content}
+        </>
     );
 }

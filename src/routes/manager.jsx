@@ -6,6 +6,7 @@ import {RequestMiniTableAreaStyled} from "../styles/miniTableStyles.js";
 export default function ManagerRoute() {
 
     const requests = useSelector((state) => state.request.requestList);
+    const trainingRequests = useSelector((state) => state.request.trainingList);
     // const vacationRequests = requests.filter(request => request.type === "Vacation");
     // const trainingRequests = requests.filter(request => request.type === "Training");
     // const absenceRequests = requests.filter(request => request.type === "Absence");
@@ -25,7 +26,7 @@ export default function ManagerRoute() {
 
             <RequestMiniTableAreaStyled>
                 <RequestMiniTable name={"Vacation Requests"} type={"vacation"} requests={requests}/>
-                <RequestMiniTable name={"Training Requests"} type={"training"} requests={requests}/>
+                <RequestMiniTable name={"Training Requests"} type={"training"} requests={trainingRequests}/>
                 <RequestMiniTable name={"Absence Notice"} type={"sick_leave"} requests={requests}/>
             </RequestMiniTableAreaStyled>
 
