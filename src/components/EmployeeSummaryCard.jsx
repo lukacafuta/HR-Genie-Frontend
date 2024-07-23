@@ -5,14 +5,49 @@ import {
   HalfWidthCardTitle,
 } from "../styles/cardStyles.js";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { useEffect } from "react";
+import { api } from "../common/api.js";
+import { setUserObject } from "../store/slices/UserSlice.jsx";
+
 export default function EmployeeSummaryCard() {
+  const token = localStorage.getItem("accessToken");
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.userObject);
+
+  const fetchUser = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const res = await api.get("/users/me/", config);
+      console.log("API call successful-user", res.data[0]);
+      let userData = res.data[0];
+      dispatch(setUserObject(userData));
+    } catch (error) {
+      console.log("nope");
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   const loggedInUser = {
-    firstName: "Bob",
-    lastName: "Sponge",
-    gender: "Male",
-    birthday: "01.01.1980",
-    team: "Marketing",
-    manager: "Sunny Benny",
+    firstName: user.customUser?.first_name,
+    lastName: user.customUser?.last_name,
+    username: user.customUser?.username,
+    avatar: user.customUser?.avatar,
+    gender: user.gender,
+    firstDayAtWork: user.firstDayAtWork,
+    birthday: user.birthdayDate,
+    team: user.department?.nameDepartment,
+    manager: `${user.approver?.customUser?.first_name} ${user.approver?.customUser?.last_name}`,
     phone: "+41 78 98 23 01",
     emailAddress: "admin@admin.ch",
     street: "Bahnhofstrasse 12",
@@ -29,22 +64,23 @@ export default function EmployeeSummaryCard() {
           <HalfWidthCardContent>
             <span>
               <HalfWidthCardLabel>First Name:</HalfWidthCardLabel>{" "}
-              {loggedInUser.firstName}
+              {loggedInUser.first_name}
             </span>
             <span>
               <HalfWidthCardLabel>Last Name:</HalfWidthCardLabel>{" "}
-              {loggedInUser.lastName}{" "}
+              {loggedInUser.last_name}{" "}
             </span>
             <span>
               <HalfWidthCardLabel>Gender: </HalfWidthCardLabel>
-              {loggedInUser.gender}
+              {user.gender}
             </span>
             <span>
               <HalfWidthCardLabel>Birthday: </HalfWidthCardLabel>
-              {loggedInUser.birthday}{" "}
+              {user.birthdayDate}{" "}
             </span>
             <span>
-              <HalfWidthCardLabel>Team:</HalfWidthCardLabel> {loggedInUser.team}{" "}
+              <HalfWidthCardLabel>Team:</HalfWidthCardLabel>{" "}
+              {loggedInUser.nameDepartment}{" "}
             </span>
             <span>
               <HalfWidthCardLabel>Manager: </HalfWidthCardLabel>
