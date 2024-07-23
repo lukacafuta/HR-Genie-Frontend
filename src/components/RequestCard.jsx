@@ -19,8 +19,29 @@ export default function RequestCard({oneRequest}) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const isManagerView = useSelector((state) => state.view.view) === "manager";
+    const accessToken = useSelector((state) => state.user.accessToken);
 
     // console.log("isManagerView", isManagerView);
+
+
+    const patchRequestStatus = (requestId, status) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        const requestBody = {
+            status: status,
+        };
+        try {
+            api.patch(`/absences/manager/myteam/${requestId}`, requestBody, config).then((res) => {
+                console.log("API call successful", res.data);
+
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     function handleMoreClick(requestCard) {
         dispatch(logRequestInfo(requestCard));
@@ -28,11 +49,13 @@ export default function RequestCard({oneRequest}) {
     }
 
     function handleDeny(requestCard) {
-        console.log("deny", requestCard);
+        console.log("set to rejected", requestCard);
+        patchRequestStatus(requestCard.id, "rejected");
     }
 
     function handleApprove(requestCard) {
-        console.log("approvey", requestCard);
+        console.log("set to approved", requestCard);
+        patchRequestStatus(requestCard.id, "approved");
     }
 
     function handleUpdate(requestCard) {
@@ -146,14 +169,14 @@ export default function RequestCard({oneRequest}) {
                             <ButtonRed
                                 iconURL={"/cross-deny.png"}
                                 buttonText={"Deny"}
-                                onClick={() => handleDelete(oneRequest)}
+                                onClick={() => handleDeny(oneRequest)}
                             />
                         )}
                         {(status === "Pending" && isManagerView) && (
                             <ButtonGreen
                                 iconURL={"/tick-circle.png"}
                                 buttonText={"Approve"}
-                                onClick={() => handleUpdate(oneRequest)}
+                                onClick={() => handleApprove(oneRequest)}
                             />
                         )}
                     </div>
