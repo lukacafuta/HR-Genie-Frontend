@@ -33,6 +33,9 @@ export default function RequestContainer({refresh}) {
         }
     };
 
+    const updateRequests = () => {
+        fetchRequests(); // Assuming fetchRequests fetches the updated list and updates state
+    };
     // created to refresh the requests
 
     useEffect(() => {
@@ -43,7 +46,7 @@ export default function RequestContainer({refresh}) {
         <>
             <RowCardContainer>
                 {requestList.map((oneRequest) => (
-                    <RequestCard key={oneRequest.id} oneRequest={oneRequest}/>
+                    <RequestCard key={oneRequest.id} oneRequest={oneRequest} updateRequests={updateRequests}/>
                 ))}
             </RowCardContainer>
         </>

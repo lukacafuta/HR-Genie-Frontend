@@ -9,7 +9,7 @@ import {Link, useParams} from "react-router-dom";
 import {cleanUpIncomingDate, cleanUpIncomingText} from "../common/utils.js";
 import {api} from "../common/api.js";
 
-export default function RequestCard({oneRequest}) {
+export default function RequestCard({oneRequest, updateRequests}) {
     const {requestIndex} = useParams();
     const view = useSelector((state) => state.view.view);
     let currentRoleURLParam = view === "manager" ? "manager" : "employee";
@@ -36,6 +36,8 @@ export default function RequestCard({oneRequest}) {
         try {
             api.patch(`/absences/manager/myteam/${requestId}`, requestBody, config).then((res) => {
                 console.log("API call successful", res.data);
+                updateRequests()
+
 
             })
         } catch (error) {
