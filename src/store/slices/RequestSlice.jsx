@@ -4,6 +4,7 @@ const requestSlice = createSlice({
   name: "request",
   initialState: {
     requestList: [],
+    trainingList: [],
   },
   reducers: {
     logRequestInfo: (state, action) => {
@@ -13,10 +14,10 @@ const requestSlice = createSlice({
     loadRequests: (state, action) => {
       state.requestList = action.payload;
     },
-    deleteRequest: (state, action) => {
-      console.log("will delete request");
+    loadTrainings: (state, action) => {
+      state.trainingList = action.payload;
     },
-    addRequest: (state, action) => {
+    deleteRequest: (state, action) => {
       console.log("will delete request");
     },
     updateRequest: (state, action) => {
@@ -25,10 +26,6 @@ const requestSlice = createSlice({
   },
 });
 
-export const {
-  logRequestInfo,
-  addRequestToList,
-  initialLoadLocalStorage,
-  loadRequests,
-} = requestSlice.actions;
+export const { logRequestInfo, loadRequests, loadTrainings } =
+  requestSlice.actions;
 export default requestSlice.reducer;

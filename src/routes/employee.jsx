@@ -9,6 +9,7 @@ import {
 import RequestContainer from "../components/RequestContainer.jsx";
 import EmployeeSummaryCard from "../components/EmployeeSummaryCard.jsx";
 import EmployeeChartCard from "../components/EmployeeChartCard.jsx";
+import TrainingContainer from "../components/TrainingContainer.jsx";
 
 export default function EmployeeRoute() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,6 +47,8 @@ export default function EmployeeRoute() {
       </div>
       <h3 style={{ marginBottom: "5px" }}>Requests</h3>
       <RequestContainer refresh={refresh} />
+      <h3 style={{ marginBottom: "5px" }}>Trainings</h3>
+      <TrainingContainer refresh={refresh} />
     </RouteContentStyled>
   );
 }
