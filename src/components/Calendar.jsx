@@ -53,7 +53,7 @@ const CalendarComponent = () => {
             .then(response => {
                 const absences = response.data.map(absence => ({
                     id: absence.id,
-                    title: `${reasonLabels[absence.reason]}: ${absence.requester}`,
+                    title: `${reasonLabels[absence.reason]}: ${absence.requester.customUser.first_name} ${absence.requester.customUser.last_name}`,
                     start: new Date(absence.startDt),
                     end: new Date(absence.endDt),
                     type: absence.reason.toLowerCase()
