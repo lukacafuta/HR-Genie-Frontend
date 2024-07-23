@@ -9,7 +9,7 @@ import {Link, useParams} from "react-router-dom";
 import {cleanUpIncomingDate, cleanUpIncomingText} from "../common/utils.js";
 import {api} from "../common/api.js";
 
-export default function RequestCard({oneRequest}) {
+export default function RequestCard({oneRequest, updateRequests}) {
     const {requestIndex} = useParams();
     const view = useSelector((state) => state.view.view);
     let currentRoleURLParam = view === "manager" ? "manager" : "employee";
@@ -18,9 +18,46 @@ export default function RequestCard({oneRequest}) {
 
     const [isExpanded, setIsExpanded] = useState(false);
 
+    const isManagerView = useSelector((state) => state.view.view) === "manager";
+    const accessToken = useSelector((state) => state.user.accessToken);
+
+    // console.log("isManagerView", isManagerView);
+
+
+    const patchRequestStatus = (requestId, status) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        const requestBody = {
+            status: status,
+        };
+        try {
+            api.patch(`/absences/manager/myteam/${requestId}`, requestBody, config).then((res) => {
+                console.log("API call successful", res.data);
+                updateRequests()
+
+
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     function handleMoreClick(requestCard) {
         dispatch(logRequestInfo(requestCard));
         setIsExpanded(!isExpanded);
+    }
+
+    function handleDeny(requestCard) {
+        console.log("set to rejected", requestCard);
+        patchRequestStatus(requestCard.id, "rejected");
+    }
+
+    function handleApprove(requestCard) {
+        console.log("set to approved", requestCard);
+        patchRequestStatus(requestCard.id, "approved");
     }
 
     function handleUpdate(requestCard) {
@@ -115,18 +152,33 @@ export default function RequestCard({oneRequest}) {
                             width: "80%",
                         }}
                     >
-                        {status === "Pending" && (
+                        {(status === "Pending" && !isManagerView) && (
                             <ButtonRed
                                 iconURL={"/cross-deny.png"}
                                 buttonText={"Delete"}
                                 onClick={() => handleDelete(oneRequest)}
                             />
                         )}
-                        {status === "Pending" && (
+                        {(status === "Pending" && !isManagerView) && (
                             <ButtonGreen
                                 iconURL={"/tick-circle.png"}
                                 buttonText={"Update"}
                                 onClick={() => handleUpdate(oneRequest)}
+                            />
+                        )}
+
+                        {(status === "Pending" && isManagerView) && (
+                            <ButtonRed
+                                iconURL={"/cross-deny.png"}
+                                buttonText={"Deny"}
+                                onClick={() => handleDeny(oneRequest)}
+                            />
+                        )}
+                        {(status === "Pending" && isManagerView) && (
+                            <ButtonGreen
+                                iconURL={"/tick-circle.png"}
+                                buttonText={"Approve"}
+                                onClick={() => handleApprove(oneRequest)}
                             />
                         )}
                     </div>
