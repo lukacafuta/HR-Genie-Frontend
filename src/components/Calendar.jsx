@@ -44,13 +44,16 @@ const CalendarComponent = () => {
     const [filter, setFilter] = useState('all');
     const [date, setDate] = useState(new Date());
 
-    const accessToken = useSelector((state) => state.user.accessToken);
+    const accessToken = useSelector((state) => state.user.accessToken); // fetch accessToken
+    const publicHolidays = useSelector((state) => state.company.publicHolidays); // fetch public holidays from store
 
     useEffect(() => {
         api.setAuthToken(accessToken);
 
+        // fetch absences (vacation, sick leave)
         api.get('/absences/')
             .then(response => {
+                // map absences to the events format
                 const absences = response.data.map(absence => ({
                     id: absence.id,
                     title: `${reasonLabels[absence.reason]}: ${absence.requester.customUser.first_name} ${absence.requester.customUser.last_name}`,
@@ -58,13 +61,25 @@ const CalendarComponent = () => {
                     end: new Date(absence.endDt),
                     type: absence.reason.toLowerCase()
                 }));
+
+                // map public holidays to the events format
+                const holidays = publicHolidays.map(holiday => ({
+                    id: `holiday-${holiday.id}`,
+                    title: `Holiday: ${holiday.holidayName}`,
+                    start: new Date(holiday.holidayDate),
+                    end: new Date(holiday.holidayDate),
+                    type: 'holiday'
+                }));
+
                 // console.log('Mapped absences data:', absences); // log the mapped response data
-                setEvents(absences);
+
+                // combine absences and holidays into one events array
+                setEvents([...absences, ...holidays]);
             })
             .catch(error => {
                 console.error('Error fetching absences:', error);
             });
-    }, [accessToken]);
+    }, [accessToken, publicHolidays]);
 
     const handleFilterChange = (event) => {
         setFilter(event.target.value);
