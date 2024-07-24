@@ -117,6 +117,13 @@ const CalendarComponent = () => {
         };
     };
 
+
+    // define the start and end time for the calendar
+    const minTime = new Date();
+    minTime.setHours(7, 0, 0); // 07:00 AM
+    const maxTime = new Date();
+    maxTime.setHours(22, 0, 0); // 22:00 PM
+
     return (
         <CalendarContainer>
             <DateDisplay>{formattedDate}</DateDisplay>
@@ -151,6 +158,8 @@ const CalendarComponent = () => {
                 onNavigate={setDate}
                 toolbar={false} // Disable the default toolbar to remove duplicate buttons
                 eventPropGetter={eventStyleGetter} // apply custom styles
+                min={minTime} // start of the day
+                max={maxTime} // end of the day
             />
         </CalendarContainer>
     );
