@@ -9,7 +9,7 @@ export default function CompanyCalendarRoute() {
                     <h2>Calendar</h2>
                 </div>
             </RouteHeadStyled>
-            <CalendarComponent/>
+            <CalendarComponent viewType="company"/>
         </RouteContentStyled>
     )
 }

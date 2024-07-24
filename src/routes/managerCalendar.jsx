@@ -9,7 +9,7 @@ export default function ManagerCalendarRoute() {
                     <h2>Calendar</h2>
                 </div>
             </RouteHeadStyled>
-            <CalendarComponent/>
+            <CalendarComponent viewType="manager"/>
         </RouteContentStyled>
     )
 }

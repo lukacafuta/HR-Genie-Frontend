@@ -38,7 +38,7 @@ const colorMapping = {
     holiday: '#FFD700' // Gold
 };
 
-const CalendarComponent = () => {
+const CalendarComponent = ({viewType}) => {       // added viewType to props
     const [events, setEvents] = useState([]);
     const [view, setView] = useState(Views.MONTH);
     const [filter, setFilter] = useState('all');
@@ -50,17 +50,29 @@ const CalendarComponent = () => {
     useEffect(() => {
         api.setAuthToken(accessToken);
 
-        // fetch absences (vacation, sick leave)
-        api.get('/absences/')
-            .then(response => {
-                // map absences to the events format
-                const absences = response.data.map(absence => ({
-                    id: absence.id,
-                    title: `${reasonLabels[absence.reason]}: ${absence.requester.customUser.first_name} ${absence.requester.customUser.last_name}`,
-                    start: new Date(absence.startDt),
-                    end: new Date(absence.endDt),
-                    type: absence.reason.toLowerCase()
-                }));
+        // determine the endpoint based on the viewType
+        let endpoints = [];
+        if (viewType === 'manager') {
+            endpoints = ['/absences/manager/myteam/', '/absences/me/'];
+        } else if (viewType === 'employee') {
+            endpoints = ['/absences/employee/myteam/', '/absences/employee/mymanager/'];
+        } else if (viewType === 'company') {
+            endpoints = ['/absences/'];
+        }
+
+        // fetch absences (vacation, sick leave) from multiple endpoints and combine results
+        Promise.all(endpoints.map(endpoint => api.get(endpoint)))
+            .then(responses => {
+                // combine data from all endpoints
+                const absences = responses.flatMap(response =>
+                    response.data.map(absence => ({
+                        id: absence.id,
+                        title: `${reasonLabels[absence.reason]}: ${absence.requester.customUser.first_name} ${absence.requester.customUser.last_name}`,
+                        start: new Date(absence.startDt),
+                        end: new Date(absence.endDt),
+                        type: absence.reason.toLowerCase()
+                    }))
+                );
 
                 // map public holidays to the events format
                 const holidays = publicHolidays.map(holiday => ({
@@ -79,7 +91,7 @@ const CalendarComponent = () => {
             .catch(error => {
                 console.error('Error fetching absences:', error);
             });
-    }, [accessToken, publicHolidays]);
+    }, [accessToken, publicHolidays, viewType]);    // added viewType
 
     const handleFilterChange = (event) => {
         setFilter(event.target.value);

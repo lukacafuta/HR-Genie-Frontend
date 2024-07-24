@@ -9,7 +9,7 @@ export default function EmployeeCalendarRoute() {
                     <h2>Calendar</h2>
                 </div>
             </RouteHeadStyled>
-            <CalendarComponent/>
+            <CalendarComponent viewType="employee"/>
         </RouteContentStyled>
     )
 }
