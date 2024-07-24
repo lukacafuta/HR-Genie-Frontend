@@ -5,56 +5,14 @@ import {
   HalfWidthCardTitle,
 } from "../styles/cardStyles.js";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import { useEffect } from "react";
-import { api } from "../common/api.js";
-import { setUserObject } from "../store/slices/UserSlice.jsx";
+import { useSelector } from "react-redux";
 
 export default function EmployeeSummaryCard() {
-  const token = localStorage.getItem("accessToken");
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userObject);
 
-  const fetchUser = async () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      const res = await api.get("/users/me/", config);
-      console.log("API call successful-user", res.data[0]);
-      let userData = res.data[0];
-      dispatch(setUserObject(userData));
-    } catch (error) {
-      console.log("nope");
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  const loggedInUser = {
-    firstName: user.customUser?.first_name,
-    lastName: user.customUser?.last_name,
-    username: user.customUser?.username,
-    avatar: user.customUser?.avatar,
-    gender: user.gender,
-    firstDayAtWork: user.firstDayAtWork,
-    birthday: user.birthdayDate,
-    team: user.department?.nameDepartment,
-    manager: `${user.approver?.customUser?.first_name} ${user.approver?.customUser?.last_name}`,
-    phone: "+41 78 98 23 01",
-    emailAddress: "admin@admin.ch",
-    street: "Bahnhofstrasse 12",
-    postalCode: "8001",
-    city: "Zurich",
-    canton: "Zurich",
-  };
+  if (user == null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -64,11 +22,11 @@ export default function EmployeeSummaryCard() {
           <HalfWidthCardContent>
             <span>
               <HalfWidthCardLabel>First Name:</HalfWidthCardLabel>{" "}
-              {loggedInUser.first_name}
+              {user.customUser?.first_name}
             </span>
             <span>
               <HalfWidthCardLabel>Last Name:</HalfWidthCardLabel>{" "}
-              {loggedInUser.last_name}{" "}
+              {user.customUser?.last_name}{" "}
             </span>
             <span>
               <HalfWidthCardLabel>Gender: </HalfWidthCardLabel>
@@ -80,37 +38,36 @@ export default function EmployeeSummaryCard() {
             </span>
             <span>
               <HalfWidthCardLabel>Team:</HalfWidthCardLabel>{" "}
-              {loggedInUser.nameDepartment}{" "}
+              {user.department?.nameDepartment}{" "}
             </span>
             <span>
               <HalfWidthCardLabel>Manager: </HalfWidthCardLabel>
-              {loggedInUser.manager}
+              {user.approver?.customUser?.first_name}{" "}
+              {user.approver?.customUser?.last_name}
             </span>
           </HalfWidthCardContent>
           <HalfWidthCardContent>
             <span>
               <HalfWidthCardLabel>Phone: </HalfWidthCardLabel>
-              {loggedInUser.phone}
+              {user.phone}
             </span>
             <span>
               <HalfWidthCardLabel>Email Address:</HalfWidthCardLabel>{" "}
-              {loggedInUser.emailAddress}
+              {user.customUser?.email}
             </span>
             <span>
-              <HalfWidthCardLabel>Street: </HalfWidthCardLabel>{" "}
-              {loggedInUser.street}
+              <HalfWidthCardLabel>Street: </HalfWidthCardLabel> {user.street}
             </span>
             <span>
               <HalfWidthCardLabel>Postal Code:</HalfWidthCardLabel>{" "}
-              {loggedInUser.postalCode}
+              {user.postcode}
             </span>
             <span>
               <HalfWidthCardLabel>City: </HalfWidthCardLabel>
-              {loggedInUser.city}
+              {user.city}
             </span>
             <span>
-              <HalfWidthCardLabel>Canton:</HalfWidthCardLabel>{" "}
-              {loggedInUser.canton}
+              <HalfWidthCardLabel>Canton:</HalfWidthCardLabel> {user.canton}
             </span>
           </HalfWidthCardContent>
         </div>
