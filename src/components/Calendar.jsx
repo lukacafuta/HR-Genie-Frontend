@@ -124,6 +124,13 @@ const CalendarComponent = () => {
     const maxTime = new Date();
     maxTime.setHours(22, 0, 0); // 22:00 PM
 
+    // custom formats for the calendar
+    const customFormats = {
+        timeGutterFormat: (date, culture, localizer) => localizer.format(date, 'HH:mm', culture),
+        eventTimeRangeFormat: ({start, end}, culture, localizer) =>
+            `${localizer.format(start, 'HH:mm', culture)} - ${localizer.format(end, 'HH:mm', culture)}`,
+    };
+
     return (
         <CalendarContainer>
             <DateDisplay>{formattedDate}</DateDisplay>
@@ -160,6 +167,7 @@ const CalendarComponent = () => {
                 eventPropGetter={eventStyleGetter} // apply custom styles
                 min={minTime} // start of the day
                 max={maxTime} // end of the day
+                formats={customFormats} // apply custom time formats (7am-9pm => 07:00-22:00)
             />
         </CalendarContainer>
     );
