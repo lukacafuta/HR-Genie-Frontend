@@ -45,9 +45,9 @@ export default function EmployeeRoute() {
         <EmployeeSummaryCard />
         <EmployeeChartCard />
       </div>
-      <h3 style={{ marginBottom: "5px" }}>Requests</h3>
+      <h3 style={{ marginBottom: "5px", marginTop: "20px" }}>Requests</h3>
       <RequestContainer refresh={refresh} />
-      <h3 style={{ marginBottom: "5px" }}>Trainings</h3>
+      <h3 style={{ marginBottom: "5px", marginTop: "20px" }}>Trainings</h3>
       <TrainingContainer refresh={refresh} />
     </RouteContentStyled>
   );
