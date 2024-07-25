@@ -7,8 +7,16 @@ import {
 
 import { useSelector } from "react-redux";
 
-export default function EmployeeSummaryCard() {
-  const user = useSelector((state) => state.user.userObject);
+export default function EmployeeSummaryCard({ id, managerId }) {
+  const view = useSelector((state) => state.view.view);
+  const loggedInUser = useSelector((state) => state.user.userObject);
+  const userList = useSelector((state) => state.user.userList);
+  const clickedUser = userList.filter((user) => user.id === id);
+
+  let user = view === "employee" ? loggedInUser : clickedUser[0];
+  let cardTitle = view === "employee" ? "My Information" : "User Information";
+
+  //requests.filter(request => request.type === "Absence");
 
   if (user == null) {
     return <div>Loading...</div>;
@@ -17,7 +25,7 @@ export default function EmployeeSummaryCard() {
   return (
     <>
       <HalfWidthCard>
-        <HalfWidthCardTitle>My Information</HalfWidthCardTitle>
+        <HalfWidthCardTitle>{cardTitle}</HalfWidthCardTitle>
         <div style={{ display: "flex" }}>
           <HalfWidthCardContent>
             <span>

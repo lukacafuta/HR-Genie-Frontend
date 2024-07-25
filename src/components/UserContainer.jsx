@@ -5,22 +5,22 @@ import { RowCardContainer } from "../styles/cardStyles.js";
 import UserCard from "./UserCard.jsx";
 import { Route, useLocation } from "react-router-dom";
 
-export default function UserContainer() {
+export default function UserContainer({ managerId }) {
   const dispatch = useDispatch();
   const location = useLocation();
 
   //while there is no data
   const fullUserList = useSelector((state) => state.user.userList);
 
-  const managerId = "4"; //should be the id of logged in user if he is a manager.
+  //const managerId = managerId; //should be the id of logged in user if he is a manager.
 
-  const filteredUsers = fullUserList.filter(
-    (user) => user.manager === managerId,
+  const usersOfManagerTeam = fullUserList.filter(
+    (user) => user.approver?.customUser?.id === managerId,
   );
 
   const userList = location.pathname.startsWith("/company/employees")
     ? fullUserList
-    : filteredUsers;
+    : usersOfManagerTeam;
 
   useEffect(() => {
     const storedUserList = JSON.parse(localStorage.getItem("userList"));

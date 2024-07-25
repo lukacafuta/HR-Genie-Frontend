@@ -5,6 +5,7 @@ import { BtnGreen, BtnRed } from "../styles/buttonStyles.js";
 import ButtonGreen from "./buttons/ButtonGreen.jsx";
 import ButtonRed from "./buttons/ButtonRed.jsx";
 import { Link, useParams } from "react-router-dom";
+import EmployeeSummaryCard from "./EmployeeSummaryCard.jsx";
 
 export default function UserCard({ oneUser }) {
   const { userIndex } = useParams();
@@ -38,7 +39,8 @@ export default function UserCard({ oneUser }) {
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <span>
               <img
-                src={UserCard.profile}
+                //src={UserCard.profile}
+                src="/profile.png"
                 alt="profile"
                 height="35px"
                 width="35px"
@@ -46,12 +48,14 @@ export default function UserCard({ oneUser }) {
             </span>
             <span>
               <b>
-                {UserCard.firstName} {UserCard.lastName}
+                {UserCard.customUser?.first_name}{" "}
+                {UserCard.customUser?.last_name}
               </b>
             </span>
           </div>
-          <span>{UserCard.team}</span>
-          User #{UserCard.id}
+          <span>{UserCard.department?.nameDepartment}</span>
+          {UserCard.customUser?.email}
+          <span></span>
           <div
             style={{
               display: "flex",
@@ -77,19 +81,13 @@ export default function UserCard({ oneUser }) {
               alignItems: "flex-start",
               gap: "10px",
               padding: "10px",
-              width: "20%",
+              width: "80%",
             }}
           >
-            <span>
-              <b>Gender:</b> {UserCard.gender}
-            </span>
-            <span>
-              <b>Pensum:</b> {UserCard.pensum}
-            </span>
-            <span>
-              <b>Manager: </b>
-              {UserCard.manager}
-            </span>
+            <EmployeeSummaryCard
+              id={UserCard.id}
+              managerId={UserCard.approver?.customUser?.id}
+            />
           </div>
           <div
             style={{
@@ -97,7 +95,7 @@ export default function UserCard({ oneUser }) {
               justifyContent: "end",
               gap: "10px",
               padding: "10px",
-              width: "80%",
+              width: "20%",
             }}
           >
             <ButtonRed
