@@ -104,6 +104,7 @@ export default function TrainingCard({ oneTraining, updateRequests }) {
         <span>{title}</span>
         <span>{trainingUrl}</span>
         <span>CHF {price}</span>
+        <span>{statusApproval}</span>
         <div
           style={{
             display: "flex",

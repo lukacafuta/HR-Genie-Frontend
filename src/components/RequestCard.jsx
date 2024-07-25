@@ -111,6 +111,7 @@ export default function RequestCard({ oneRequest, updateRequests }) {
             {startDt} - {endDt}
           </span>
           <span>{durationWorkHours} hours</span>
+          <span>{status}</span>
           <div
             style={{
               display: "flex",

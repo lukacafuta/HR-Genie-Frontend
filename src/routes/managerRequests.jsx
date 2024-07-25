@@ -4,7 +4,6 @@ import {
 } from "../styles/routeGeneralStyles.js";
 import RequestContainer from "../components/RequestContainer.jsx";
 import TrainingContainer from "../components/TrainingContainer.jsx";
-import ButtonBrand from "../components/buttons/ButtonBrand.jsx";
 
 export default function ManagerRequestsRoute() {
   return (
