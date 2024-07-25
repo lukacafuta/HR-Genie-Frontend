@@ -6,20 +6,22 @@ import {
   Cell,
   ResponsiveContainer,
   Tooltip,
+  LabelList,
+  Label,
 } from "recharts";
 
-import { employeeChartData } from "./EmployeeChartCard";
-
-const COLORS = ["#00C49F", "#0088FE", "#FF8042"];
+const COLORS = ["#FF8042", "red", "#0088FE", "#00C49F"];
 
 export default class EmployeeChart extends PureComponent {
   render() {
+    const { chartData } = this.props;
+
     return (
-      <PieChart width={200} height={100} onMouseEnter={this.onPieEnter}>
+      <PieChart width={290} height={120}>
         <Pie
-          data={employeeChartData}
-          cx={100}
-          cy={80}
+          data={chartData}
+          cx={125}
+          cy={90}
           startAngle={180}
           endAngle={0}
           innerRadius={60}
@@ -28,9 +30,14 @@ export default class EmployeeChart extends PureComponent {
           paddingAngle={5}
           dataKey="value"
         >
-          {employeeChartData.map((entry, index) => (
+          {chartData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
+          <LabelList
+            dataKey="name"
+            position="outside"
+            style={{ fontSize: "12px", stroke: "none" }}
+          />
         </Pie>
         <Tooltip />
       </PieChart>
