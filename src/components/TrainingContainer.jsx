@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import {loadTrainings} from "../store/slices/RequestSlice";
 import {RowCardContainer} from "../styles/cardStyles.js";
 import {api} from "../common/api.js";
-import {addMyTrainings} from "../store/slices/UserSlice.jsx";
 
 export default function TrainingContainer({refresh}) {
     const dispatch = useDispatch();
@@ -20,8 +19,7 @@ export default function TrainingContainer({refresh}) {
         trainingList = myTrainingList
     }
 
-    // console.log("Trains: ", trainingList)
-    console.log("training re-render")
+    console.log("Trains: ", trainingList)
     const fetchTrainings = () => {
         const config = {
             headers: {
@@ -35,15 +33,9 @@ export default function TrainingContainer({refresh}) {
                 view === "manager" ? "/trainings/manager/myteam" : "/trainings/me/";
             // console.log("yep i am here");
             api.get(endpointForTrainings, config).then((res) => {
-                console.log("TrainingContainer Response: ", res.data);
+                // console.log("TrainingContainer Response: ", res.data);
                 let trainingData = res.data;
-                if (view === "manager") {
-                    dispatch(loadTrainings(trainingData))
-                } else {
-                    dispatch(addMyTrainings(trainingData));
-                }
-
-
+                trainingData.length > 0 ? dispatch(loadTrainings(trainingData)) : null
             });
         } catch (error) {
             console.error("FetchTrainings Error: ", error);
