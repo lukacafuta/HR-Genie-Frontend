@@ -26,6 +26,8 @@ export default function LoginRoute() {
             // console.log("In try")
             const res = await api.post("/auth/token/", {email, password})
             localStorage.setItem("accessToken", res.data.access);
+            localStorage.setItem("selectedView", "employee");
+
             dispatch(login(res.data.access));
             navigate("/employee")
         } catch (error) {
