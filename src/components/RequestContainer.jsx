@@ -37,9 +37,9 @@ export default function RequestContainer({refresh}) {
     };
     // created to refresh the requests
 
-    useEffect(() => {
-        fetchRequests();
-    }, [dispatch, refresh]);
+    // useEffect(() => {
+    //     fetchRequests();
+    // }, [dispatch, refresh]);
 
     return (
         <>
