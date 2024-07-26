@@ -19,8 +19,13 @@ const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
-    const [selectedView, setSelectedView] = useState(localStorage.getItem("selectedView") || "employee");
+    const storageView = localStorage.getItem("selectedView");
+    dispatch(changeView(storageView));
+
+    const [selectedView, setSelectedView] = useState(storageView);
     const [accountMenuVisbility, setAccountMenuVisibility] = useState(false);
+
+    // console.log(storageView)
 
     const companyName = useSelector((state) => state.company.companyData.companyName);
     const user = useSelector((state) => state.user.userObject);
