@@ -1,6 +1,7 @@
 import RequestMinitableItem from "./RequestMinitableItem.jsx";
 import {RequestsMinitableStyled} from "../styles/miniTableStyles.js";
 import ButtonBrand from "./buttons/ButtonBrand.jsx";
+import {Link} from "react-router-dom";
 
 export default function RequestMiniTable({name, type, requests}) {
     let isTrainingRequestlist = false; // Declare outside the if block
@@ -26,7 +27,9 @@ export default function RequestMiniTable({name, type, requests}) {
             <div><h3>{name}</h3>
                 {filteredRequests.map((request, i) => <RequestMinitableItem key={i} isTraining={isTrainingRequestlist} request={request}/>)}
             </div>
-            <ButtonBrand buttonText={'View all'} iconURL={''}/>
+            <Link to={"/manager/requests"}>
+                <ButtonBrand buttonText={'View all'} iconURL={''}/>
+            </Link>
         </RequestsMinitableStyled>
     );
 }
