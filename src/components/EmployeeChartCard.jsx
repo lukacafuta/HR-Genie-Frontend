@@ -3,6 +3,7 @@ import {
   HalfWidthCardContent,
   HalfWidthCardLabel,
   HalfWidthCardTitle,
+  MiniIconStyled,
 } from "../styles/cardStyles.js";
 import EmployeeChart from "./EmployeeChart.jsx";
 import { useSelector } from "react-redux";
@@ -34,16 +35,21 @@ export default function EmployeeChartCard() {
   }, []);
 
   let kpi = {
-    pending: userKPIs.absence_duration_hours__vacation__pending / 8,
-    approved: userKPIs.absence_duration_hours__vacation__approved / 8,
-    rejected: userKPIs.absence_duration_hours__vacation__rejected / 8,
+    pending: userKPIs.absence_duration_hours__vacation__pending
+      ? userKPIs.absence_duration_hours__vacation__pending / 8
+      : 0,
+    approved: userKPIs.absence_duration_hours__vacation__approved
+      ? userKPIs.absence_duration_hours__vacation__approved / 8
+      : 0,
+    rejected: userKPIs.absence_duration_hours__vacation__rejected
+      ? userKPIs.absence_duration_hours__vacation__rejected / 8
+      : 0,
   };
 
   let remaining = userKPIs.nr_tot_vacation_days - kpi.approved;
 
   let chartData = [
     { name: "Pending", value: kpi.pending },
-    { name: "Rejected", value: kpi.rejected },
     { name: "Approved", value: kpi.approved },
     { name: "Remaining", value: remaining },
   ];
@@ -56,25 +62,35 @@ export default function EmployeeChartCard() {
           <HalfWidthCardContent>
             <span>
               <HalfWidthCardLabel>
-                <img src="/tree.png" alt="tree" /> Total Allowance:{" "}
+                <MiniIconStyled src="/kpi-available.png" alt="available" />{" "}
+                Total Allowance:{" "}
               </HalfWidthCardLabel>{" "}
               {userKPIs.nr_tot_vacation_days} Days
             </span>
             <span>
               <HalfWidthCardLabel>
-                <img src="/eye.png" alt="eye" /> Pending:{" "}
+                <MiniIconStyled src="/kpi-pending.png" alt="pending" /> Pending:{" "}
               </HalfWidthCardLabel>
               {kpi.pending} Days
             </span>
             <span>
               <HalfWidthCardLabel>
-                <img src="/calendar.png" alt="calendar" /> Approved:{" "}
+                <MiniIconStyled src="/kpi-rejected.png" alt="rejected" />{" "}
+                Rejected:{" "}
+              </HalfWidthCardLabel>
+              {kpi.rejected} Days
+            </span>
+            <span>
+              <HalfWidthCardLabel>
+                <MiniIconStyled src="/kpi-approved.png" alt="approved" />{" "}
+                Approved:{" "}
               </HalfWidthCardLabel>
               {kpi.approved} Days
             </span>
             <span>
               <HalfWidthCardLabel>
-                <img src="/calendar.png" alt="calendar" /> Remaining:{" "}
+                <MiniIconStyled src="/kpi-remaining.png" alt="remaining" />{" "}
+                Remaining:{" "}
               </HalfWidthCardLabel>
               {remaining} Days
             </span>
