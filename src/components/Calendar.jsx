@@ -70,19 +70,25 @@ const CalendarComponent = ({viewType}) => {       // added viewType to props
                         title: `${reasonLabels[absence.reason]}: ${absence.requester.customUser.first_name} ${absence.requester.customUser.last_name}`,
                         start: new Date(absence.startDt),
                         end: new Date(absence.endDt),
-                        type: absence.reason.toLowerCase()
+                        type: absence.reason.toLowerCase(),
+                        allDay: false // absences are not all-day events by default
                     }))
                 );
 
                 // map public holidays to the events format
-                const holidays = publicHolidays.map(holiday => ({
-                    id: `holiday-${holiday.id}`,
-                    title: `Holiday: ${holiday.holidayName}`,
-                    start: new Date(holiday.holidayDate),
-                    end: new Date(holiday.holidayDate),
-                    type: 'holiday'
-                }));
-
+                const holidays = publicHolidays.map(holiday => {
+                    const holidayEvent = {
+                        id: `holiday-${holiday.id}`,
+                        title: `Holiday: ${holiday.holidayName}`,
+                        start: new Date(holiday.holidayDate),
+                        end: new Date(holiday.holidayDate),
+                        type: 'holiday',
+                        allDay: true // holidays are all-day events
+                    };
+                    console.log('Holiday Event:', holidayEvent); // Verify holiday event data
+                    return holidayEvent;
+                });
+                
                 // console.log('Mapped absences data:', absences); // log the mapped response data
 
                 // combine absences and holidays into one events array
