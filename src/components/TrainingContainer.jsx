@@ -8,9 +8,18 @@ import {api} from "../common/api.js";
 export default function TrainingContainer({refresh}) {
     const dispatch = useDispatch();
     const view = useSelector((state) => state.view.view);
-    const trainingList = useSelector((state) => state.request.trainingList);
+    let trainingList
+    const teamTrainingList = useSelector((state) => state.request.trainingList);
+    const myTrainingList = useSelector((state) => state.user.myTrainingList);
     const accessToken = useSelector((state) => state.user.accessToken);
 
+    if (view === "manager") {
+        trainingList = teamTrainingList
+    } else {
+        trainingList = myTrainingList
+    }
+
+    console.log("Trains: ", trainingList)
     const fetchTrainings = () => {
         const config = {
             headers: {
@@ -37,9 +46,9 @@ export default function TrainingContainer({refresh}) {
     };
     // created to refresh the requests
 
-    // useEffect(() => {
-    //     fetchTrainings();
-    // }, [dispatch, refresh]);
+    useEffect(() => {
+        fetchTrainings();
+    }, [dispatch, refresh]);
 
     return (
         <>
