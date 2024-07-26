@@ -2,7 +2,7 @@ import {ErrorMessageStyled, LoginContainerStyled, LoginPageStyled} from "../styl
 import {BtnLogin} from "../styles/buttonStyles.js";
 import {useState} from "react";
 import {api} from "../common/api.js";
-import {login} from "../store/slices/UserSlice.jsx";
+import {addMyRequests, addMyTrainings, login} from "../store/slices/UserSlice.jsx";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {ChangeCompanyName} from "../store/slices/CompanySlice.jsx";
@@ -41,7 +41,7 @@ export default function LoginRoute() {
         });
     }
 
-    const fetchRequests = () => {
+    const fetchTeamRequests = () => {
         const config = {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -59,7 +59,7 @@ export default function LoginRoute() {
         }
     }
 
-    const fetchTrainings = () => {
+    const fetchTeamTrainings = () => {
         const config = {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -78,6 +78,43 @@ export default function LoginRoute() {
         }
     };
 
+    const fetchMyRequests = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        try {
+            let endpointForAbsences = "/absences/me/"
+            api.get(endpointForAbsences, config).then((res) => {
+                // console.log("FetchRequests Response: ", res.data);
+                let requestData = res.data;
+                dispatch(addMyRequests(requestData));
+            });
+        } catch (error) {
+            console.error("FetchMyRequests Error: ", error);
+        }
+    }
+
+    const fetchMyTrainings = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+
+        try {
+            let endpointForTrainings = "/trainings/me/";
+            api.get(endpointForTrainings, config).then((res) => {
+                // console.log("FetchTrainings Response: ", res.data);
+                let trainingData = res.data;
+                dispatch(addMyTrainings(trainingData));
+            });
+        } catch (error) {
+            console.error("FetchMyTrainings Error: ", error);
+        }
+    };
+
 
     const handleLoginSubmit = async (e) => {
         // console.log("email: ", email);
@@ -87,8 +124,10 @@ export default function LoginRoute() {
         // console.log("e: ", e);
         await fetchToken()
         await fetchCompanyName()
-        await fetchRequests()
-        await fetchTrainings()
+        await fetchTeamRequests()
+        await fetchTeamTrainings()
+        await fetchMyRequests()
+        await fetchMyTrainings()
     }
 
 
