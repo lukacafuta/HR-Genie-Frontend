@@ -10,17 +10,17 @@ import {
   Label,
 } from "recharts";
 
-const COLORS = ["#FF8042", "#0088FE", "#00C49F"];
+const COLORS = ["#FF8042", "red", "#0088FE", "#00C49F"];
 
 export default class EmployeeChart extends PureComponent {
   render() {
     const { chartData } = this.props;
 
     return (
-      <PieChart width={300} height={120}>
+      <PieChart width={290} height={120}>
         <Pie
           data={chartData}
-          cx={140}
+          cx={125}
           cy={90}
           startAngle={180}
           endAngle={0}
