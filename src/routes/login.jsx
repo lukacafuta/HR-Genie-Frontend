@@ -5,6 +5,8 @@ import {api} from "../common/api.js";
 import {login} from "../store/slices/UserSlice.jsx";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {ChangeCompanyName} from "../store/slices/CompanySlice.jsx";
+import {loadRequests, loadTrainings} from "../store/slices/RequestSlice.jsx";
 
 export default function LoginRoute() {
 
@@ -16,26 +18,77 @@ export default function LoginRoute() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    let accessToken
+
+    const fetchToken = async () => {
+        try {
+            const res = await api.post("/auth/token/", {email, password})
+            localStorage.setItem("accessToken", res.data.access);
+            accessToken = res.data.access;
+            localStorage.setItem("selectedView", "employee");
+            dispatch(login(res.data.access));
+            navigate("/employee")
+        } catch (error) {
+            console.error("catched: ", error);
+            setErrorMessageVisibility(true);
+        }
+    }
+
+    const fetchCompanyName = () => {
+        api("/companies/me/").then((res) => {
+            // console.log(res.data.companyName);
+            dispatch(ChangeCompanyName(res.data.companyName))
+        });
+    }
+
+    const fetchRequests = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        try {
+            let endpointForAbsences = "/absences/manager/myteam"
+            api.get(endpointForAbsences, config).then((res) => {
+                // console.log("FetchRequests Response: ", res.data);
+                let requestData = res.data;
+                dispatch(loadRequests(requestData));
+            });
+        } catch (error) {
+            console.error("FetchRequests Error: ", error);
+        }
+    }
+
+    const fetchTrainings = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+
+        try {
+            let endpointForTrainings = "/trainings/manager/myteam";
+            api.get(endpointForTrainings, config).then((res) => {
+                // console.log("FetchTrainings Response: ", res.data);
+                let trainingData = res.data;
+                dispatch(loadTrainings(trainingData));
+            });
+        } catch (error) {
+            console.error("FetchTrainings Error: ", error);
+        }
+    };
+
+
     const handleLoginSubmit = async (e) => {
         // console.log("email: ", email);
         // console.log("password: ", password);
         e.preventDefault();
 
         // console.log("e: ", e);
-        try {
-            // console.log("In try")
-            const res = await api.post("/auth/token/", {email, password})
-            localStorage.setItem("accessToken", res.data.access);
-            localStorage.setItem("selectedView", "employee");
-
-            dispatch(login(res.data.access));
-            navigate("/employee")
-        } catch (error) {
-            // console.log("No Login for you")
-            console.error("catched: ", error);
-            setErrorMessageVisibility(true);
-        }
-
+        await fetchToken()
+        await fetchCompanyName()
+        await fetchRequests()
+        await fetchTrainings()
     }
 
 
