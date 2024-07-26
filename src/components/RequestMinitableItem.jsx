@@ -10,17 +10,18 @@ export default function RequestMinitableItem({request, isTraining}) {
         return `${dayMonth}, ${time}`
 
     }
+    // console.log(request)
 
     const requestList = (
         <>
             <Link to={`/manager/requests/${request.id}#${request.id}`}>
                 <MiniTableItemStyled id={request.id}>
                     <div className="row">
-                        <div className="requester"> {"Add name to endpoint"}</div>
+                        <div className="requester">{request.requester.customUser.first_name} {request.requester.customUser.last_name}</div>
                         <div className="date"><p>{formatDateTime(request.startDt)} - {formatDateTime(request.endDt)}</p></div>
                     </div>
                     <div className="depstat">
-                        <p>{`Add department`}</p>
+                        <p>{request.requester.department.nameDepartment}</p>
                         <p>{request.status}</p>
                     </div>
 
@@ -34,11 +35,11 @@ export default function RequestMinitableItem({request, isTraining}) {
             <Link to={`/manager/requests/t${request.id}#t${request.id}`}>
                 <MiniTableItemStyled id={request.id}>
                     <div className="row">
-                        <div className="requester"> {"Add name"}</div>
+                        <div className="requester">{request.requester.customUser.first_name} {request.requester.customUser.last_name}</div>
                         <div className="date"><p>{request.title}</p></div>
                     </div>
                     <div className="depstat">
-                        <p>{`Add department`}</p>
+                        <p>{request.requester.department.nameDepartment}</p>
                         <p>{request.trainingUrl}</p>
                     </div>
 
