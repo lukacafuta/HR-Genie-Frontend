@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
     name: "user",
@@ -6,6 +6,8 @@ const userSlice = createSlice({
         accessToken: undefined,
         role: "company_admin",
         userObject: [], // this is the user object that will be fetched from the backend
+        myRequestList: [],
+        myTrainingList: [],
         isManager: undefined,
         isCompanyAdmin: undefined,
         userKPIs: [],
@@ -47,6 +49,13 @@ const userSlice = createSlice({
         setUserList: (state, action) => {
             state.userList = action.payload;
         },
+        addMyRequests: (state, action) => {
+            state.myRequestList = action.payload;
+            // console.log("Requests added to store: ", action.payload)
+        },
+        addMyTrainings: (state, action) => {
+            state.myTrainingList = action.payload;
+        },
         setIsCompanyAdmin: (state, action) => {
             state.isCompanyAdmin = action.payload;
         },
@@ -63,5 +72,16 @@ const userSlice = createSlice({
     },
 });
 
-export const {login, logout, setUserObject, setUserList, initialLoadLocalStorage, setIsCompanyAdmin, setIsManager, setUserKPIs} = userSlice.actions;
+export const {
+    login,
+    logout,
+    setUserObject,
+    setUserList,
+    initialLoadLocalStorage,
+    setIsCompanyAdmin,
+    addMyRequests,
+    addMyTrainings,
+    setIsManager,
+    setUserKPIs
+} = userSlice.actions;
 export default userSlice.reducer;

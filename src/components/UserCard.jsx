@@ -98,16 +98,16 @@ export default function UserCard({oneUser}) {
                             width: "20%",
                         }}
                     >
-                        <ButtonRed
-                            iconURL={"/cross-deny.png"}
-                            buttonText={"Delete"}
-                            onClick={() => handleDelete(UserCard)}
-                        />
-                        <ButtonGreen
-                            iconURL={"/tick-circle.png"}
-                            buttonText={"Update"}
-                            onClick={() => handleUpdate(UserCard)}
-                        />
+                        {/*<ButtonRed*/}
+                        {/*    iconURL={"/cross-deny.png"}*/}
+                        {/*    buttonText={"Delete"}*/}
+                        {/*    onClick={() => handleDelete(UserCard)}*/}
+                        {/*/>*/}
+                        {/*<ButtonGreen*/}
+                        {/*    iconURL={"/tick-circle.png"}*/}
+                        {/*    buttonText={"Update"}*/}
+                        {/*    onClick={() => handleUpdate(UserCard)}*/}
+                        {/*/>*/}
                     </div>
                 </div>
             )}

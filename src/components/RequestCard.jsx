@@ -128,7 +128,7 @@ export default function RequestCard({oneRequest, updateRequests}) {
                     </div>
                 </RowCard>
             </Link>
-            {Number(requestIndex) === id && (
+            {(Number(requestIndex) === id && isExpanded) && (
                 <div style={{display: "flex", gap: "10px"}}>
                     <div
                         style={{
