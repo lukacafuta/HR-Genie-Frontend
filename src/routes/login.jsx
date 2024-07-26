@@ -50,7 +50,7 @@ export default function LoginRoute() {
         try {
             let endpointForAbsences = "/absences/manager/myteam"
             api.get(endpointForAbsences, config).then((res) => {
-                console.log("FetchRequests Response: ", res.data);
+                // console.log("FetchRequests Response: ", res.data);
                 let requestData = res.data;
                 dispatch(loadRequests(requestData));
             });
@@ -69,7 +69,7 @@ export default function LoginRoute() {
         try {
             let endpointForTrainings = "/trainings/manager/myteam";
             api.get(endpointForTrainings, config).then((res) => {
-                console.log("FetchTrainings Response: ", res.data);
+                // console.log("FetchTrainings Response: ", res.data);
                 let trainingData = res.data;
                 dispatch(loadTrainings(trainingData));
             });
