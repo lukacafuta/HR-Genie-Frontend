@@ -44,7 +44,7 @@ export const DropdownView = styled.div`
 
   select {
     padding: 1rem 2.5rem 1rem 1.5rem;
-    border-radius: var(--border-radius-small);
+    border-radius: var(--border-radius-medium);
     border: var(--border-style);
     font-size: 14px;
     font-style: normal;

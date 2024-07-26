@@ -57,7 +57,7 @@ export default function EmployeeChartCard() {
   return (
     <>
       <HalfWidthCard>
-        <HalfWidthCardTitle>My Holiday Balance</HalfWidthCardTitle>
+        <HalfWidthCardTitle>My Vacation Balance</HalfWidthCardTitle>
         <div style={{ display: "flex" }}>
           <HalfWidthCardContent>
             <span>
