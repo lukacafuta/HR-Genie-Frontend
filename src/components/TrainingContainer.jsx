@@ -44,7 +44,7 @@ export default function TrainingContainer({refresh}) {
     const updateRequests = () => {
         fetchTrainings();
     };
-    created to refresh the requests
+    // created to refresh the requests
 
     useEffect(() => {
         fetchTrainings();
