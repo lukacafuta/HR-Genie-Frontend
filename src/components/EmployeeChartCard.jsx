@@ -54,6 +54,8 @@ export default function EmployeeChartCard() {
     { name: "Remaining", value: remaining },
   ];
 
+  chartData = chartData.filter((item) => item.value !== 0);
+
   return (
     <>
       <HalfWidthCard>
