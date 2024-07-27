@@ -8,8 +8,18 @@ import {api} from "../common/api.js";
 export default function RequestContainer({refresh}) {
     const dispatch = useDispatch();
     const view = useSelector((state) => state.view.view);
-    const requestList = useSelector((state) => state.request.requestList);
+    let requestList
+    const teamRequestList = useSelector((state) => state.request.requestList);
+    const myRequestList = useSelector((state) => state.user.myRequestList);
     const accessToken = useSelector((state) => state.user.accessToken);
+
+
+    if (view === "manager") {
+        requestList = teamRequestList
+    } else {
+        requestList = myRequestList
+    }
+    // console.log("Reqs: ", requestList)
 
     const fetchRequests = () => {
         const config = {
@@ -37,9 +47,9 @@ export default function RequestContainer({refresh}) {
     };
     // created to refresh the requests
 
-    // useEffect(() => {
-    //     fetchRequests();
-    // }, [dispatch, refresh]);
+    useEffect(() => {
+        fetchRequests();
+    }, [dispatch, refresh]);
 
     return (
         <>

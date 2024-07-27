@@ -19,7 +19,7 @@ export default function EmployeeRoute() {
     const closeModal = () => setIsModalOpen(false);
 
     const [refresh, setRefresh] = useState(false);
-
+    console.log("employee re-render")
     // const dispatch = useDispatch();
     // dispatch(changeView("employee"));
 
