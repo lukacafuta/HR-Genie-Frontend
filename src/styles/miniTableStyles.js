@@ -29,10 +29,12 @@ export const RequestsMinitableStyled = styled.div`
 
 export const MiniTableItemStyled = styled.div`
     display: flex;
-    flex-direction: column;
-    width: 320px;
+    flex-direction: row;
+    width: 420px;
     margin: 1rem 0;
     padding: 0.5rem;
+    gap: 1rem;
+    align-items: center;
     //border: 1px solid #ccc;
     //border-radius: 5px;
     cursor: pointer;
@@ -41,8 +43,16 @@ export const MiniTableItemStyled = styled.div`
         transform: scale(0.97);
     }
 
+    .item-data {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        width: 100%;
+    }
+
     .row, .depstat {
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
         width: 100%;
         font-size: 12px;

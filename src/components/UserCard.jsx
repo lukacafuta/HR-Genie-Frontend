@@ -40,10 +40,11 @@ export default function UserCard({oneUser}) {
             <span>
               <img
                   //src={UserCard.profile}
-                  src="/profile.png"
+                  src={UserCard.customUser.avatar}
                   alt="profile"
                   height="35px"
                   width="35px"
+                  style={{borderRadius: "50%"}}
               />{" "}
             </span>
                         <span>

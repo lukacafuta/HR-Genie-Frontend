@@ -34,7 +34,7 @@ export default function RequestContainer({refresh}) {
             let endpointForAbsences =
                 view === "manager" ? "/absences/manager/myteam" : "/absences/me/";
             api.get(endpointForAbsences, config).then((res) => {
-                // console.log("RequestContainer API response: ", res.data);
+                console.log("RequestContainer API response: ", res.data);
                 let requestData = res.data;
                 if (view === "manager") {
                     dispatch(loadRequests(requestData))
