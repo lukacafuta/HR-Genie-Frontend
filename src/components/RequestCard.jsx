@@ -92,11 +92,12 @@ export default function RequestCard({oneRequest, updateRequests}) {
                     <FlexStartDivStyled style={{display: "flex", alignItems: "center", gap: "10px"}}>
             <span>
               <img
-                  src="/profile.png"
+                  src={requester.customUser.avatar}
                   //src={requestCard.profile}
                   alt="profile"
                   height="35px"
                   width="35px"
+                  style={{borderRadius: "50%"}}
               />{" "}
             </span>
                         <span>

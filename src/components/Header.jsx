@@ -25,7 +25,8 @@ const Header = () => {
     const [selectedView, setSelectedView] = useState(storageView);
     const [accountMenuVisbility, setAccountMenuVisibility] = useState(false);
 
-    // console.log(storageView)
+    const userAvatar = useSelector((state) => state.user.userObject.customUser.avatar);
+    // console.log(userAvatar)
 
     const companyName = useSelector((state) => state.company.companyData.companyName);
     const user = useSelector((state) => state.user.userObject);
@@ -108,7 +109,7 @@ const Header = () => {
                 <Bell>
                     <img className="bell" src={bell} alt="Bell"/>
                     <div className={"profile-container"}>
-                        <img className="profile-pic" src={profile} onClick={() => handleProfileClick()} alt="Profile"/>
+                        <img className="profile-pic" src={userAvatar} onClick={() => handleProfileClick()} alt="Profile"/>
                         {accountMenuVisbility && <AccountMenu/>}
                     </div>
                 </Bell>

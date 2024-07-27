@@ -16,13 +16,24 @@ export default function RequestMinitableItem({request, isTraining}) {
         <>
             <Link to={`/manager/requests/${request.id}#${request.id}`}>
                 <MiniTableItemStyled id={request.id}>
-                    <div className="row">
-                        <div className="requester">{request.requester.customUser.first_name} {request.requester.customUser.last_name}</div>
-                        <div className="date"><p>{formatDateTime(request.startDt)} - {formatDateTime(request.endDt)}</p></div>
-                    </div>
-                    <div className="depstat">
-                        <p>{request.requester.department.nameDepartment}</p>
-                        <p>{request.status}</p>
+                    <img
+                        src={request.requester.customUser.avatar}
+                        //src={requestCard.profile}
+                        alt="profile"
+                        height="35px"
+                        width="35px"
+                        style={{borderRadius: "50%"}}
+                    />
+                    <div className="item-data">
+                        <div className="row">
+                            <div
+                                className="requester">{request.requester.customUser.first_name} {request.requester.customUser.last_name}</div>
+                            <div className="date"><p>{formatDateTime(request.startDt)} - {formatDateTime(request.endDt)}</p></div>
+                        </div>
+                        <div className="depstat">
+                            <p>{request.requester.department.nameDepartment}</p>
+                            <p>{request.status}</p>
+                        </div>
                     </div>
 
                 </MiniTableItemStyled>
@@ -34,13 +45,26 @@ export default function RequestMinitableItem({request, isTraining}) {
         <>
             <Link to={`/manager/requests/t${request.id}#t${request.id}`}>
                 <MiniTableItemStyled id={request.id}>
-                    <div className="row">
-                        <div className="requester">{request.requester.customUser.first_name} {request.requester.customUser.last_name}</div>
-                        <div className="date"><p>{request.title}</p></div>
-                    </div>
-                    <div className="depstat">
-                        <p>{request.requester.department.nameDepartment}</p>
-                        <p>{request.trainingUrl}</p>
+
+                    <img
+                        src={request.requester.customUser.avatar}
+                        //src={requestCard.profile}
+                        alt="profile"
+                        height="35px"
+                        width="35px"
+                        style={{borderRadius: "50%"}}
+                    />
+                    <div className="item-data">
+                        <div className="row">
+                            <div
+                                className="requester">{request.requester.customUser.first_name} {request.requester.customUser.last_name} </div>
+                            <div className="date">{request.title}</div>
+                        </div>
+
+                        <div className="depstat">
+                            <p>{request.requester.department.nameDepartment}</p>
+                            <p>{request.trainingUrl}</p>
+                        </div>
                     </div>
 
                 </MiniTableItemStyled>
