@@ -1,11 +1,12 @@
 import {useDispatch, useSelector} from "react-redux";
 import {FlexStartDivStyled, RowCard} from "../styles/cardStyles.js";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {BtnGreen, BtnRed} from "../styles/buttonStyles.js";
 import ButtonGreen from "./buttons/ButtonGreen.jsx";
 import ButtonRed from "./buttons/ButtonRed.jsx";
 import {Link, useParams} from "react-router-dom";
 import EmployeeSummaryCard from "./EmployeeSummaryCard.jsx";
+import profile from "../../public/profile.png";
 
 export default function UserCard({oneUser}) {
     const {userIndex} = useParams();
@@ -19,6 +20,8 @@ export default function UserCard({oneUser}) {
     const dispatch = useDispatch();
 
     const [isExpanded, setIsExpanded] = useState(false);
+    const [avatar, setAvatar] = useState(profile);
+
 
     function handleMoreClick(UserCard) {
         setIsExpanded(!isExpanded);
@@ -32,6 +35,11 @@ export default function UserCard({oneUser}) {
         console.log("delete", UserCard);
     }
 
+    useEffect(() => {
+        if (UserCard && UserCard.customUser && UserCard.customUser.avatar) {
+            setAvatar(UserCard.customUser.avatar);
+        }
+    }, [UserCard]);
     return (
         <>
             <Link to={`${currentPageURLParam}${UserCard.id}#${UserCard.id}`}>
@@ -40,7 +48,7 @@ export default function UserCard({oneUser}) {
             <span>
               <img
                   //src={UserCard.profile}
-                  src={UserCard.customUser.avatar}
+                  src={avatar}
                   alt="profile"
                   height="35px"
                   width="35px"
