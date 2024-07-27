@@ -22,7 +22,7 @@ export function ManagerBarChartVacation({data}) {
             <BarChart
                 width={1000}
                 height={400}
-                data={data} // this is taken form the prop
+                data={data} // this is taken from the prop
                 stackOffset="sign"
                 maxBarSize={300}  // Set the maximum width of the bars
                 margin={{
@@ -61,7 +61,7 @@ export function ManagerBarChartAbsence({data}) {
             <BarChart
                 width={1000}
                 height={400}
-                data={data} // this is taken form the prop
+                data={data} // this is taken from the prop
                 stackOffset="sign"
                 maxBarSize={300}  // Set the maximum width of the bars
                 margin={{
@@ -100,7 +100,7 @@ export function ManagerBarChartTraining({data}) {
             <BarChart
                 width={1000}
                 height={400}
-                data={data} // this is taken form the prop
+                data={data} // this is taken from the prop
                 stackOffset="sign"
                 maxBarSize={300}  // Set the maximum width of the bars
                 margin={{
@@ -128,5 +128,3 @@ export function ManagerBarChartTraining({data}) {
         </>
     );
 }
-
-
