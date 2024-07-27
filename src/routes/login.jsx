@@ -2,7 +2,7 @@ import {ErrorMessageStyled, LoginContainerStyled, LoginPageStyled} from "../styl
 import {BtnLogin} from "../styles/buttonStyles.js";
 import {useState} from "react";
 import {api} from "../common/api.js";
-import {addMyRequests, addMyTrainings, login} from "../store/slices/UserSlice.jsx";
+import {addMyRequests, addMyTrainings, login, setUserObject} from "../store/slices/UserSlice.jsx";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {ChangeCompanyName} from "../store/slices/CompanySlice.jsx";
@@ -115,6 +115,22 @@ export default function LoginRoute() {
         }
     };
 
+    const fetchMyself = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        try {
+            api("/users/me/", config)
+                .then((res) => {
+                    dispatch(setUserObject(res.data[0]));
+                })
+        } catch (error) {
+            console.error("FetchMyself Error: ", error);
+        }
+
+    }
 
     const handleLoginSubmit = async (e) => {
         // console.log("email: ", email);
@@ -128,6 +144,7 @@ export default function LoginRoute() {
         await fetchTeamTrainings()
         await fetchMyRequests()
         await fetchMyTrainings()
+        await fetchMyself()
     }
 
 

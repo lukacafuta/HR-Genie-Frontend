@@ -24,14 +24,20 @@ const Header = () => {
 
     const [selectedView, setSelectedView] = useState(storageView);
     const [accountMenuVisbility, setAccountMenuVisibility] = useState(false);
+    const [avatar, setAvatar] = useState(profile);
 
-    const userAvatar = useSelector((state) => state.user.userObject.customUser.avatar);
+    // const userAvatar = useSelector((state) => state.user.userObject.customUser.avatar);
     // console.log(userAvatar)
 
     const companyName = useSelector((state) => state.company.companyData.companyName);
     const user = useSelector((state) => state.user.userObject);
     const isManager = useSelector((state) => state.user.managers);
 
+    useEffect(() => {
+        if (user && user.customUser && user.customUser.avatar) {
+            setAvatar(user.customUser.avatar);
+        }
+    }, [user]);
 
     const token = localStorage.getItem("accessToken");
 
@@ -63,33 +69,6 @@ const Header = () => {
 
     }
 
-    useEffect(() => {
-        // console.log("sel view: ", selectedView)
-        if (user.length < 1) {
-            api.setAuthToken(token);
-            api("/users/me/")
-                .then((res) => {
-                    // console.log("fetched usr: ", res.data[0]);
-                    dispatch(setUserObject(res.data[0]));
-                }).catch((err) => {
-                console.log(err);
-            })
-        }
-        if (isManager === undefined) {
-            api.setAuthToken(token);
-            api("/users/approvers/")
-                .then((res) => {
-                    // console.log("fetched man: ", res.data);
-                    dispatch(setIsManager(res.data));
-                }).catch((err) => {
-                console.log(err);
-            })
-        }
-
-
-    }, []);
-
-
     return (
         <HeaderContainer>
             <div>
@@ -109,7 +88,7 @@ const Header = () => {
                 <Bell>
                     <img className="bell" src={bell} alt="Bell"/>
                     <div className={"profile-container"}>
-                        <img className="profile-pic" src={userAvatar} onClick={() => handleProfileClick()} alt="Profile"/>
+                        <img className="profile-pic" src={avatar} onClick={() => handleProfileClick()} alt="Profile"/>
                         {accountMenuVisbility && <AccountMenu/>}
                     </div>
                 </Bell>

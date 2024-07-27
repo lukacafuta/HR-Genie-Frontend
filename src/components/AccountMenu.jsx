@@ -13,6 +13,7 @@ export default function AccountMenu() {
     const handleLogoutClick = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("selectedView");
+        localStorage.removeItem("userList");
         dispatch(logout());
         navigate("/login");
         dispatch(setUserObject([]));
