@@ -13,6 +13,7 @@ import {
 import {useEffect, useState} from "react";
 import {api} from "../common/api.js";
 
+
 export default function ManagerRoute() {
     const requests = useSelector((state) => state.request.requestList);
     const trainingRequests = useSelector((state) => state.request.trainingList);
@@ -36,25 +37,43 @@ export default function ManagerRoute() {
                 const data = response.data;
                 console.log('KPI data:', data)
 
-                const vacation = data.map(item => ({
-                    name: `${item.user_firstname} ${item.user_lastname}`,
-                    Approved: item.absence_duration_hours__vacation__approved / item.nr_working_h_per_day_100perc_pensum,
-                    Pending: item.absence_duration_hours__vacation__pending / item.nr_working_h_per_day_100perc_pensum,
-                    Residual: item.nr_tot_vacation_days - (item.absence_duration_hours__vacation__approved + item.absence_duration_hours__vacation__pending) / item.nr_working_h_per_day_100perc_pensum,
-                }));
+                // processing vacation data
+                const vacation = data.map(item => {
+                    const approved = Number(item.absence_duration_hours__vacation__approved) || 0;
+                    const pending = Number(item.absence_duration_hours__vacation__pending) || 0;
+                    const residual = Number(item.nr_tot_vacation_days) - (approved + pending) / Number(item.nr_working_h_per_day_100perc_pensum) || 0;
 
-                const absence = data.map(item => ({
-                    name: `${item.user_firstname} ${item.user_lastname}`,
-                    Sickness: item.absence_duration_hours__sick_leave__accepted / item.nr_working_h_per_day_100perc_pensum,
-                    Maternity: 0, // no data in the backend
-                    Paternity: 0, // no data in the backend
-                }));
+                    return {
+                        name: `${item.user_firstname} ${item.user_lastname}`,
+                        Approved: approved / Number(item.nr_working_h_per_day_100perc_pensum),
+                        Pending: pending / Number(item.nr_working_h_per_day_100perc_pensum),
+                        Residual: residual,
+                    };
+                });
 
-                const training = data.map(item => ({
-                    name: `${item.user_firstname} ${item.user_lastname}`,
-                    Approved: item.training_nr_courses__approved__notStarted || 0,
-                    Pending: item.training_nr_courses__pending__notStarted || 0,
-                }));
+                // processing absence data
+                const absence = data.map(item => {
+                    const sickness = Number(item.absence_duration_hours__sick_leave__accepted) || 0;
+
+                    return {
+                        name: `${item.user_firstname} ${item.user_lastname}`,
+                        Sickness: sickness / Number(item.nr_working_h_per_day_100perc_pensum),
+                        Maternity: 0, // no data in the backend
+                        Paternity: 0, // no data in the backend
+                    };
+                });
+
+                // processing training data
+                const training = data.map(item => {
+                    const approved = Number(item.training_nr_courses__approved__notStarted) || 0;
+                    const pending = Number(item.training_nr_courses__pending__notStarted) || 0;
+
+                    return {
+                        name: `${item.user_firstname} ${item.user_lastname}`,
+                        Approved: approved,
+                        Pending: pending,
+                    };
+                });
 
                 setVacationData(vacation);
                 setAbsenceData(absence);
@@ -66,7 +85,7 @@ export default function ManagerRoute() {
         };
 
         fetchData();
-    }, []);
+    }, [accessToken]);
 
     return (
         <RouteContentStyled>

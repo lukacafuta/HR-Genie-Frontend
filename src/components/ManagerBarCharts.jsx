@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {
     BarChart,
     Bar,
@@ -14,14 +14,11 @@ import {
 } from 'recharts';
 
 
-// export default class Example extends PureComponent {
-// export default function ManagerBarChartVacation({data}) {
+// updated ManagerBarChartVacation to remove defaultProps warning
 export function ManagerBarChartVacation({data}) {
     return (
         <>
             <h3>Vacations of My Team in the Calendar Year 2024</h3>
-
-            {/* <ResponsiveContainer width="100%" height="100%"> */}
             <BarChart
                 width={1000}
                 height={400}
@@ -41,7 +38,6 @@ export function ManagerBarChartVacation({data}) {
                     <Label
                         value="Days"
                         angle={-90}
-                        offset={-50} // Move the label more to the left
                         position="insideLeft" // Position inside the left side of the Y-axis
                     />
                 </YAxis>
@@ -52,19 +48,16 @@ export function ManagerBarChartVacation({data}) {
                 <Bar dataKey="Pending" fill="#203bd4" stackId="stack"/>
                 <Bar dataKey="Residual" fill="#82ca9d" stackId="stack"/>
             </BarChart>
-            {/* </ResponsiveContainer> */}
-
         </>
     );
 }
 
 
+// updated ManagerBarChartAbsence to remove defaultProps warning
 export function ManagerBarChartAbsence({data}) {
     return (
         <>
             <h3>Other Absences of My Team in the Calendar Year 2024</h3>
-
-            {/* <ResponsiveContainer width="100%" height="100%"> */}
             <BarChart
                 width={1000}
                 height={400}
@@ -85,9 +78,7 @@ export function ManagerBarChartAbsence({data}) {
                         value="Days"
                         angle={-90}
                         position="insideLeft" // Position inside the left side of the Y-axis
-                        // offset={-0} // Move the label more to the left
                     />
-
                 </YAxis>
                 <Tooltip/>
                 <Legend verticalAlign="top" height={36}/>
@@ -96,19 +87,16 @@ export function ManagerBarChartAbsence({data}) {
                 <Bar dataKey="Maternity" fill="#203bd4" stackId="stack"/>
                 <Bar dataKey="Paternity" fill="#82ca9d" stackId="stack"/>
             </BarChart>
-            {/* </ResponsiveContainer> */}
-
         </>
     );
 }
 
 
+// updated ManagerBarChartTraining to remove defaultProps warning
 export function ManagerBarChartTraining({data}) {
     return (
         <>
             <h3>Training Requests of My Team in the Calendar Year 2024</h3>
-
-            {/* <ResponsiveContainer width="100%" height="100%"> */}
             <BarChart
                 width={1000}
                 height={400}
@@ -128,7 +116,6 @@ export function ManagerBarChartTraining({data}) {
                     <Label
                         value="Nr of Trainings"
                         angle={-90}
-                        // offset={-50} // Move the label more to the left
                         position="insideLeft" // Position inside the left side of the Y-axis
                     />
                 </YAxis>
@@ -138,8 +125,6 @@ export function ManagerBarChartTraining({data}) {
                 <Bar dataKey="Approved" fill="#8884d8" stackId="stack"/>
                 <Bar dataKey="Pending" fill="#203bd4" stackId="stack"/>
             </BarChart>
-            {/* </ResponsiveContainer> */}
-
         </>
     );
 }
