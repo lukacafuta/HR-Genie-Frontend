@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {loadRequests} from "../store/slices/RequestSlice";
 import {RowCardContainer} from "../styles/cardStyles.js";
 import {api} from "../common/api.js";
+import {addMyRequests} from "../store/slices/UserSlice.jsx";
 
 export default function RequestContainer({refresh}) {
     const dispatch = useDispatch();
@@ -35,7 +36,11 @@ export default function RequestContainer({refresh}) {
             api.get(endpointForAbsences, config).then((res) => {
                 // console.log("RequestContainer API response: ", res.data);
                 let requestData = res.data;
-                requestData.length > 0 ? dispatch(loadRequests(requestData)) : null
+                if (view === "manager") {
+                    dispatch(loadRequests(requestData))
+                } else {
+                    dispatch(addMyRequests(requestData));
+                }
             });
         } catch (error) {
             console.error("FetchRequests Error: ", error);
