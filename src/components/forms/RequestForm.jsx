@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 import {
@@ -20,6 +20,8 @@ import {cleanUpOutgoingDateTime} from "../../common/utils.js";
 
 // eslint-disable-next-line react/prop-types
 export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
+
+
     const navigate = useNavigate();
 
     const [requestType, setRequestType] = useState("");
@@ -32,6 +34,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
     //const [toDateTraining, setToDateTraining] = useState("");
     const [trainingTitle, setTrainingTitle] = useState("");
     const [trainingURL, setTrainingURL] = useState("");
+
 
     //const dispatch = useDispatch();
     const storeToken = useSelector((state) => state.user.accessToken);
@@ -83,19 +86,34 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
         //dispatch()
 
         try {
-            console.log("yep");
+            console.log("sending the formdata..");
             api.post(endpointRequest, payload, config).then((res) => {
-                console.log("API call successful", res.data);
+                console.log("API POST successful", res.data);
                 if (onFormSubmit) onFormSubmit(); // Call the callback to refresh data
             });
         } catch (error) {
-            console.log("nope");
-            console.error(error);
+            console.error("Formdata not sent: ", error);
         }
+        setRequestType("");
+        setFromDate("");
+        setToDate("");
+        setComment("");
+        setPrice("");
+        setTrainingTitle("");
+        setTrainingURL("");
         closeModal();
     };
 
     if (!isModalOpen) return null;
+
+    //validating the form fields for activating the send button
+    let isValid
+    if (requestType !== "training") {
+        isValid = (fromDate !== "" && toDate !== "")
+    } else {
+        isValid = (fromDate !== "" && toDate !== "" && trainingTitle !== "" && price !== "" && trainingURL !== "")
+    }
+    console.log("form date ", typeof fromDate)
 
     return (
         <>
@@ -145,6 +163,8 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
                                             type="datetime-local"
                                             value={fromDate}
                                             onChange={(e) => setFromDate(e.target.value)}
+                                            required={true}
+
                                         />
                                     </div>
                                     <div>
@@ -154,6 +174,8 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
                                             type="datetime-local"
                                             value={toDate}
                                             onChange={(e) => setToDate(e.target.value)}
+                                            required={true}
+
                                         />
                                     </div>
                                 </div>
@@ -192,6 +214,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
                                         type="text"
                                         value={trainingTitle}
                                         onChange={(e) => setTrainingTitle(e.target.value)}
+                                        required={true}
                                     />
                                 </div>
                                 <div>
@@ -202,14 +225,18 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
                                             type="number"
                                             value={price}
                                             onChange={(e) => setPrice(e.target.value)}
+                                            required={true}
+
                                         />
                                     </div>
                                     <FormLabel htmlFor="inputTrainingURL">Training URL</FormLabel>
                                     <FormInputBasic
                                         id="inputTrainingURL"
-                                        type="url"
+                                        type="text"
                                         value={trainingURL}
                                         onChange={(e) => setTrainingURL(e.target.value)}
+                                        required={true}
+
                                     />
                                 </div>
                             </div>
@@ -251,6 +278,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
                                         iconURL={"/tick-circle.png"}
                                         buttonText="Send Request"
                                         type="submit"
+                                        disabled={!isValid}
                                     />
                                 </div>
                             </div>
