@@ -5,20 +5,56 @@ const CompanySlice = createSlice({
     initialState: {
         publicHolidays: [{
             "id": 1,
-            "holidayName": "Bootcamp Day",
-            "holidayDate": "2024-08-03"
+            "holidayName": "Neujahr / New Year",
+            "holidayDate": "2024-01-01"
         }, {
             "id": 2,
-            "holidayName": "Holy Computer Day",
-            "holidayDate": "2024-07-03"
+            "holidayName": "Berchtoldstag",
+            "holidayDate": "2024-01-02"
         }, {
             "id": 3,
-            "holidayName": "Bootcamp Day",
-            "holidayDate": "2024-06-03"
+            "holidayName": "Karfreitag",
+            "holidayDate": "2024-03-29"
         }, {
             "id": 4,
-            "holidayName": "Bootcamp Day",
-            "holidayDate": "2024-05-03"
+            "holidayName": "Ostermontag / Easter Monday",
+            "holidayDate": "2024-04-01"
+        }, {
+            "id": 5,
+            "holidayName": "Sechseläuten",
+            "holidayDate": "2024-04-15"
+        }, {
+            "id": 6,
+            "holidayName": "Tag der Arbeit / Labor Day",
+            "holidayDate": "2024-05-01"
+        }, {
+            "id": 7,
+            "holidayName": "Auffahrt",
+            "holidayDate": "2024-05-09"
+        }, {
+            "id": 8,
+            "holidayName": "Pfingstmontag / Whit Monday",
+            "holidayDate": "2024-05-20"
+        }, {
+            "id": 9,
+            "holidayName": "Bundesfeiertag / National holiday",
+            "holidayDate": "2024-08-01"
+        }, {
+            "id": 10,
+            "holidayName": "Knabenschiessen",
+            "holidayDate": "2024-09-09"
+        }, {
+            "id": 11,
+            "holidayName": "Weihnachtstag / Christmas Day",
+            "holidayDate": "2024-12-25"
+        }, {
+            "id": 12,
+            "holidayName": "Stephanstag / St. Stephen's Day",
+            "holidayDate": "2024-12-26"
+        }, {
+            "id": 13,
+            "holidayName": "Vortag vor Neujahr / Day before New Year",
+            "holidayDate": "2024-12-31"
         },],
         companyData: {
             "companyId": undefined,
@@ -64,5 +100,12 @@ const CompanySlice = createSlice({
 });
 
 
-export const {AddHoliday, RemoveHoliday, ChangeCompanyName, ChangeStartHours, ChangeEndHours, AddCompanyLogo} = CompanySlice.actions;
+export const {
+    AddHoliday,
+    RemoveHoliday,
+    ChangeCompanyName,
+    ChangeStartHours,
+    ChangeEndHours,
+    AddCompanyLogo
+} = CompanySlice.actions;
 export default CompanySlice.reducer;
