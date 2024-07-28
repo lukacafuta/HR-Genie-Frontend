@@ -97,7 +97,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
         let endpointRequest =
             requestType === "training" ? "/trainings/me/" : "/absences/me/";
 
-        console.log("payload sent to BE:", JSON.stringify(payload));
+        // console.log("payload sent to BE:", JSON.stringify(payload));
         //dispatch()
 
         try {
@@ -121,7 +121,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
     } else {
         isValid = (trainingTitle !== "" && price !== "" && trainingURL !== "")
     }
-    console.log(trainingTitle !== "", price !== "", trainingURL !== "")
+    // console.log(trainingTitle !== "", price !== "", trainingURL !== "")
 
     return (
         <>
@@ -253,7 +253,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
                         {requestType !== "" && (
                             <div>
                                 <div>
-                                    <FormLabel htmlFor="inputComment">Comment</FormLabel>
+                                    <FormLabel htmlFor="inputComment">Comment (optional)</FormLabel>
                                     <FormInputTextArea
                                         id="inputComment"
                                         placeholder="Comment"
