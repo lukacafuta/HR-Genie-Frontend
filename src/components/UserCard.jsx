@@ -81,7 +81,7 @@ export default function UserCard({oneUser}) {
                     </div>
                 </RowCard>
             </Link>
-            {Number(userIndex) === UserCard.id && (
+            {(Number(userIndex) === UserCard.id && isExpanded) && (
                 <div style={{display: "flex", gap: "10px"}}>
                     <div
                         style={{
