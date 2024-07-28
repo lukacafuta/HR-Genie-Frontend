@@ -35,7 +35,7 @@ export default function ManagerRoute() {
             try {
                 const response = await api.get("/kpi/yearly/manager/myteam/");
                 const data = response.data;
-                console.log('KPI data:', data)
+                // console.log('KPI data:', data)
 
                 // processing vacation data
                 const vacation = data.map(item => {
