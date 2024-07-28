@@ -86,9 +86,9 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
         //dispatch()
 
         try {
-            console.log("sending the formdata..");
+            // console.log("Sending the formdata..");
             api.post(endpointRequest, payload, config).then((res) => {
-                console.log("API POST successful", res.data);
+                // console.log("Formdata POST successful", res.data);
                 if (onFormSubmit) onFormSubmit(); // Call the callback to refresh data
             });
         } catch (error) {
@@ -113,7 +113,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
     } else {
         isValid = (fromDate !== "" && toDate !== "" && trainingTitle !== "" && price !== "" && trainingURL !== "")
     }
-    console.log("form date ", typeof fromDate)
+    // console.log("form date ", typeof fromDate)
 
     return (
         <>

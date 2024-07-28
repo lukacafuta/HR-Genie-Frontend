@@ -21,7 +21,7 @@ export default function TrainingContainer({refresh}) {
     }
 
     // console.log("Trains: ", trainingList)
-    console.log("training re-render")
+    // console.log("training re-render")
     const fetchTrainings = () => {
         const config = {
             headers: {
@@ -35,7 +35,7 @@ export default function TrainingContainer({refresh}) {
                 view === "manager" ? "/trainings/manager/myteam" : "/trainings/me/";
             // console.log("yep i am here");
             api.get(endpointForTrainings, config).then((res) => {
-                console.log("TrainingContainer Response: ", res.data);
+                // console.log("TrainingContainer Response: ", res.data);
                 let trainingData = res.data;
                 if (view === "manager") {
                     dispatch(loadTrainings(trainingData))
