@@ -50,6 +50,21 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
         //dispatch(AddCompanyLogo(file.name));
     };
 
+    const resetFormFields = () => {
+        setRequestType("");
+        setFromDate("");
+        setToDate("");
+        setComment("");
+        setPrice("");
+        setTrainingTitle("");
+        setTrainingURL("");
+        closeModal();
+    }
+    const handleCloseModal = () => {
+        resetFormFields();
+        closeModal();
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -94,14 +109,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
         } catch (error) {
             console.error("Formdata not sent: ", error);
         }
-        setRequestType("");
-        setFromDate("");
-        setToDate("");
-        setComment("");
-        setPrice("");
-        setTrainingTitle("");
-        setTrainingURL("");
-        closeModal();
+        resetFormFields();
     };
 
     if (!isModalOpen) return null;
@@ -111,9 +119,9 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
     if (requestType !== "training") {
         isValid = (fromDate !== "" && toDate !== "")
     } else {
-        isValid = (fromDate !== "" && toDate !== "" && trainingTitle !== "" && price !== "" && trainingURL !== "")
+        isValid = (trainingTitle !== "" && price !== "" && trainingURL !== "")
     }
-    // console.log("form date ", typeof fromDate)
+    console.log(trainingTitle !== "", price !== "", trainingURL !== "")
 
     return (
         <>
@@ -131,7 +139,7 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
                         <BtnClose
                             src="/close-cross.png"
                             alt="Close Button"
-                            onClick={closeModal}
+                            onClick={handleCloseModal}
                             width="18px"
                             height="18px"
                         />
