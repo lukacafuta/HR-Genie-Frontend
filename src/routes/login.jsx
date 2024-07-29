@@ -35,8 +35,13 @@ export default function LoginRoute() {
     }
 
     const fetchCompanyName = () => {
-        api("/companies/me/").then((res) => {
-            // console.log(res.data.companyName);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        api.get("/companies/me/", config).then((res) => {
+            console.log("Fetch Company Name: ", res.data.companyName);
             dispatch(ChangeCompanyName(res.data.companyName))
         });
     }
