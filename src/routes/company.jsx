@@ -59,9 +59,9 @@ export default function CompanyRoute() {
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
         api.setAuthToken(token);
-        console.log(token);
+        // console.log(token);
         api("/companies/me/").then((res) => {
-            console.log(res.data.id);
+            // console.log(res.data.id);
             dispatch(ChangeCompanyName(res.data.companyName));
             dispatch(AddCompanyID(res.data.id));
         });
@@ -97,7 +97,7 @@ export default function CompanyRoute() {
         const dataToSend = {
             companyName: companyData.companyName,
         };
-        console.log("patching company data: ", companyData.companyId)
+        // console.log("patching company data: ", companyData.companyId)
         api
             .patch(`/companies/${companyId}/`, dataToSend, {
                 headers: {
