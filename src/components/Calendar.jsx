@@ -30,12 +30,20 @@ const reasonLabels = {
     holiday: "Holiday"
 };
 
-// color mapping for different reasons
+// color mapping for different absences
 const colorMapping = {
-    vacation: '#FF7F50', // Coral
-    sick_leave: '#4682B4', // SteelBlue
-    training: '#32CD32', // LimeGreen
-    holiday: '#FFD700' // Gold
+    vacation: '#8FD5A6', // Celadon
+    sick_leave: '#FE5F55', // Bittersweet
+    training: '#686963', // Dim gray
+    holiday: '#FCCA46' // Sunglow
+};
+
+// color mapping for fonts of absences
+const fontColorMapping = {
+    vacation: '#FFFFFF',
+    sick_leave: '#FFFFFF',
+    training: '#FFFFFF',
+    holiday: '#000000'
 };
 
 const CalendarComponent = ({viewType}) => {       // added viewType to props
@@ -88,7 +96,7 @@ const CalendarComponent = ({viewType}) => {       // added viewType to props
                     console.log('Holiday Event:', holidayEvent); // Verify holiday event data
                     return holidayEvent;
                 });
-                
+
                 // console.log('Mapped absences data:', absences); // log the mapped response data
 
                 // combine absences and holidays into one events array
@@ -122,11 +130,12 @@ const CalendarComponent = ({viewType}) => {       // added viewType to props
     // event style getter function
     const eventStyleGetter = (event) => {
         const backgroundColor = colorMapping[event.type] || '#3174ad'; // default color
+        const color = fontColorMapping[event.type] || 'white'; // default font color
         const style = {
             backgroundColor,
+            color,
             borderRadius: '5px',
             opacity: 0.8,
-            color: 'white',
             border: '0px',
             display: 'block'
         };
