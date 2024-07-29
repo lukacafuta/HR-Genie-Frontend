@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import logo from '../../public/logo.jpg';
+import logo from '../../public/genie3.png';
 import profile from '../../public/profile.png';
 import bell from '../../public/bell.png';
 import {
