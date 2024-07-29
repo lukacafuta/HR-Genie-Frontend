@@ -22,7 +22,12 @@ export default function RequestCard({oneRequest, updateRequests}) {
     const accessToken = useSelector((state) => state.user.accessToken);
 
     // console.log("isManagerView", isManagerView);
-
+    useEffect(() => {
+        if (Number(requestIndex) === oneRequest.id) {
+            setIsExpanded(true);
+        }
+    }, [requestIndex, oneRequest.id]);
+    
     const patchRequestStatus = (requestId, status) => {
         const config = {
             headers: {

@@ -16,7 +16,7 @@ export default function RequestMiniTable({name, type, requests}) {
 
     if (isTrainingRequestlist) {
         filteredRequests = requests.filter(request => request.trainingUrl);
-        console.log(filteredRequests)
+        // console.log(filteredRequests)
     } else {
         filteredRequests = requests.filter(request => request.reason === type);
     }
