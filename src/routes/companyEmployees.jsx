@@ -11,12 +11,15 @@ import { api } from "../common/api.js";
 import { loadTrainings } from "../store/slices/RequestSlice.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserList } from "../store/slices/UserSlice.jsx";
+import useGenieAPI from "../hooks/useGenieAPI.js";
 
 export default function CompanyEmployeesRoute() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const accessToken = useSelector((state) => state.user.accessToken);
+
+  const { fetchUserKPIs, fetchAllEmployeesKPIs } = useGenieAPI();
 
   const dispatch = useDispatch();
 
@@ -41,6 +44,8 @@ export default function CompanyEmployeesRoute() {
 
   useEffect(() => {
     fetchUsers();
+    fetchUserKPIs();
+    fetchAllEmployeesKPIs();
   }, [dispatch]);
 
   return (
