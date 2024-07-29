@@ -159,20 +159,20 @@ export default function TrainingCard({oneTraining, updateRequests}) {
                             width: "80%",
                         }}
                     >
-                        {statusApproval === "Pending" && !isManagerView && (
-                            <ButtonRed
-                                iconURL={"/cross-deny.png"}
-                                buttonText={"Delete"}
-                                onClick={() => handleDelete(oneTraining)}
-                            />
-                        )}
-                        {statusApproval === "Pending" && !isManagerView && (
-                            <ButtonGreen
-                                iconURL={"/tick-circle.png"}
-                                buttonText={"Update"}
-                                onClick={() => handleUpdate(oneTraining)}
-                            />
-                        )}
+                        {/*{statusApproval === "Pending" && !isManagerView && (*/}
+                        {/*    <ButtonRed*/}
+                        {/*        iconURL={"/cross-deny.png"}*/}
+                        {/*        buttonText={"Delete"}*/}
+                        {/*        onClick={() => handleDelete(oneTraining)}*/}
+                        {/*    />*/}
+                        {/*)}*/}
+                        {/*{statusApproval === "Pending" && !isManagerView && (*/}
+                        {/*    <ButtonGreen*/}
+                        {/*        iconURL={"/tick-circle.png"}*/}
+                        {/*        buttonText={"Update"}*/}
+                        {/*        onClick={() => handleUpdate(oneTraining)}*/}
+                        {/*    />*/}
+                        {/*)}*/}
 
                         {statusApproval === "Pending" && isManagerView && (
                             <ButtonRed
