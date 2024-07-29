@@ -40,10 +40,10 @@ const colorMapping = {
 
 // color mapping for fonts of absences
 const fontColorMapping = {
-    vacation: '#FFFFFF',
-    sick_leave: '#FFFFFF',
-    training: '#FFFFFF',
-    holiday: '#000000'
+    vacation: '#1C4A2B', // Cal Poly green
+    sick_leave: '#650701', // Blood red
+    training: '#343531', // Black olive
+    holiday: '#644A02' // Field drab
 };
 
 const CalendarComponent = ({viewType}) => {       // added viewType to props
