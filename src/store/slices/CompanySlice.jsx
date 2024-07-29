@@ -5,7 +5,7 @@ const CompanySlice = createSlice({
     initialState: {
         publicHolidays: [{
             "id": 1,
-            "holidayName": "Neujahr / New Year",
+            "holidayName": "Neujahr",
             "holidayDate": "2024-01-01"
         }, {
             "id": 2,
@@ -17,7 +17,7 @@ const CompanySlice = createSlice({
             "holidayDate": "2024-03-29"
         }, {
             "id": 4,
-            "holidayName": "Ostermontag / Easter Monday",
+            "holidayName": "Ostermontag",
             "holidayDate": "2024-04-01"
         }, {
             "id": 5,
@@ -25,7 +25,7 @@ const CompanySlice = createSlice({
             "holidayDate": "2024-04-15"
         }, {
             "id": 6,
-            "holidayName": "Tag der Arbeit / Labor Day",
+            "holidayName": "Tag der Arbeit",
             "holidayDate": "2024-05-01"
         }, {
             "id": 7,
@@ -33,11 +33,11 @@ const CompanySlice = createSlice({
             "holidayDate": "2024-05-09"
         }, {
             "id": 8,
-            "holidayName": "Pfingstmontag / Whit Monday",
+            "holidayName": "Pfingstmontag",
             "holidayDate": "2024-05-20"
         }, {
             "id": 9,
-            "holidayName": "Bundesfeiertag / National holiday",
+            "holidayName": "Bundesfeiertag",
             "holidayDate": "2024-08-01"
         }, {
             "id": 10,
@@ -45,15 +45,15 @@ const CompanySlice = createSlice({
             "holidayDate": "2024-09-09"
         }, {
             "id": 11,
-            "holidayName": "Weihnachtstag / Christmas Day",
+            "holidayName": "Weihnachtstag",
             "holidayDate": "2024-12-25"
         }, {
             "id": 12,
-            "holidayName": "Stephanstag / St. Stephen's Day",
+            "holidayName": "Stephanstag",
             "holidayDate": "2024-12-26"
         }, {
             "id": 13,
-            "holidayName": "Vortag vor Neujahr / Day before New Year",
+            "holidayName": "Vortag vor Neujahr",
             "holidayDate": "2024-12-31"
         },],
         companyData: {
@@ -87,6 +87,10 @@ const CompanySlice = createSlice({
             state.companyData.companyName = action.payload;
             // console.log(state.companyData.companyName)
         },
+        AddCompanyID: (state, action) => {
+            state.companyData.companyId = action.payload;
+        },
+
         ChangeStartHours: (state, action) => {
             state.companyData.companyWorkingHours.start = action.payload;
         },
@@ -106,6 +110,7 @@ export const {
     ChangeCompanyName,
     ChangeStartHours,
     ChangeEndHours,
-    AddCompanyLogo
+    AddCompanyLogo,
+    AddCompanyID
 } = CompanySlice.actions;
 export default CompanySlice.reducer;
