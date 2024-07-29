@@ -48,7 +48,7 @@ export default function EmployeeRoute() {
             />
             <div style={{display: "flex", gap: "5px"}}>
                 <EmployeeSummaryCard/>
-                <EmployeeChartCard/>
+                <EmployeeChartCard refresh={refresh}/> {/*pass refresh state to trigger re-render*/}
             </div>
             <h3 style={{marginBottom: "5px", marginTop: "20px"}}>Requests</h3>
             <RequestContainer refresh={refresh}/>

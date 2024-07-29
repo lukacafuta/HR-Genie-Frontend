@@ -52,8 +52,8 @@ export default function RequestForm({isModalOpen, closeModal, onFormSubmit}) {
 
     const resetFormFields = () => {
         setRequestType("");
-        setFromDate("");
-        setToDate("");
+        setFromDate("2024-07-01T08:00");
+        setToDate("2024-07-02T17:00");
         setComment("");
         setPrice("");
         setTrainingTitle("");
