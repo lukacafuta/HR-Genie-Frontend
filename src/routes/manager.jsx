@@ -53,8 +53,8 @@ export default function ManagerRoute() {
 
                 // processing absence data
                 const absence = data.map(item => {
-                    const sickness = Number(item.absence_duration_hours__sick_leave__accepted) || 0;
-
+                    const sickness = Number(item.absence_duration_hours__sick_leave__approved) || 0;
+                    // console.log(sickness)
                     return {
                         name: `${item.user_firstname} ${item.user_lastname}`,
                         Sickness: sickness / Number(item.nr_working_h_per_day_100perc_pensum),
