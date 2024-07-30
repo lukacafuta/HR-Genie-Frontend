@@ -1,107 +1,125 @@
 import {
-    HalfWidthCard,
-    HalfWidthCardContent,
-    HalfWidthCardLabel,
-    HalfWidthCardTitle,
-    MiniIconStyled,
+  HalfWidthCard,
+  HalfWidthCardContent,
+  HalfWidthCardLabel,
+  HalfWidthCardTitle,
+  MiniIconStyled,
 } from "../styles/cardStyles.js";
 import EmployeeChart from "./EmployeeChart.jsx";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import useGenieAPI from "../hooks/useGenieAPI.js";
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 export const employeeChartData = [
-    {name: "Total", value: 27},
-    {name: "Available", value: 15},
-    {name: "Pending", value: 2},
-    {name: "Approved", value: 7},
+  { name: "Total", value: 27 },
+  { name: "Available", value: 15 },
+  { name: "Pending", value: 2 },
+  { name: "Approved", value: 7 },
 ];
 
 const pendingFigure = employeeChartData.find((data) => data.name === "Pending");
 const availableFigure = employeeChartData.find(
-    (data) => data.name === "Available",
+  (data) => data.name === "Available",
 );
 const approvedFigure = employeeChartData.find(
-    (data) => data.name === "Approved",
+  (data) => data.name === "Approved",
 );
 
-export default function EmployeeChartCard({refresh}) {
-    const {fetchUserKPIs} = useGenieAPI();
+export default function EmployeeChartCard({ refresh, id }) {
+  const { fetchUserKPIs, fetchAllEmployeesKPIs } = useGenieAPI();
 
-    const userKPIs = useSelector((state) => state.user.userKPIs);
+  const view = useSelector((state) => state.view.view);
 
-    useEffect(() => {
-        fetchUserKPIs();
-    }, [refresh]); // add refresh as a dependency
+  const loggedInUserKPIs = useSelector((state) => state.user.userKPIs);
+  const employeeKPIs = useSelector((state) => state.company.employeesKPIs);
 
-    let kpi = {
-        pending: userKPIs.absence_duration_hours__vacation__pending
-            ? userKPIs.absence_duration_hours__vacation__pending / 8
-            : 0,
-        approved: userKPIs.absence_duration_hours__vacation__approved
-            ? userKPIs.absence_duration_hours__vacation__approved / 8
-            : 0,
-        rejected: userKPIs.absence_duration_hours__vacation__rejected
-            ? userKPIs.absence_duration_hours__vacation__rejected / 8
-            : 0,
-    };
+  let filteredEmployeeKPIs = employeeKPIs.filter(
+    (user) => user.user_profile_id == id,
+  );
+  filteredEmployeeKPIs =
+    filteredEmployeeKPIs.length > 0 ? filteredEmployeeKPIs[0] : null;
+  let cardTitle =
+    view === "employee" ? "My Vacation Balance" : "Employee Vacation Balance";
 
-    let remaining = userKPIs.nr_tot_vacation_days - kpi.approved;
+  // let userKPIs =
+  //   view === "employee" ? loggedInUserKPIs : filteredEmployeeKPIs[0];
+  let userKPIs = location.pathname.startsWith("/employee")
+    ? loggedInUserKPIs
+    : filteredEmployeeKPIs;
 
-    let chartData = [
-        {name: "Pending", value: kpi.pending},
-        {name: "Approved", value: kpi.approved},
-        {name: "Remaining", value: remaining},
-    ];
+  useEffect(() => {
+    fetchUserKPIs();
+    fetchAllEmployeesKPIs();
+  }, [refresh]); // add refresh as a dependency
 
-    chartData = chartData.filter((item) => item.value !== 0);
+  let kpi = {
+    pending: userKPIs.absence_duration_hours__vacation__pending
+      ? userKPIs.absence_duration_hours__vacation__pending / 8
+      : 0,
+    approved: userKPIs.absence_duration_hours__vacation__approved
+      ? userKPIs.absence_duration_hours__vacation__approved / 8
+      : 0,
+    rejected: userKPIs.absence_duration_hours__vacation__rejected
+      ? userKPIs.absence_duration_hours__vacation__rejected / 8
+      : 0,
+  };
 
-    return (
-        <>
-            <HalfWidthCard>
-                <HalfWidthCardTitle>My Vacation Balance</HalfWidthCardTitle>
-                <div style={{display: "flex"}}>
-                    <HalfWidthCardContent>
+  let remaining = userKPIs.nr_tot_vacation_days - kpi.approved;
+
+  let chartData = [
+    { name: "Pending", value: kpi.pending },
+    { name: "Approved", value: kpi.approved },
+    { name: "Remaining", value: remaining },
+  ];
+
+  chartData = chartData.filter((item) => item.value !== 0);
+
+  return (
+    <>
+      <HalfWidthCard>
+        <HalfWidthCardTitle>{cardTitle}</HalfWidthCardTitle>
+        <div style={{ display: "flex" }}>
+          <HalfWidthCardContent>
             <span>
               <HalfWidthCardLabel>
-                <MiniIconStyled src="/kpi-available.png" alt="available"/>{" "}
-                  Total Allowance:{" "}
+                <MiniIconStyled src="/kpi-available.png" alt="available" />{" "}
+                Total Allowance:{" "}
               </HalfWidthCardLabel>{" "}
-                {userKPIs.nr_tot_vacation_days} Days
+              {userKPIs.nr_tot_vacation_days} Days
             </span>
-                        <span>
+            <span>
               <HalfWidthCardLabel>
-                <MiniIconStyled src="/kpi-pending.png" alt="pending"/> Pending:{" "}
+                <MiniIconStyled src="/kpi-pending.png" alt="pending" /> Pending:{" "}
               </HalfWidthCardLabel>
-                            {kpi.pending} Days
+              {kpi.pending} Days
             </span>
-                        <span>
+            <span>
               <HalfWidthCardLabel>
-                <MiniIconStyled src="/kpi-rejected.png" alt="rejected"/>{" "}
-                  Rejected:{" "}
+                <MiniIconStyled src="/kpi-rejected.png" alt="rejected" />{" "}
+                Rejected:{" "}
               </HalfWidthCardLabel>
-                            {kpi.rejected} Days
+              {kpi.rejected} Days
             </span>
-                        <span>
+            <span>
               <HalfWidthCardLabel>
-                <MiniIconStyled src="/kpi-approved.png" alt="approved"/>{" "}
-                  Approved:{" "}
+                <MiniIconStyled src="/kpi-approved.png" alt="approved" />{" "}
+                Approved:{" "}
               </HalfWidthCardLabel>
-                            {kpi.approved} Days
+              {kpi.approved} Days
             </span>
-                        <span>
+            <span>
               <HalfWidthCardLabel>
-                <MiniIconStyled src="/kpi-remaining.png" alt="remaining"/>{" "}
-                  Remaining:{" "}
+                <MiniIconStyled src="/kpi-remaining.png" alt="remaining" />{" "}
+                Remaining:{" "}
               </HalfWidthCardLabel>
-                            {remaining} Days
+              {remaining} Days
             </span>
-                    </HalfWidthCardContent>
-                    <HalfWidthCardContent>
-                        <EmployeeChart chartData={chartData}/>
-                    </HalfWidthCardContent>
-                </div>
-            </HalfWidthCard>
-        </>
-    );
+          </HalfWidthCardContent>
+          <HalfWidthCardContent>
+            <EmployeeChart chartData={chartData} />
+          </HalfWidthCardContent>
+        </div>
+      </HalfWidthCard>
+    </>
+  );
 }
