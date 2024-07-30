@@ -144,7 +144,9 @@ export default function CompanyRoute() {
         <WorkingHoursStyled>
           <h3>Working Hours</h3>
           <div>
-            <p style={{ color: "var(--dark-grey)" }}>Start:</p>
+            <p style={{ marginBottom: "10px", color: "var(--dark-grey)" }}>
+              Start:
+            </p>
             <StyledSelectWrapper
               value={companyStartWorkingHours}
               onChange={handleStartHourChange}
@@ -159,7 +161,9 @@ export default function CompanyRoute() {
             </StyledSelectWrapper>
           </div>
           <div>
-            <p style={{ color: "var(--dark-grey)" }}>End:</p>
+            <p style={{ marginBottom: "10px", color: "var(--dark-grey)" }}>
+              End:
+            </p>
             <StyledSelectWrapper
               value={companyEndWorkingHours}
               onChange={handleEndHourChange}
