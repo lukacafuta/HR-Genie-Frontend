@@ -74,6 +74,10 @@ export default function EmployeeChartCard({ refresh, id }) {
 
   chartData = chartData.filter((item) => item.value !== 0);
 
+  if (!kpi || Object.keys(kpi).length === 0) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <HalfWidthCard>

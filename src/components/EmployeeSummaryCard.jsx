@@ -5,16 +5,40 @@ import {
   HalfWidthCardTitle,
 } from "../styles/cardStyles.js";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { api } from "../common/api.js";
+import { setUserObject } from "../store/slices/UserSlice.jsx";
+import { useEffect } from "react";
 
 export default function EmployeeSummaryCard({ id, managerId }) {
   const view = useSelector((state) => state.view.view);
-  const loggedInUser = useSelector((state) => state.user.userObject);
+  const accessToken = useSelector((state) => state.user.accessToken);
+  let dispatch = useDispatch();
+  let loggedInUser = useSelector((state) => state.user.userObject);
   const userList = useSelector((state) => state.user.userList);
   const clickedUser = userList.filter((user) => user.id === id);
 
   let user = view === "employee" ? loggedInUser : clickedUser[0];
   let cardTitle = view === "employee" ? "My Information" : "User Information";
+
+  const fetchMyself = () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    try {
+      api("/users/me/", config).then((res) => {
+        dispatch(setUserObject(res.data[0]));
+      });
+    } catch (error) {
+      console.error("FetchMyself Error: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMyself();
+  }, []);
 
   //requests.filter(request => request.type === "Absence");
 

@@ -107,7 +107,7 @@ export default function UserCard({ oneUser }) {
               justifyContent: "end",
               gap: "10px",
               padding: "10px",
-              width: "20%",
+              //width: "20%",
             }}
           >
             {/*<ButtonRed*/}
