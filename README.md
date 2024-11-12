@@ -1,6 +1,14 @@
 # HR Project
 
-Main Front-End Packages:
+## DEMO
+
+- Link: https://hr-genie.netlify.app/login
+- Email: anthony@hr-1.com
+- Password: abc12345678
+- HINT: delete cookies and storage before logging in again
+
+
+## Main Front-End Packages:
 - React/Vite
 - React Router Dom
 - Redux Toolkit
